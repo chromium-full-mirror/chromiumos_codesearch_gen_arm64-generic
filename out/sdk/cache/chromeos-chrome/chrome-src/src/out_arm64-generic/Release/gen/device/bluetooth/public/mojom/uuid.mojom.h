@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "device/bluetooth/public/mojom/uuid.mojom-features.h"
-#include "device/bluetooth/public/mojom/uuid.mojom-shared.h"
-#include "device/bluetooth/public/mojom/uuid.mojom-forward.h"
+#include "device/bluetooth/public/mojom/uuid.mojom-features.h"  // IWYU pragma: export
+#include "device/bluetooth/public/mojom/uuid.mojom-shared.h"  // IWYU pragma: export
+#include "device/bluetooth/public/mojom/uuid.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

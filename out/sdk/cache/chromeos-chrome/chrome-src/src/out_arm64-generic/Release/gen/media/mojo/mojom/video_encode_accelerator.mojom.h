@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "media/mojo/mojom/video_encode_accelerator.mojom-features.h"
-#include "media/mojo/mojom/video_encode_accelerator.mojom-shared.h"
-#include "media/mojo/mojom/video_encode_accelerator.mojom-forward.h"
+#include "media/mojo/mojom/video_encode_accelerator.mojom-features.h"  // IWYU pragma: export
+#include "media/mojo/mojom/video_encode_accelerator.mojom-shared.h"  // IWYU pragma: export
+#include "media/mojo/mojom/video_encode_accelerator.mojom-forward.h"  // IWYU pragma: export
 #include "media/mojo/mojom/media_log.mojom-forward.h"
 #include "media/mojo/mojom/media_types.mojom.h"
 #include "mojo/public/mojom/base/shared_memory.mojom.h"

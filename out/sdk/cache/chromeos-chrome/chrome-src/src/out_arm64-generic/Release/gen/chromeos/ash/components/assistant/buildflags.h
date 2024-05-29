@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_CROS_LIBASSISTANT() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_CROS_AMBIENT_MODE_BACKEND() (0)
 #define BUILDFLAG_INTERNAL_HAS_ASH_AMBIENT_ANIMATION_RESOURCES() (0)

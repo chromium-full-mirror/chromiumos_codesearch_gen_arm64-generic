@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "mojo/public/mojom/base/unguessable_token.mojom-features.h"
-#include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
-#include "mojo/public/mojom/base/unguessable_token.mojom-forward.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-features.h"  // IWYU pragma: export
+#include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"  // IWYU pragma: export
+#include "mojo/public/mojom/base/unguessable_token.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

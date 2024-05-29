@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "camera/mojo/effects/effects_pipeline.mojom-features.h"
-#include "camera/mojo/effects/effects_pipeline.mojom-shared.h"
-#include "camera/mojo/effects/effects_pipeline.mojom-forward.h"
+#include "camera/mojo/effects/effects_pipeline.mojom-features.h"  // IWYU pragma: export
+#include "camera/mojo/effects/effects_pipeline.mojom-shared.h"  // IWYU pragma: export
+#include "camera/mojo/effects/effects_pipeline.mojom-forward.h"  // IWYU pragma: export
 #include "camera/mojo/file_path.mojom.h"
 #include <string>
 #include <vector>

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_V8_CONTEXT_SNAPSHOT() (0)
 #define BUILDFLAG_INTERNAL_INCLUDE_BOTH_V8_SNAPSHOTS() (0)
 #define BUILDFLAG_INTERNAL_V8_CONTEXT_SNAPSHOT_FILENAME() ("v8_context_snapshot.bin")

@@ -695,6 +695,7 @@ class RegisterSuspendDelayRequest final :
   enum : int {
     kDescriptionFieldNumber = 2,
     kTimeoutFieldNumber = 1,
+    kApplicableDuringKeyEvictionFieldNumber = 3,
   };
   // optional string description = 2;
   bool has_description() const;
@@ -728,6 +729,17 @@ class RegisterSuspendDelayRequest final :
   void _internal_set_timeout(::int64_t value);
 
   public:
+  // optional bool applicable_during_key_eviction = 3;
+  bool has_applicable_during_key_eviction() const;
+  void clear_applicable_during_key_eviction() ;
+  bool applicable_during_key_eviction() const;
+  void set_applicable_during_key_eviction(bool value);
+
+  private:
+  bool _internal_applicable_during_key_eviction() const;
+  void _internal_set_applicable_during_key_eviction(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:power_manager.RegisterSuspendDelayRequest)
  private:
   class _Internal;
@@ -740,6 +752,7 @@ class RegisterSuspendDelayRequest final :
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
     ::int64_t timeout_;
+    bool applicable_during_key_eviction_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_suspend_2eproto;
@@ -1628,6 +1641,31 @@ inline void RegisterSuspendDelayRequest::set_allocated_description(std::string* 
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:power_manager.RegisterSuspendDelayRequest.description)
+}
+
+// optional bool applicable_during_key_eviction = 3;
+inline bool RegisterSuspendDelayRequest::has_applicable_during_key_eviction() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline void RegisterSuspendDelayRequest::clear_applicable_during_key_eviction() {
+  _impl_.applicable_during_key_eviction_ = false;
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline bool RegisterSuspendDelayRequest::applicable_during_key_eviction() const {
+  // @@protoc_insertion_point(field_get:power_manager.RegisterSuspendDelayRequest.applicable_during_key_eviction)
+  return _internal_applicable_during_key_eviction();
+}
+inline void RegisterSuspendDelayRequest::set_applicable_during_key_eviction(bool value) {
+  _internal_set_applicable_during_key_eviction(value);
+  // @@protoc_insertion_point(field_set:power_manager.RegisterSuspendDelayRequest.applicable_during_key_eviction)
+}
+inline bool RegisterSuspendDelayRequest::_internal_applicable_during_key_eviction() const {
+  return _impl_.applicable_during_key_eviction_;
+}
+inline void RegisterSuspendDelayRequest::_internal_set_applicable_during_key_eviction(bool value) {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  _impl_.applicable_during_key_eviction_ = value;
 }
 
 // -------------------------------------------------------------------

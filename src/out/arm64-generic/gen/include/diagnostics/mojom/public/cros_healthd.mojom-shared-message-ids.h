@@ -66,13 +66,13 @@ enum class CrosHealthdDiagnosticsService : uint32_t {
   kRunFanRoutine = 48,
 };
 enum class CrosHealthdEventService : uint32_t {
-  kAddBluetoothObserver = 0,
-  kAddLidObserver = 1,
-  kAddPowerObserver = 2,
+  kDEPRECATED_AddBluetoothObserver = 0,
+  kDEPRECATED_AddLidObserver = 1,
+  kDEPRECATED_AddPowerObserver = 2,
   kAddNetworkObserver = 3,
-  kAddAudioObserver = 4,
-  kAddThunderboltObserver = 5,
-  kAddUsbObserver = 6,
+  kDEPRECATED_AddAudioObserver = 4,
+  kDEPRECATED_AddThunderboltObserver = 5,
+  kDEPRECATED_AddUsbObserver = 6,
   kAddEventObserver = 7,
   kIsEventSupported = 8,
 };

@@ -141,15 +141,22 @@ class ProfileImpl;
 class ScopedAllowBlockingForProfile;
 class StartupTabProviderImpl;
 class WebEngineBrowserMainParts;
+struct StartupProfilePathInfo;
 
 namespace base {
 class Environment;
 class File;
 class FilePath;
+class CommandLine;
 namespace sequence_manager::internal {
 class WorkTracker;
 }  // namespace sequence_manager::internal
 }  // namespace base
+
+StartupProfilePathInfo GetStartupProfilePath(
+    const base::FilePath& cur_dir,
+    const base::CommandLine& command_line,
+    bool ignore_profile_picker);
 
 bool EnsureBrowserStateDirectoriesCreated(const base::FilePath&,
                                           const base::FilePath&,
@@ -162,6 +169,7 @@ class AwBrowserContext;
 class AwFormDatabaseService;
 class CookieManager;
 class JsSandboxIsolate;
+class OverlayProcessorWebView;
 class ScopedAllowInitGLBindings;
 class VizCompositorThreadRunnerWebView;
 }  // namespace android_webview
@@ -306,9 +314,10 @@ namespace leveldb::port {
 class CondVar;
 }  // namespace leveldb::port
 namespace nearby::chrome {
+class BleV2GattClient;
+class BleV2Medium;
 class ScheduledExecutor;
 class SubmittableExecutor;
-class BleV2GattClient;
 }  // namespace nearby::chrome
 namespace media {
 class AudioInputDevice;
@@ -425,6 +434,8 @@ class SystemctlLauncherScopedAllowBaseSyncPrimitives;
 namespace viz {
 class HostGpuMemoryBufferManager;
 class ClientGpuMemoryBufferManager;
+class DisplayCompositorMemoryAndTaskController;
+class SkiaOutputSurfaceImpl;
 }  // namespace viz
 namespace vr {
 class VrShell;
@@ -666,6 +677,12 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] ScopedAllowBlocking {
                                                      const base::FilePath&,
                                                      const base::FilePath&);
   friend Profile* ::GetLastProfileMac();  // http://crbug.com/1176734
+  // Note: This function return syntax is required so the "::" doesn't get
+  // mis-parsed. See https://godbolt.org/z/KGhnPxfc8 for the issue.
+  friend auto ::GetStartupProfilePath(const base::FilePath& cur_dir,
+                                      const base::CommandLine& command_line,
+                                      bool ignore_profile_picker)
+      -> StartupProfilePathInfo;
   friend bool ::HasWaylandDisplay(
       base::Environment* env);  // http://crbug.com/1246928
   friend bool ash::CameraAppUIShouldEnableLocalOverride(const std::string&);
@@ -771,6 +788,7 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] ScopedAllowBaseSyncPrimitives {
   friend class nearby::chrome::ScheduledExecutor;
   friend class nearby::chrome::SubmittableExecutor;
   friend class nearby::chrome::BleV2GattClient;
+  friend class nearby::chrome::BleV2Medium;
   friend class media::AudioOutputDevice;
   friend class media::BlockingUrlProtocol;
   template <class WorkerInterface,
@@ -795,7 +813,12 @@ class BASE_EXPORT [[maybe_unused, nodiscard]] ScopedAllowBaseSyncPrimitives {
   // Usage that should be fixed:
   // Sorted by class name (with namespace).
   friend class ::NativeBackendKWallet;  // http://crbug.com/125331
+  friend class android_webview::
+      OverlayProcessorWebView;                     // http://crbug.com/341151462
   friend class blink::VideoFrameResourceProvider;  // http://crbug.com/878070
+  friend class viz::
+      DisplayCompositorMemoryAndTaskController;  // http://crbug.com/341151462
+  friend class viz::SkiaOutputSurfaceImpl;       // http://crbug.com/341151462
 
   ScopedAllowBaseSyncPrimitives() DEFAULT_IF_DCHECK_IS_OFF;
   ~ScopedAllowBaseSyncPrimitives() DEFAULT_IF_DCHECK_IS_OFF;

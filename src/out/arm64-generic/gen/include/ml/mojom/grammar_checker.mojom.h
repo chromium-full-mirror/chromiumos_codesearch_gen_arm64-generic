@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ml/mojom/grammar_checker.mojom-features.h"
-#include "ml/mojom/grammar_checker.mojom-shared.h"
-#include "ml/mojom/grammar_checker.mojom-forward.h"
+#include "ml/mojom/grammar_checker.mojom-features.h"  // IWYU pragma: export
+#include "ml/mojom/grammar_checker.mojom-shared.h"  // IWYU pragma: export
+#include "ml/mojom/grammar_checker.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

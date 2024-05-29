@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_SUPERVISED_USERS() (1)
 
 #endif  // COMPONENTS_SUPERVISED_USER_CORE_COMMON_BUILDFLAGS_H_

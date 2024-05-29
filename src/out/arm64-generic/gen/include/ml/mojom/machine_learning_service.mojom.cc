@@ -3630,46 +3630,98 @@ namespace chromeos::machine_learning::mojom {
 
 
 void MachineLearningServiceInterceptorForTesting::Clone(::mojo::PendingReceiver<MachineLearningService> receiver) {
-  GetForwardingInterface()->Clone(std::move(receiver));
+  GetForwardingInterface()->Clone(
+    std::move(receiver)
+    );
 }
 void MachineLearningServiceInterceptorForTesting::LoadBuiltinModel(::chromeos::machine_learning::mojom::BuiltinModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver, LoadBuiltinModelCallback callback) {
-  GetForwardingInterface()->LoadBuiltinModel(std::move(spec), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadBuiltinModel(
+    std::move(spec)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadFlatBufferModel(::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver, LoadFlatBufferModelCallback callback) {
-  GetForwardingInterface()->LoadFlatBufferModel(std::move(spec), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadFlatBufferModel(
+    std::move(spec)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadTextClassifier(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> receiver, LoadTextClassifierCallback callback) {
-  GetForwardingInterface()->LoadTextClassifier(std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadTextClassifier(
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadHandwritingModel(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, LoadHandwritingModelCallback callback) {
-  GetForwardingInterface()->LoadHandwritingModel(std::move(spec), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadHandwritingModel(
+    std::move(spec)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadSpeechRecognizer(::chromeos::machine_learning::mojom::SodaConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> soda_client, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> soda_recognizer, LoadSpeechRecognizerCallback callback) {
-  GetForwardingInterface()->LoadSpeechRecognizer(std::move(config), std::move(soda_client), std::move(soda_recognizer), std::move(callback));
+  GetForwardingInterface()->LoadSpeechRecognizer(
+    std::move(config)
+    , 
+    std::move(soda_client)
+    , 
+    std::move(soda_recognizer)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadGrammarChecker(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> receiver, LoadGrammarCheckerCallback callback) {
-  GetForwardingInterface()->LoadGrammarChecker(std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadGrammarChecker(
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadTextSuggester(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> receiver, ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr spec, LoadTextSuggesterCallback callback) {
-  GetForwardingInterface()->LoadTextSuggester(std::move(receiver), std::move(spec), std::move(callback));
+  GetForwardingInterface()->LoadTextSuggester(
+    std::move(receiver)
+    , 
+    std::move(spec)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadWebPlatformHandwritingModel(::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver, LoadWebPlatformHandwritingModelCallback callback) {
-  GetForwardingInterface()->LoadWebPlatformHandwritingModel(std::move(constraint), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadWebPlatformHandwritingModel(
+    std::move(constraint)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadDocumentScanner(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config, LoadDocumentScannerCallback callback) {
-  GetForwardingInterface()->LoadDocumentScanner(std::move(receiver), std::move(config), std::move(callback));
+  GetForwardingInterface()->LoadDocumentScanner(
+    std::move(receiver)
+    , 
+    std::move(config)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::CreateWebPlatformModelLoader(::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, CreateWebPlatformModelLoaderCallback callback) {
-  GetForwardingInterface()->CreateWebPlatformModelLoader(std::move(receiver), std::move(options), std::move(callback));
+  GetForwardingInterface()->CreateWebPlatformModelLoader(
+    std::move(receiver)
+    , 
+    std::move(options)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadImageAnnotatorCallback callback) {
-  GetForwardingInterface()->LoadImageAnnotator(std::move(config), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->LoadImageAnnotator(
+    std::move(config)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::LoadHeatmapPalmRejection(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, LoadHeatmapPalmRejectionCallback callback) {
-  GetForwardingInterface()->LoadHeatmapPalmRejection(std::move(config), std::move(client), std::move(callback));
+  GetForwardingInterface()->LoadHeatmapPalmRejection(
+    std::move(config)
+    , 
+    std::move(client)
+    , std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, REMOVED_4Callback callback) {
-  GetForwardingInterface()->REMOVED_4(std::move(spec), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->REMOVED_4(
+    std::move(spec)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 MachineLearningServiceAsyncWaiter::MachineLearningServiceAsyncWaiter(
     MachineLearningService* proxy) : proxy_(proxy) {}

@@ -1205,7 +1205,9 @@ void VideoHostAsyncWaiter::OnBootstrapVideoAcceleratorFactory(
 
 
 void VideoInstanceInterceptorForTesting::Init(::mojo::PendingRemote<VideoHost> host_remote, InitCallback callback) {
-  GetForwardingInterface()->Init(std::move(host_remote), std::move(callback));
+  GetForwardingInterface()->Init(
+    std::move(host_remote)
+    , std::move(callback));
 }
 VideoInstanceAsyncWaiter::VideoInstanceAsyncWaiter(
     VideoInstance* proxy) : proxy_(proxy) {}
@@ -1230,16 +1232,24 @@ void VideoInstanceAsyncWaiter::Init(
 
 
 void VideoAcceleratorFactoryInterceptorForTesting::CreateEncodeAccelerator(::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator> video_encoder) {
-  GetForwardingInterface()->CreateEncodeAccelerator(std::move(video_encoder));
+  GetForwardingInterface()->CreateEncodeAccelerator(
+    std::move(video_encoder)
+    );
 }
 void VideoAcceleratorFactoryInterceptorForTesting::CreateDecodeAccelerator(::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator> video_decoder) {
-  GetForwardingInterface()->CreateDecodeAccelerator(std::move(video_decoder));
+  GetForwardingInterface()->CreateDecodeAccelerator(
+    std::move(video_decoder)
+    );
 }
 void VideoAcceleratorFactoryInterceptorForTesting::CreateVideoDecoder(::mojo::PendingReceiver<::arc::mojom::VideoDecoder> video_decoder) {
-  GetForwardingInterface()->CreateVideoDecoder(std::move(video_decoder));
+  GetForwardingInterface()->CreateVideoDecoder(
+    std::move(video_decoder)
+    );
 }
 void VideoAcceleratorFactoryInterceptorForTesting::CreateProtectedBufferAllocator(::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator> video_protected_buffer_allocator) {
-  GetForwardingInterface()->CreateProtectedBufferAllocator(std::move(video_protected_buffer_allocator));
+  GetForwardingInterface()->CreateProtectedBufferAllocator(
+    std::move(video_protected_buffer_allocator)
+    );
 }
 VideoAcceleratorFactoryAsyncWaiter::VideoAcceleratorFactoryAsyncWaiter(
     VideoAcceleratorFactory* proxy) : proxy_(proxy) {}

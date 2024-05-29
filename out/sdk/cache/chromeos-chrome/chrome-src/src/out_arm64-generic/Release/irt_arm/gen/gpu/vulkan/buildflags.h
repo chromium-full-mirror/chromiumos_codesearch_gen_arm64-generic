@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_VULKAN() (0)
 
 #endif  // GPU_VULKAN_BUILDFLAGS_H_

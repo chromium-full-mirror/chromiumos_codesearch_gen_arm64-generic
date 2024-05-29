@@ -46,6 +46,9 @@ class SpacedInterface {
   virtual int64_t GetQuotaCurrentSpaceForProjectId(
       const std::string& in_path,
       uint32_t in_project_id) = 0;
+  // Returns the disk spaces currently used by the given IDs.
+  virtual spaced::GetQuotaCurrentSpacesForIdsReply GetQuotaCurrentSpacesForIds(
+      const spaced::GetQuotaCurrentSpacesForIdsRequest& in_request) = 0;
   // Sets the project ID to the given file.
   virtual spaced::SetProjectIdReply SetProjectId(
       const base::ScopedFD& in_fd,
@@ -95,6 +98,10 @@ class SpacedAdaptor {
         "GetQuotaCurrentSpaceForProjectId",
         base::Unretained(interface_),
         &SpacedInterface::GetQuotaCurrentSpaceForProjectId);
+    itf->AddSimpleMethodHandler(
+        "GetQuotaCurrentSpacesForIds",
+        base::Unretained(interface_),
+        &SpacedInterface::GetQuotaCurrentSpacesForIds);
     itf->AddSimpleMethodHandler(
         "SetProjectId",
         base::Unretained(interface_),
@@ -150,6 +157,10 @@ class SpacedAdaptor {
         "      <arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"project_id\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetQuotaCurrentSpacesForIds\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SetProjectId\">\n"
         "      <arg name=\"fd\" type=\"h\" direction=\"in\"/>\n"

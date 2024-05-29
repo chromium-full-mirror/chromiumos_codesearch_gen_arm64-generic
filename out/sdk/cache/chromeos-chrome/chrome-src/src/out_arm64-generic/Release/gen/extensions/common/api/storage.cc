@@ -65,7 +65,7 @@ const char* ToString(AccessLevel enum_param) {
     case AccessLevel::kNone:
       return "";
   }
-  NOTREACHED();
+  NOTREACHED_IN_MIGRATION();
   return "";
 }
 

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_FULL_SAFE_BROWSING() (1)
 #define BUILDFLAG_INTERNAL_SAFE_BROWSING_AVAILABLE() (1)
 #define BUILDFLAG_INTERNAL_SAFE_BROWSING_DB_LOCAL() (1)

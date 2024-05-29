@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-features.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-shared.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-forward.h"
+#include "chromeos/services/network_health/public/mojom/network_health.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/services/network_health/public/mojom/network_health.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/services/network_health/public/mojom/network_health.mojom-forward.h"  // IWYU pragma: export
 #include "chromeos/services/network_health/public/mojom/network_health_types.mojom-forward.h"
 #include <string>
 #include <vector>

@@ -215,7 +215,7 @@ size_t SensorUpdateInfo::Hash(size_t seed) const {
     case Tag::kUpdateInfo:
       return mojo::internal::Hash(seed, data_.update_info);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -720,7 +720,9 @@ namespace sensor::mojom {
 
 
 void PageHandlerFactoryInterceptorForTesting::CreatePageHandler(::mojo::PendingReceiver<PageHandler> handler) {
-  GetForwardingInterface()->CreatePageHandler(std::move(handler));
+  GetForwardingInterface()->CreatePageHandler(
+    std::move(handler)
+    );
 }
 PageHandlerFactoryAsyncWaiter::PageHandlerFactoryAsyncWaiter(
     PageHandlerFactory* proxy) : proxy_(proxy) {}

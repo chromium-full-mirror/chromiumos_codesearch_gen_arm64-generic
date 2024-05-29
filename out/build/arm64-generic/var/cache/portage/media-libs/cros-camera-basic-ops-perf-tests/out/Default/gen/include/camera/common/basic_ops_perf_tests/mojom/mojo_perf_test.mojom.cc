@@ -374,7 +374,9 @@ namespace cros::mojom {
 
 
 void MojoPerfTestInterceptorForTesting::CallWithBuffer(const std::vector<uint8_t>& buf, CallWithBufferCallback callback) {
-  GetForwardingInterface()->CallWithBuffer(std::move(buf), std::move(callback));
+  GetForwardingInterface()->CallWithBuffer(
+    std::move(buf)
+    , std::move(callback));
 }
 MojoPerfTestAsyncWaiter::MojoPerfTestAsyncWaiter(
     MojoPerfTest* proxy) : proxy_(proxy) {}

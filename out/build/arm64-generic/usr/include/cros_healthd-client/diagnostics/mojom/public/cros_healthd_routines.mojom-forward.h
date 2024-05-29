@@ -60,6 +60,8 @@ class NetworkBandwidthRoutineArgumentDataView;
 
 class SensitiveSensorRoutineArgumentDataView;
 
+class CameraFrameAnalysisRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -112,6 +114,8 @@ class SensitiveSensorReportDataView;
 
 class SensitiveSensorRoutineDetailDataView;
 
+class CameraFrameAnalysisRoutineDetailDataView;
+
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
 class RoutineRunningInfoDataView;
@@ -147,6 +151,8 @@ enum class BluetoothPairingPeripheralInfo_ConnectError : int32_t;
 enum class BluetoothPairingPeripheralInfo_AddressType : int32_t;
 
 enum class SensitiveSensorInfo_Type : int32_t;
+
+enum class CameraFrameAnalysisRoutineDetail_Issue : int32_t;
 class MemoryRoutineArgument;
 using MemoryRoutineArgumentPtr = mojo::InlinedStructPtr<MemoryRoutineArgument>;
 
@@ -203,6 +209,9 @@ using NetworkBandwidthRoutineArgumentPtr = mojo::InlinedStructPtr<NetworkBandwid
 
 class SensitiveSensorRoutineArgument;
 using SensitiveSensorRoutineArgumentPtr = mojo::InlinedStructPtr<SensitiveSensorRoutineArgument>;
+
+class CameraFrameAnalysisRoutineArgument;
+using CameraFrameAnalysisRoutineArgumentPtr = mojo::InlinedStructPtr<CameraFrameAnalysisRoutineArgument>;
 
 class RoutineState;
 using RoutineStatePtr = mojo::StructPtr<RoutineState>;
@@ -281,6 +290,9 @@ using SensitiveSensorReportPtr = mojo::StructPtr<SensitiveSensorReport>;
 
 class SensitiveSensorRoutineDetail;
 using SensitiveSensorRoutineDetailPtr = mojo::StructPtr<SensitiveSensorRoutineDetail>;
+
+class CameraFrameAnalysisRoutineDetail;
+using CameraFrameAnalysisRoutineDetailPtr = mojo::InlinedStructPtr<CameraFrameAnalysisRoutineDetail>;
 
 class RoutineArgument;
 

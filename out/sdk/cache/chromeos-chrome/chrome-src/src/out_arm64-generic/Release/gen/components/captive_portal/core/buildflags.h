@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_CAPTIVE_PORTAL_DETECTION() (1)
 
 #endif  // COMPONENTS_CAPTIVE_PORTAL_CORE_BUILDFLAGS_H_

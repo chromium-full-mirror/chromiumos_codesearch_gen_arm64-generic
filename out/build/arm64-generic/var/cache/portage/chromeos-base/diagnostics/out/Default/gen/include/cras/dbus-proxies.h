@@ -735,6 +735,18 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Tells whether the system can potentially support style transfer.
+  virtual bool IsStyleTransferSupported(
+      bool* out_supported,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Tells whether the system can potentially support style transfer.
+  virtual void IsStyleTransferSupportedAsync(
+      base::OnceCallback<void(bool /*supported*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool SetBypassBlockNoiseCancellation(
       bool in_bypass,
       brillo::ErrorPtr* error,
@@ -2811,6 +2823,35 @@ class ControlProxy final : public ControlProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_enabled);
+  }
+
+  // Tells whether the system can potentially support style transfer.
+  bool IsStyleTransferSupported(
+      bool* out_supported,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "IsStyleTransferSupported",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_supported);
+  }
+
+  // Tells whether the system can potentially support style transfer.
+  void IsStyleTransferSupportedAsync(
+      base::OnceCallback<void(bool /*supported*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "IsStyleTransferSupported",
+        std::move(success_callback),
+        std::move(error_callback));
   }
 
   bool SetBypassBlockNoiseCancellation(

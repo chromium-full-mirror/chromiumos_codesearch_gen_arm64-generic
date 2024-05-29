@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_BUILD_CONTEXTUAL_SEARCH() (0)
 
 #endif  // COMPONENTS_CONTEXTUAL_SEARCH_BUILDFLAGS_H_

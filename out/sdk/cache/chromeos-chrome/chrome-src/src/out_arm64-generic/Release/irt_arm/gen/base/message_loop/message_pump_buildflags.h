@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_MESSAGE_PUMP_EPOLL() (0)
 
 #endif  // BASE_MESSAGE_LOOP_MESSAGE_PUMP_BUILDFLAGS_H_

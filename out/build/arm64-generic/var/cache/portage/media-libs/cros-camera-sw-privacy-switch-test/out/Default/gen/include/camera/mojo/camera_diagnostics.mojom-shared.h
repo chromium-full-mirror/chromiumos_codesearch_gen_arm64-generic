@@ -173,15 +173,13 @@ enum class CameraIssue : int32_t {
   
   kNone = 0,
   
-  kManufacturerIssue = 1,
+  kPrivacyShutterOn = 1,
   
-  kPrivacyShutterOn = 2,
+  kDirtyLens = 2,
   
-  kDirtyLens = 3,
-  
-  kCameraServiceDown = 4,
+  kCameraServiceDown = 3,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 3,
   kDefaultValue = 0
 };
 
@@ -204,7 +202,7 @@ enum class ClientType : int32_t {
   
   kHealthd = 1,
   
-  kCca = 2,
+  kTest = 2,
   kMinValue = 0,
   kMaxValue = 2,
   kDefaultValue = 0
@@ -225,15 +223,11 @@ inline ClientType ToKnownEnumValue(ClientType value) {
 
 enum class DataSource : int32_t {
   
-  kChrome = 0,
+  kCameraService = 0,
   
-  kCameraService = 1,
-  
-  kClientApp = 2,
-  
-  kCameraDiagnostics = 3,
+  kCameraDiagnostics = 1,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 1,
   kDefaultValue = 0
 };
 
@@ -256,19 +250,15 @@ enum class ErrorCode : int32_t {
   
   kCameraClosed = 1,
   
-  kMultipleOpenCameras = 2,
+  kAlreadyRunningAnalysis = 2,
   
-  kAlreadyRunningAnalysis = 3,
+  kInvalidDuration = 3,
   
-  kNotEnoughFrames = 4,
+  kCrosCameraControllerNotRegistered = 4,
   
-  kInvalidDuration = 5,
-  
-  kCrosCameraControllerNotRegistered = 6,
-  
-  kDiagnosticsInternal = 7,
+  kDiagnosticsInternal = 5,
   kMinValue = 0,
-  kMaxValue = 7,
+  kMaxValue = 5,
   kDefaultValue = 0
 };
 

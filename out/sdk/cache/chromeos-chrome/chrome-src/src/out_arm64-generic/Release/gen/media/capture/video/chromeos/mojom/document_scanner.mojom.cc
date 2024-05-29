@@ -450,7 +450,9 @@ namespace cros::mojom {
 
 
 void CrosDocumentScannerInterceptorForTesting::DetectCornersFromNV12Image(::base::ReadOnlySharedMemoryRegion nv12_image, DetectCornersFromNV12ImageCallback callback) {
-  GetForwardingInterface()->DetectCornersFromNV12Image(std::move(nv12_image), std::move(callback));
+  GetForwardingInterface()->DetectCornersFromNV12Image(
+    std::move(nv12_image)
+    , std::move(callback));
 }
 CrosDocumentScannerAsyncWaiter::CrosDocumentScannerAsyncWaiter(
     CrosDocumentScanner* proxy) : proxy_(proxy) {}

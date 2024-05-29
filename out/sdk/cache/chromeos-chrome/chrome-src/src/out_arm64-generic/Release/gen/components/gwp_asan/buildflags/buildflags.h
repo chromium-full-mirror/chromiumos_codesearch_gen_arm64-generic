@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_GWP_ASAN_MALLOC() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_GWP_ASAN_PARTITIONALLOC() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_GWP_ASAN() (1)

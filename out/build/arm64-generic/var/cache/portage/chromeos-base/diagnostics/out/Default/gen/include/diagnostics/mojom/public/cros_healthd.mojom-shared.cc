@@ -2725,7 +2725,7 @@ CrosHealthdDiagnosticsService_RunFanRoutine_ResponseParams_Data::CrosHealthdDiag
 
 
 // static
-bool CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate(
+bool CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2737,8 +2737,8 @@ bool CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdEventService_AddBluetoothObserver_Params_Data* object =
-      static_cast<const CrosHealthdEventService_AddBluetoothObserver_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data* object =
+      static_cast<const CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -2752,12 +2752,12 @@ bool CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdEventService_AddBluetoothObserver_Params_Data::CrosHealthdEventService_AddBluetoothObserver_Params_Data()
+CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdEventService_AddLidObserver_Params_Data::Validate(
+bool CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2769,8 +2769,8 @@ bool CrosHealthdEventService_AddLidObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdEventService_AddLidObserver_Params_Data* object =
-      static_cast<const CrosHealthdEventService_AddLidObserver_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data* object =
+      static_cast<const CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -2784,12 +2784,12 @@ bool CrosHealthdEventService_AddLidObserver_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdEventService_AddLidObserver_Params_Data::CrosHealthdEventService_AddLidObserver_Params_Data()
+CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdEventService_AddPowerObserver_Params_Data::Validate(
+bool CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2801,8 +2801,8 @@ bool CrosHealthdEventService_AddPowerObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdEventService_AddPowerObserver_Params_Data* object =
-      static_cast<const CrosHealthdEventService_AddPowerObserver_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data* object =
+      static_cast<const CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -2816,7 +2816,7 @@ bool CrosHealthdEventService_AddPowerObserver_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdEventService_AddPowerObserver_Params_Data::CrosHealthdEventService_AddPowerObserver_Params_Data()
+CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2853,7 +2853,7 @@ CrosHealthdEventService_AddNetworkObserver_Params_Data::CrosHealthdEventService_
 
 
 // static
-bool CrosHealthdEventService_AddAudioObserver_Params_Data::Validate(
+bool CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2865,8 +2865,8 @@ bool CrosHealthdEventService_AddAudioObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdEventService_AddAudioObserver_Params_Data* object =
-      static_cast<const CrosHealthdEventService_AddAudioObserver_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data* object =
+      static_cast<const CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -2880,12 +2880,12 @@ bool CrosHealthdEventService_AddAudioObserver_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdEventService_AddAudioObserver_Params_Data::CrosHealthdEventService_AddAudioObserver_Params_Data()
+CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdEventService_AddThunderboltObserver_Params_Data::Validate(
+bool CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2897,8 +2897,8 @@ bool CrosHealthdEventService_AddThunderboltObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdEventService_AddThunderboltObserver_Params_Data* object =
-      static_cast<const CrosHealthdEventService_AddThunderboltObserver_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data* object =
+      static_cast<const CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -2912,12 +2912,12 @@ bool CrosHealthdEventService_AddThunderboltObserver_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdEventService_AddThunderboltObserver_Params_Data::CrosHealthdEventService_AddThunderboltObserver_Params_Data()
+CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool CrosHealthdEventService_AddUsbObserver_Params_Data::Validate(
+bool CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -2929,8 +2929,8 @@ bool CrosHealthdEventService_AddUsbObserver_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const CrosHealthdEventService_AddUsbObserver_Params_Data* object =
-      static_cast<const CrosHealthdEventService_AddUsbObserver_Params_Data*>(data);
+  [[maybe_unused]] const CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data* object =
+      static_cast<const CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
           object->observer, 1, validation_context)) {
@@ -2944,7 +2944,7 @@ bool CrosHealthdEventService_AddUsbObserver_Params_Data::Validate(
   return true;
 }
 
-CrosHealthdEventService_AddUsbObserver_Params_Data::CrosHealthdEventService_AddUsbObserver_Params_Data()
+CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

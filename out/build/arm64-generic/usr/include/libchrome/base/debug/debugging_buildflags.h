@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_DCHECK_IS_CONFIGURABLE() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_LOCATION_SOURCE() (1)
 #define BUILDFLAG_INTERNAL_FROM_HERE_USES_LOCATION_BUILTINS() (1)

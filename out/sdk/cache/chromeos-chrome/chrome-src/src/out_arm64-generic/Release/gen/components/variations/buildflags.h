@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_LARGE_VARIATION_KEY_SIZE() (0)
 
 #endif  // COMPONENTS_VARIATIONS_BUILDFLAGS_H_

@@ -7032,7 +7032,7 @@ size_t BlockDeviceVendor::Hash(size_t seed) const {
     case Tag::kJedecManfid:
       return mojo::internal::Hash(seed, data_.jedec_manfid);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7114,7 +7114,7 @@ size_t BlockDeviceProduct::Hash(size_t seed) const {
     case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7196,7 +7196,7 @@ size_t BlockDeviceRevision::Hash(size_t seed) const {
     case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7291,7 +7291,7 @@ size_t BlockDeviceFirmware::Hash(size_t seed) const {
     case Tag::kUfsFwrev:
       return mojo::internal::Hash(seed, data_.ufs_fwrev);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7385,7 +7385,7 @@ size_t BlockDeviceInfo::Hash(size_t seed) const {
     case Tag::kUfsDeviceInfo:
       return mojo::internal::Hash(seed, data_.ufs_device_info);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7500,7 +7500,7 @@ size_t TimezoneResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7717,7 +7717,7 @@ size_t StatefulPartitionResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7815,7 +7815,7 @@ size_t DEPRECATED_SystemResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }

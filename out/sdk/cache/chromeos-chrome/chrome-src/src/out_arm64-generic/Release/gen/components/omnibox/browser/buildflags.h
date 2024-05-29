@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_VR() (0)
 
 #endif  // COMPONENTS_OMNIBOX_BROWSER_BUILDFLAGS_H_

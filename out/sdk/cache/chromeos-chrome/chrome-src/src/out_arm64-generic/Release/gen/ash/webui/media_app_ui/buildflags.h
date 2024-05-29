@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_CROS_MEDIA_APP() (0)
 
 #endif  // ASH_WEBUI_MEDIA_APP_UI_BUILDFLAGS_H_

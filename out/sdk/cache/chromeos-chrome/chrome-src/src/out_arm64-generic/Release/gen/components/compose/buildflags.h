@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_COMPOSE() (1)
 
 #endif  // COMPONENTS_COMPOSE_BUILDFLAGS_H_

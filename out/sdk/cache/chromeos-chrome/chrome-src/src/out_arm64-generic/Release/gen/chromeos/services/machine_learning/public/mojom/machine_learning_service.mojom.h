@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-features.h"
-#include "chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-shared.h"
-#include "chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-forward.h"
+#include "chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/machine_learning_service.mojom-forward.h"  // IWYU pragma: export
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-forward.h"

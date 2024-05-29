@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "heartd/mojom/heartd.mojom-features.h"
-#include "heartd/mojom/heartd.mojom-shared.h"
-#include "heartd/mojom/heartd.mojom-forward.h"
+#include "heartd/mojom/heartd.mojom-features.h"  // IWYU pragma: export
+#include "heartd/mojom/heartd.mojom-shared.h"  // IWYU pragma: export
+#include "heartd/mojom/heartd.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

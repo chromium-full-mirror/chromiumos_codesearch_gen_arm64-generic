@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ash/components/arc/mojom/video_common.mojom-features.h"
-#include "ash/components/arc/mojom/video_common.mojom-shared.h"
-#include "ash/components/arc/mojom/video_common.mojom-forward.h"
+#include "ash/components/arc/mojom/video_common.mojom-features.h"  // IWYU pragma: export
+#include "ash/components/arc/mojom/video_common.mojom-shared.h"  // IWYU pragma: export
+#include "ash/components/arc/mojom/video_common.mojom-forward.h"  // IWYU pragma: export
 #include "ash/components/arc/mojom/gfx.mojom.h"
 #include <string>
 #include <vector>

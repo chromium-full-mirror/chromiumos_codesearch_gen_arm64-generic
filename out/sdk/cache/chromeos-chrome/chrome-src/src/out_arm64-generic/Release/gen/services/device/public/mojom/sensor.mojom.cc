@@ -1322,10 +1322,14 @@ void SensorInterceptorForTesting::GetDefaultConfiguration(GetDefaultConfiguratio
   GetForwardingInterface()->GetDefaultConfiguration(std::move(callback));
 }
 void SensorInterceptorForTesting::AddConfiguration(const ::device::PlatformSensorConfiguration& configuration, AddConfigurationCallback callback) {
-  GetForwardingInterface()->AddConfiguration(std::move(configuration), std::move(callback));
+  GetForwardingInterface()->AddConfiguration(
+    std::move(configuration)
+    , std::move(callback));
 }
 void SensorInterceptorForTesting::RemoveConfiguration(const ::device::PlatformSensorConfiguration& configuration) {
-  GetForwardingInterface()->RemoveConfiguration(std::move(configuration));
+  GetForwardingInterface()->RemoveConfiguration(
+    std::move(configuration)
+    );
 }
 void SensorInterceptorForTesting::Suspend() {
   GetForwardingInterface()->Suspend();
@@ -1334,7 +1338,9 @@ void SensorInterceptorForTesting::Resume() {
   GetForwardingInterface()->Resume();
 }
 void SensorInterceptorForTesting::ConfigureReadingChangeNotifications(bool enabled) {
-  GetForwardingInterface()->ConfigureReadingChangeNotifications(std::move(enabled));
+  GetForwardingInterface()->ConfigureReadingChangeNotifications(
+    std::move(enabled)
+    );
 }
 SensorAsyncWaiter::SensorAsyncWaiter(
     Sensor* proxy) : proxy_(proxy) {}

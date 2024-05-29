@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "camera/mojo/cros_camera_service.mojom-features.h"
-#include "camera/mojo/cros_camera_service.mojom-shared.h"
-#include "camera/mojo/cros_camera_service.mojom-forward.h"
+#include "camera/mojo/cros_camera_service.mojom-features.h"  // IWYU pragma: export
+#include "camera/mojo/cros_camera_service.mojom-shared.h"  // IWYU pragma: export
+#include "camera/mojo/cros_camera_service.mojom-forward.h"  // IWYU pragma: export
 #include "camera/mojo/camera_common.mojom-forward.h"
 #include "camera/mojo/effects/effects_pipeline.mojom-forward.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-forward.h"

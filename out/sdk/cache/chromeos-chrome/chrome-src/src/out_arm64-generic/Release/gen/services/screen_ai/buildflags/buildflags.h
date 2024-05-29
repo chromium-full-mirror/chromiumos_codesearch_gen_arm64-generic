@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_SCREEN_AI_BROWSERTESTS() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_SCREEN_AI_SERVICE() (1)
 #define BUILDFLAG_INTERNAL_USE_FAKE_SCREEN_AI() (0)

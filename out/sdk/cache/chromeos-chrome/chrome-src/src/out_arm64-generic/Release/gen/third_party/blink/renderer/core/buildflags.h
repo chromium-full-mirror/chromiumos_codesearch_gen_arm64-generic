@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_TARGET_OS_IS_ANDROID() (0)
 
 #endif  // THIRD_PARTY_BLINK_RENDERER_CORE_BUILDFLAGS_H_

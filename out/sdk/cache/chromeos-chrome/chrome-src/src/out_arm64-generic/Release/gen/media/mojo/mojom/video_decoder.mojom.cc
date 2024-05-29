@@ -518,7 +518,7 @@ uint32_t VideoDecoder::OnOverlayInfoChanged_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 bool VideoDecoder::GetSupportedConfigs(std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs, ::media::VideoDecoderType* out_decoder_type) {
-  NOTREACHED();
+  NOTREACHED_IN_MIGRATION();
   return false;
 }
 class VideoDecoder_GetSupportedConfigs_HandleSyncResponse
@@ -2290,7 +2290,11 @@ namespace media::mojom {
 
 
 void VideoFrameHandleReleaserInterceptorForTesting::ReleaseVideoFrame(const ::base::UnguessableToken& release_token, const std::optional<::gpu::SyncToken>& release_sync_token) {
-  GetForwardingInterface()->ReleaseVideoFrame(std::move(release_token), std::move(release_sync_token));
+  GetForwardingInterface()->ReleaseVideoFrame(
+    std::move(release_token)
+    , 
+    std::move(release_sync_token)
+    );
 }
 VideoFrameHandleReleaserAsyncWaiter::VideoFrameHandleReleaserAsyncWaiter(
     VideoFrameHandleReleaser* proxy) : proxy_(proxy) {}
@@ -2304,19 +2308,41 @@ void VideoDecoderInterceptorForTesting::GetSupportedConfigs(GetSupportedConfigsC
   GetForwardingInterface()->GetSupportedConfigs(std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::Construct(::mojo::PendingAssociatedRemote<VideoDecoderClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, ::mojo::PendingReceiver<VideoFrameHandleReleaser> video_frame_handle_releaser, ::mojo::ScopedDataPipeConsumerHandle decoder_buffer_pipe, CommandBufferIdPtr command_buffer_id, const ::gfx::ColorSpace& target_color_space) {
-  GetForwardingInterface()->Construct(std::move(client), std::move(media_log), std::move(video_frame_handle_releaser), std::move(decoder_buffer_pipe), std::move(command_buffer_id), std::move(target_color_space));
+  GetForwardingInterface()->Construct(
+    std::move(client)
+    , 
+    std::move(media_log)
+    , 
+    std::move(video_frame_handle_releaser)
+    , 
+    std::move(decoder_buffer_pipe)
+    , 
+    std::move(command_buffer_id)
+    , 
+    std::move(target_color_space)
+    );
 }
 void VideoDecoderInterceptorForTesting::Initialize(const ::media::VideoDecoderConfig& config, bool low_delay, const std::optional<::base::UnguessableToken>& cdm_id, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(config), std::move(low_delay), std::move(cdm_id), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(config)
+    , 
+    std::move(low_delay)
+    , 
+    std::move(cdm_id)
+    , std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::Decode(::media::mojom::DecoderBufferPtr buffer, DecodeCallback callback) {
-  GetForwardingInterface()->Decode(std::move(buffer), std::move(callback));
+  GetForwardingInterface()->Decode(
+    std::move(buffer)
+    , std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::Reset(ResetCallback callback) {
   GetForwardingInterface()->Reset(std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::OnOverlayInfoChanged(const ::media::OverlayInfo& overlay_info) {
-  GetForwardingInterface()->OnOverlayInfoChanged(std::move(overlay_info));
+  GetForwardingInterface()->OnOverlayInfoChanged(
+    std::move(overlay_info)
+    );
 }
 VideoDecoderAsyncWaiter::VideoDecoderAsyncWaiter(
     VideoDecoder* proxy) : proxy_(proxy) {}
@@ -2416,13 +2442,23 @@ void VideoDecoderAsyncWaiter::Reset(
 
 
 void VideoDecoderClientInterceptorForTesting::OnVideoFrameDecoded(const ::scoped_refptr<::media::VideoFrame>& frame, bool can_read_without_stalling, const std::optional<::base::UnguessableToken>& release_token) {
-  GetForwardingInterface()->OnVideoFrameDecoded(std::move(frame), std::move(can_read_without_stalling), std::move(release_token));
+  GetForwardingInterface()->OnVideoFrameDecoded(
+    std::move(frame)
+    , 
+    std::move(can_read_without_stalling)
+    , 
+    std::move(release_token)
+    );
 }
 void VideoDecoderClientInterceptorForTesting::OnWaiting(::media::WaitingReason reason) {
-  GetForwardingInterface()->OnWaiting(std::move(reason));
+  GetForwardingInterface()->OnWaiting(
+    std::move(reason)
+    );
 }
 void VideoDecoderClientInterceptorForTesting::RequestOverlayInfo(bool restart_for_transitions) {
-  GetForwardingInterface()->RequestOverlayInfo(std::move(restart_for_transitions));
+  GetForwardingInterface()->RequestOverlayInfo(
+    std::move(restart_for_transitions)
+    );
 }
 VideoDecoderClientAsyncWaiter::VideoDecoderClientAsyncWaiter(
     VideoDecoderClient* proxy) : proxy_(proxy) {}

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_MOJO_USE_APPLE_CHANNEL() (0)
 
 #endif  // MOJO_BUILDFLAGS_H_

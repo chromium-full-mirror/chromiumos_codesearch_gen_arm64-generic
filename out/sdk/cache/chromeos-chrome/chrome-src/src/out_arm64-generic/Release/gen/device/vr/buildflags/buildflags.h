@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_ARCORE() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_VR() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_OPENXR() (0)

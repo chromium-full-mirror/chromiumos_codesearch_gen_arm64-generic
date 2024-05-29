@@ -83,11 +83,12 @@ bool SetBacklightBrightnessRequest_Transition_Parse(
 enum SetBacklightBrightnessRequest_Cause : int {
   SetBacklightBrightnessRequest_Cause_USER_REQUEST = 0,
   SetBacklightBrightnessRequest_Cause_MODEL = 1,
-  SetBacklightBrightnessRequest_Cause_USER_REQUEST_FROM_SETTINGS_APP = 2
+  SetBacklightBrightnessRequest_Cause_USER_REQUEST_FROM_SETTINGS_APP = 2,
+  SetBacklightBrightnessRequest_Cause_RESTORED_FROM_USER_PREFERENCE = 3
 };
 bool SetBacklightBrightnessRequest_Cause_IsValid(int value);
 constexpr SetBacklightBrightnessRequest_Cause SetBacklightBrightnessRequest_Cause_Cause_MIN = SetBacklightBrightnessRequest_Cause_USER_REQUEST;
-constexpr SetBacklightBrightnessRequest_Cause SetBacklightBrightnessRequest_Cause_Cause_MAX = SetBacklightBrightnessRequest_Cause_USER_REQUEST_FROM_SETTINGS_APP;
+constexpr SetBacklightBrightnessRequest_Cause SetBacklightBrightnessRequest_Cause_Cause_MAX = SetBacklightBrightnessRequest_Cause_RESTORED_FROM_USER_PREFERENCE;
 constexpr int SetBacklightBrightnessRequest_Cause_Cause_ARRAYSIZE = SetBacklightBrightnessRequest_Cause_Cause_MAX + 1;
 
 const std::string& SetBacklightBrightnessRequest_Cause_Name(SetBacklightBrightnessRequest_Cause value);
@@ -115,11 +116,12 @@ enum BacklightBrightnessChange_Cause : int {
   BacklightBrightnessChange_Cause_USER_TOGGLED_OFF = 11,
   BacklightBrightnessChange_Cause_USER_TOGGLED_ON = 12,
   BacklightBrightnessChange_Cause_BATTERY_SAVER_STATE_CHANGED = 13,
-  BacklightBrightnessChange_Cause_USER_REQUEST_FROM_SETTINGS_APP = 14
+  BacklightBrightnessChange_Cause_USER_REQUEST_FROM_SETTINGS_APP = 14,
+  BacklightBrightnessChange_Cause_RESTORED_FROM_USER_PREFERENCE = 15
 };
 bool BacklightBrightnessChange_Cause_IsValid(int value);
 constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange_Cause_Cause_MIN = BacklightBrightnessChange_Cause_USER_REQUEST;
-constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange_Cause_Cause_MAX = BacklightBrightnessChange_Cause_USER_REQUEST_FROM_SETTINGS_APP;
+constexpr BacklightBrightnessChange_Cause BacklightBrightnessChange_Cause_Cause_MAX = BacklightBrightnessChange_Cause_RESTORED_FROM_USER_PREFERENCE;
 constexpr int BacklightBrightnessChange_Cause_Cause_ARRAYSIZE = BacklightBrightnessChange_Cause_Cause_MAX + 1;
 
 const std::string& BacklightBrightnessChange_Cause_Name(BacklightBrightnessChange_Cause value);
@@ -299,6 +301,8 @@ class SetBacklightBrightnessRequest final :
     SetBacklightBrightnessRequest_Cause_MODEL;
   static constexpr Cause USER_REQUEST_FROM_SETTINGS_APP =
     SetBacklightBrightnessRequest_Cause_USER_REQUEST_FROM_SETTINGS_APP;
+  static constexpr Cause RESTORED_FROM_USER_PREFERENCE =
+    SetBacklightBrightnessRequest_Cause_RESTORED_FROM_USER_PREFERENCE;
   static inline bool Cause_IsValid(int value) {
     return SetBacklightBrightnessRequest_Cause_IsValid(value);
   }
@@ -523,6 +527,8 @@ class BacklightBrightnessChange final :
     BacklightBrightnessChange_Cause_BATTERY_SAVER_STATE_CHANGED;
   static constexpr Cause USER_REQUEST_FROM_SETTINGS_APP =
     BacklightBrightnessChange_Cause_USER_REQUEST_FROM_SETTINGS_APP;
+  static constexpr Cause RESTORED_FROM_USER_PREFERENCE =
+    BacklightBrightnessChange_Cause_RESTORED_FROM_USER_PREFERENCE;
   static inline bool Cause_IsValid(int value) {
     return BacklightBrightnessChange_Cause_IsValid(value);
   }

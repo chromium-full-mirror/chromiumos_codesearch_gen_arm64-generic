@@ -407,7 +407,9 @@ namespace cros::mojom {
 
 
 void SensorHalServerInterceptorForTesting::CreateChannel(::mojo::PendingReceiver<::cros::mojom::SensorService> sensor_service_request) {
-  GetForwardingInterface()->CreateChannel(std::move(sensor_service_request));
+  GetForwardingInterface()->CreateChannel(
+    std::move(sensor_service_request)
+    );
 }
 SensorHalServerAsyncWaiter::SensorHalServerAsyncWaiter(
     SensorHalServer* proxy) : proxy_(proxy) {}
@@ -418,7 +420,9 @@ SensorHalServerAsyncWaiter::~SensorHalServerAsyncWaiter() = default;
 
 
 void SensorHalClientInterceptorForTesting::SetUpChannel(::mojo::PendingRemote<::cros::mojom::SensorService> sensor_service_ptr) {
-  GetForwardingInterface()->SetUpChannel(std::move(sensor_service_ptr));
+  GetForwardingInterface()->SetUpChannel(
+    std::move(sensor_service_ptr)
+    );
 }
 SensorHalClientAsyncWaiter::SensorHalClientAsyncWaiter(
     SensorHalClient* proxy) : proxy_(proxy) {}

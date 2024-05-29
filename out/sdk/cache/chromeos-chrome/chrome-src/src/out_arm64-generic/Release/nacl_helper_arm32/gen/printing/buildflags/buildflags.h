@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_PRINTING() (true || false)
 #define BUILDFLAG_INTERNAL_ENABLE_PRINT_PREVIEW() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_BASIC_PRINT_DIALOG() (0)

@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom-features.h"
-#include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom-shared.h"
-#include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom-features.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom-shared.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_event_reporters.mojom-forward.h"  // IWYU pragma: export
 #include "diagnostics/mojom/external/input.mojom-forward.h"
 #include <string>
 #include <vector>

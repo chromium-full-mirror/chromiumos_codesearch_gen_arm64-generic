@@ -62,7 +62,7 @@ const char* ToString(ProcessType enum_param) {
     case ProcessType::kNone:
       return "";
   }
-  NOTREACHED();
+  NOTREACHED_IN_MIGRATION();
   return "";
 }
 

@@ -512,11 +512,25 @@ class Initialization final : public ::metrics::structured::Event {
 namespace cr_os_events {
 
 
+enum class AppInstallSurface {
+APP_PRELOAD_SERVICE_OEM = 0,
+APP_PRELOAD_SERVICE_DEFAULT = 1,
+OOBE_APP_RECOMMENDATIONS = 2,
+APP_INSTALL_URI_UNKNOWN = 3,
+APP_INSTALL_URI_SHOWOFF = 4,
+APP_INSTALL_URI_MALL = 5,
+APP_INSTALL_URI_GETIT = 6,
+APP_INSTALL_URI_LAUNCHER = 7,
+APP_INSTALL_URI_PERIPHERALS = 8
+};
+
+
+
 enum class CameraAppLaunchType {
 DEFAULT = 0,
 ASSISTANT = 1
 };
-    
+
 
 
 enum class CameraAppMode {
@@ -525,7 +539,7 @@ VIDEO = 1,
 SCAN = 2,
 PORTRAIT = 3
 };
-    
+
 
 
 enum class CameraAppFacing {
@@ -534,7 +548,7 @@ USER = 1,
 EXTERNAL = 2,
 UNKNOWN = 3
 };
-    
+
 
 
 enum class CameraAppGridType {
@@ -543,7 +557,7 @@ THREE_BY_THREE = 1,
 FOUR_BY_FOUR = 2,
 GOLDEN = 3
 };
-    
+
 
 
 enum class CameraAppTimerType {
@@ -551,7 +565,7 @@ NONE = 0,
 THREE_SECONDS = 1,
 TEN_SECONDS = 2
 };
-    
+
 
 
 enum class CameraAppShutterType {
@@ -562,7 +576,7 @@ MOUSE = 3,
 TOUCH = 4,
 VOLUME_KEY = 5
 };
-    
+
 
 
 enum class CameraAppAndroidIntentResultType {
@@ -570,7 +584,7 @@ NON_INTENT = 0,
 CONFIRMED = 1,
 CANCELED = 2
 };
-    
+
 
 
 enum class CameraAppResolutionLevel {
@@ -583,7 +597,7 @@ THREE_HUNDRED_THIRTY_P = 5,
 FULL = 6,
 MEDIUM = 7
 };
-    
+
 
 
 enum class CameraAppAspectRatioSet {
@@ -592,7 +606,7 @@ FOUR_TO_THREE = 1,
 SIXTEEN_TO_NINE = 2,
 SQUARE = 3
 };
-    
+
 
 
 enum class CameraAppRecordType {
@@ -601,7 +615,7 @@ NORMAL = 1,
 GIF = 2,
 TIMELAPSE = 3
 };
-    
+
 
 
 enum class CameraAppGifResultType {
@@ -610,7 +624,7 @@ RETAKE = 1,
 SHARE = 2,
 SAVE = 3
 };
-    
+
 
 
 enum class CameraAppDocScanActionType {
@@ -618,7 +632,7 @@ ADD_PAGE = 0,
 DELETE_PAGE = 1,
 FIX = 2
 };
-    
+
 
 
 enum class CameraAppDocScanResultType {
@@ -627,7 +641,7 @@ SAVE_AS_PDF = 1,
 SAVE_AS_PHOTO = 2,
 SHARE = 3
 };
-    
+
 
 
 enum class CameraAppLowStorageActionType {
@@ -637,7 +651,7 @@ SHOW_AUTO_STOP_DIALOG = 2,
 SHOW_CANNOT_START_DIALOG = 3,
 SHOW_WARNING_MESSAGE = 4
 };
-    
+
 
 
 enum class CameraAppBarcodeContentType {
@@ -645,7 +659,7 @@ TEXT = 0,
 URL = 1,
 WIFI = 2
 };
-    
+
 
 
 enum class CameraAppWifiSecurityType {
@@ -654,7 +668,7 @@ EAP = 1,
 WEP = 2,
 WPA = 3
 };
-    
+
 
 
 enum class CameraAppPerfEventType {
@@ -671,14 +685,14 @@ PORTRAIT_MODE_CAPTURE_POST_PROCESSING = 9,
 TIMELAPSE_CAPTURE_POST_PROCESSING = 10,
 VIDEO_CAPTURE_POST_PROCESSING = 11
 };
-    
+
 
 
 enum class CampaignButtonId {
 PRIMARY = 0,
 SECONDARY = 1
 };
-    
+
 
 
 enum class QuickStartAbortFlowReason {
@@ -689,7 +703,7 @@ ENTERPRISE_ENROLLMENT = 3,
 QS_ERROR = 4,
 ADD_CHILD = 5
 };
-    
+
 
 
 enum class QuickStartEntryPoint {
@@ -698,7 +712,7 @@ NETWORK_SCREEN = 1,
 GAIA_INFO_SCREEN = 2,
 GAIA_SCREEN = 3
 };
-    
+
 
 
 enum class QuickStartScreenName {
@@ -725,7 +739,7 @@ QS_SELECT_GOOGLE_ACCOUNT = 19,
 QS_CREATING_ACCOUNT = 20,
 QS_FALLBACK_URL = 21
 };
-    
+
 
 
 enum class PickerInputFieldType {
@@ -741,7 +755,7 @@ URL = 8,
 DATE_TIME = 9,
 OTHER = 10
 };
-    
+
 
 
 enum class PickerSessionOutcome {
@@ -751,7 +765,7 @@ ABANDONED = 2,
 REDIRECTED = 3,
 FORMAT = 4
 };
-    
+
 
 
 enum class PickerAction {
@@ -772,7 +786,7 @@ TRANSFORM_TITLE_CASE = 13,
 CAPS_ON = 14,
 CAPS_OFF = 15
 };
-    
+
 
 
 enum class PickerResultSource {
@@ -787,7 +801,7 @@ UNITS_MATHS = 7,
 CASE_TRANSFORM = 8,
 TENOR = 9
 };
-    
+
 
 
 enum class PickerResultType {
@@ -805,7 +819,7 @@ LINK = 10,
 LOCAL_FILE = 11,
 DRIVE_FILE = 12
 };
-     
+ 
 class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
  public:
   AppDiscovery_AppInstalled();
@@ -819,6 +833,17 @@ class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
   AppDiscovery_AppInstalled& SetInstallSource(const int64_t value) &;
   AppDiscovery_AppInstalled&& SetInstallReason(const int64_t value) &&;
   AppDiscovery_AppInstalled& SetInstallReason(const int64_t value) &;
+};
+
+class AppDiscovery_AppInstallService_InstallRequested final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_AppInstallService_InstallRequested();
+  ~AppDiscovery_AppInstallService_InstallRequested() override;
+
+    AppDiscovery_AppInstallService_InstallRequested&& SetAppId(const std::string& value) &&;
+  AppDiscovery_AppInstallService_InstallRequested& SetAppId(const std::string& value) &;
+  AppDiscovery_AppInstallService_InstallRequested&& SetSurface(const AppInstallSurface value) &&;
+  AppDiscovery_AppInstallService_InstallRequested& SetSurface(const AppInstallSurface value) &;
 };
 
 class AppDiscovery_AppLaunched final : public ::metrics::structured::Event {
@@ -985,6 +1010,8 @@ class CameraApp_Capture final : public ::metrics::structured::Event {
   CameraApp_Capture& SetGifResultType(const CameraAppGifResultType value) &;
   CameraApp_Capture&& SetTimelapseSpeed(const int64_t value) &&;
   CameraApp_Capture& SetTimelapseSpeed(const int64_t value) &;
+  CameraApp_Capture&& SetZoomRatio(const double value) &&;
+  CameraApp_Capture& SetZoomRatio(const double value) &;
 };
 
 class CameraApp_AndroidIntent final : public ::metrics::structured::Event {
@@ -1827,7 +1854,7 @@ VARIANT1 = 1,
 VARIANT2 = 2,
 VARIANT3 = 5
 };
-     
+ 
 class TestEventSeven final : public ::metrics::structured::Event {
  public:
   TestEventSeven();

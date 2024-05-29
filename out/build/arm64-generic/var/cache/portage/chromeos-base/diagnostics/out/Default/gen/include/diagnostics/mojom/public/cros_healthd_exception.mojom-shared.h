@@ -98,8 +98,10 @@ enum class Exception_Reason : int32_t {
   kUnexpected = 2,
   
   kUnsupported = 3,
+  
+  kCameraFrontendNotOpened = 4,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
   kDefaultValue = 1
 };
 

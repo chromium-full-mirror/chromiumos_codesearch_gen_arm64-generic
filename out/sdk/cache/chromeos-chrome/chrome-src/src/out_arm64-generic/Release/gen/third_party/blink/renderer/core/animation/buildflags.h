@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_BLINK_ANIMATION_USE_TIME_DELTA() (0)
 
 #endif  // THIRD_PARTY_BLINK_RENDERER_CORE_ANIMATION_BUILDFLAGS_H_

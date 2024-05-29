@@ -878,7 +878,11 @@ namespace chromeos::machine_learning::web_platform::mojom {
 
 
 void HandwritingRecognizerInterceptorForTesting::GetPrediction(std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints, GetPredictionCallback callback) {
-  GetForwardingInterface()->GetPrediction(std::move(strokes), std::move(hints), std::move(callback));
+  GetForwardingInterface()->GetPrediction(
+    std::move(strokes)
+    , 
+    std::move(hints)
+    , std::move(callback));
 }
 HandwritingRecognizerAsyncWaiter::HandwritingRecognizerAsyncWaiter(
     HandwritingRecognizer* proxy) : proxy_(proxy) {}

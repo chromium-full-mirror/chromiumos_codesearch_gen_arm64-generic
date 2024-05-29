@@ -417,7 +417,7 @@ size_t Bitrate::Hash(size_t seed) const {
     case Tag::kVariable:
       return mojo::internal::Hash(seed, data_.variable);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2417,19 +2417,47 @@ void VideoEncodeAcceleratorInterceptorForTesting::GetSupportedProfiles(GetSuppor
   GetForwardingInterface()->GetSupportedProfiles(std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingRemote<VideoEncodeClient> client, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(config), std::move(client), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(config)
+    , 
+    std::move(client)
+    , std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::Encode(::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) {
-  GetForwardingInterface()->Encode(std::move(format), std::move(frame_fd), std::move(planes), std::move(timestamp), std::move(force_keyframe), std::move(callback));
+  GetForwardingInterface()->Encode(
+    std::move(format)
+    , 
+    std::move(frame_fd)
+    , 
+    std::move(planes)
+    , 
+    std::move(timestamp)
+    , 
+    std::move(force_keyframe)
+    , std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::UseBitstreamBuffer(::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, UseBitstreamBufferCallback callback) {
-  GetForwardingInterface()->UseBitstreamBuffer(std::move(shmem_fd), std::move(offset), std::move(size), std::move(callback));
+  GetForwardingInterface()->UseBitstreamBuffer(
+    std::move(shmem_fd)
+    , 
+    std::move(offset)
+    , 
+    std::move(size)
+    , std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::RequestEncodingParametersChange(const ::media::Bitrate& bitrate, uint32_t framerate) {
-  GetForwardingInterface()->RequestEncodingParametersChange(std::move(bitrate), std::move(framerate));
+  GetForwardingInterface()->RequestEncodingParametersChange(
+    std::move(bitrate)
+    , 
+    std::move(framerate)
+    );
 }
 void VideoEncodeAcceleratorInterceptorForTesting::RequestEncodingParametersChangeDeprecated(uint32_t bitrate, uint32_t framerate) {
-  GetForwardingInterface()->RequestEncodingParametersChangeDeprecated(std::move(bitrate), std::move(framerate));
+  GetForwardingInterface()->RequestEncodingParametersChangeDeprecated(
+    std::move(bitrate)
+    , 
+    std::move(framerate)
+    );
 }
 void VideoEncodeAcceleratorInterceptorForTesting::Flush(FlushCallback callback) {
   GetForwardingInterface()->Flush(std::move(callback));
@@ -2552,10 +2580,18 @@ bool VideoEncodeAcceleratorAsyncWaiter::Flush(
 
 
 void VideoEncodeClientInterceptorForTesting::RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) {
-  GetForwardingInterface()->RequireBitstreamBuffers(std::move(input_count), std::move(input_coded_size), std::move(output_buffer_size));
+  GetForwardingInterface()->RequireBitstreamBuffers(
+    std::move(input_count)
+    , 
+    std::move(input_coded_size)
+    , 
+    std::move(output_buffer_size)
+    );
 }
 void VideoEncodeClientInterceptorForTesting::NotifyError(VideoEncodeAccelerator::Error error) {
-  GetForwardingInterface()->NotifyError(std::move(error));
+  GetForwardingInterface()->NotifyError(
+    std::move(error)
+    );
 }
 VideoEncodeClientAsyncWaiter::VideoEncodeClientAsyncWaiter(
     VideoEncodeClient* proxy) : proxy_(proxy) {}

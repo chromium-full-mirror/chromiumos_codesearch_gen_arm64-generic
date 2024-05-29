@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "camera/mojo/algorithm/camera_algorithm.mojom-features.h"
-#include "camera/mojo/algorithm/camera_algorithm.mojom-shared.h"
-#include "camera/mojo/algorithm/camera_algorithm.mojom-forward.h"
+#include "camera/mojo/algorithm/camera_algorithm.mojom-features.h"  // IWYU pragma: export
+#include "camera/mojo/algorithm/camera_algorithm.mojom-shared.h"  // IWYU pragma: export
+#include "camera/mojo/algorithm/camera_algorithm.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

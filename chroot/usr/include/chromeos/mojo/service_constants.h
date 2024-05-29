@@ -8,6 +8,7 @@
 namespace chromeos::mojo_services {
 
 // Please keep alphabetized.
+constexpr char kChromiumArcBridgeHost[] = "ChromiumArcBridgeHost";
 constexpr char kChromiumCrosHealthdDataCollector[] =
     "ChromiumCrosHealthdDataCollector";
 constexpr char kChromiumNetworkDiagnosticsRoutines[] =
@@ -28,6 +29,7 @@ constexpr char kCrosHealthdProbe[] = "CrosHealthdProbe";
 constexpr char kCrosHealthdRoutines[] = "CrosHealthdRoutines";
 constexpr char kCrosJpegAccelerator[] = "CrosJpegAccelerator";
 constexpr char kCrosPasspointService[] = "CrosPasspointService";
+constexpr char kCrosPortalService[] = "CrosPortalService";
 constexpr char kCrosSystemEventMonitor[] = "CrosSystemEventMonitor";
 constexpr char kHeartdControl[] = "HeartdControl";
 constexpr char kHeartdHeartbeatService[] = "HeartdHeartbeatService";

@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-features.h"
-#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-shared.h"
-#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-forward.h"
+#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-forward.h"  // IWYU pragma: export
 #include "mojo/public/mojom/base/time.mojom.h"
 #include <string>
 #include <vector>
@@ -154,6 +154,156 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HeatmapPalmRejectionClientRequestValidat
 
 
 
+class COMPONENT_EXPORT(MLSERVICE_MOJOM) CropHeatmap {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CropHeatmap, T>::value>;
+  using DataView = CropHeatmapDataView;
+  using Data_ = internal::CropHeatmap_Data;
+
+  template <typename... Args>
+  static CropHeatmapPtr New(Args&&... args) {
+    return CropHeatmapPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CropHeatmapPtr From(const U& u) {
+    return mojo::TypeConverter<CropHeatmapPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CropHeatmap>::Convert(*this);
+  }
+
+
+  CropHeatmap();
+
+  CropHeatmap(
+      uint8_t bottom_crop,
+      uint8_t left_crop,
+      uint8_t right_crop,
+      uint8_t top_crop);
+
+
+  ~CropHeatmap();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CropHeatmapPtr>
+  CropHeatmapPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CropHeatmap::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CropHeatmap::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CropHeatmap_UnserializedMessageContext<
+            UserType, CropHeatmap::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CropHeatmap::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CropHeatmap::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CropHeatmap_UnserializedMessageContext<
+            UserType, CropHeatmap::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CropHeatmap::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t bottom_crop;
+  
+  uint8_t left_crop;
+  
+  uint8_t right_crop;
+  
+  uint8_t top_crop;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CropHeatmap::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 class COMPONENT_EXPORT(MLSERVICE_MOJOM) HeatmapPalmRejectionConfig {
@@ -195,6 +345,16 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HeatmapPalmRejectionConfig {
       uint32_t output_node,
       double palm_threshold);
 
+  HeatmapPalmRejectionConfig(
+      const std::string& tf_model_path,
+      const std::string& heatmap_hidraw_device,
+      uint32_t input_node,
+      uint32_t output_node,
+      double palm_threshold,
+      CropHeatmapPtr crop_heatmap);
+
+HeatmapPalmRejectionConfig(const HeatmapPalmRejectionConfig&) = delete;
+HeatmapPalmRejectionConfig& operator=(const HeatmapPalmRejectionConfig&) = delete;
 
   ~HeatmapPalmRejectionConfig();
 
@@ -215,7 +375,6 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HeatmapPalmRejectionConfig {
 
   template <typename T, HeatmapPalmRejectionConfig::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -281,6 +440,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HeatmapPalmRejectionConfig {
   uint32_t output_node;
   
   double palm_threshold;
+  
+  CropHeatmapPtr crop_heatmap;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -454,6 +615,7 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
 template <typename StructPtrType>
 HeatmapPalmRejectionConfigPtr HeatmapPalmRejectionConfig::Clone() const {
   return New(
@@ -461,7 +623,8 @@ HeatmapPalmRejectionConfigPtr HeatmapPalmRejectionConfig::Clone() const {
       mojo::Clone(heatmap_hidraw_device),
       mojo::Clone(input_node),
       mojo::Clone(output_node),
-      mojo::Clone(palm_threshold)
+      mojo::Clone(palm_threshold),
+      mojo::Clone(crop_heatmap)
   );
 }
 
@@ -476,6 +639,8 @@ bool HeatmapPalmRejectionConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->output_node, other_struct.output_node))
     return false;
   if (!mojo::Equals(this->palm_threshold, other_struct.palm_threshold))
+    return false;
+  if (!mojo::Equals(this->crop_heatmap, other_struct.crop_heatmap))
     return false;
   return true;
 }
@@ -501,6 +666,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.palm_threshold < rhs.palm_threshold)
     return true;
   if (rhs.palm_threshold < lhs.palm_threshold)
+    return false;
+  if (lhs.crop_heatmap < rhs.crop_heatmap)
+    return true;
+  if (rhs.crop_heatmap < lhs.crop_heatmap)
     return false;
   return false;
 }
@@ -530,6 +699,49 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_palm < rhs.is_palm)
     return true;
   if (rhs.is_palm < lhs.is_palm)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+CropHeatmapPtr CropHeatmap::Clone() const {
+  return New(
+      mojo::Clone(bottom_crop),
+      mojo::Clone(left_crop),
+      mojo::Clone(right_crop),
+      mojo::Clone(top_crop)
+  );
+}
+
+template <typename T, CropHeatmap::EnableIfSame<T>*>
+bool CropHeatmap::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->bottom_crop, other_struct.bottom_crop))
+    return false;
+  if (!mojo::Equals(this->left_crop, other_struct.left_crop))
+    return false;
+  if (!mojo::Equals(this->right_crop, other_struct.right_crop))
+    return false;
+  if (!mojo::Equals(this->top_crop, other_struct.top_crop))
+    return false;
+  return true;
+}
+
+template <typename T, CropHeatmap::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.bottom_crop < rhs.bottom_crop)
+    return true;
+  if (rhs.bottom_crop < lhs.bottom_crop)
+    return false;
+  if (lhs.left_crop < rhs.left_crop)
+    return true;
+  if (rhs.left_crop < lhs.left_crop)
+    return false;
+  if (lhs.right_crop < rhs.right_crop)
+    return true;
+  if (rhs.right_crop < lhs.right_crop)
+    return false;
+  if (lhs.top_crop < rhs.top_crop)
+    return true;
+  if (rhs.top_crop < lhs.top_crop)
     return false;
   return false;
 }
@@ -571,6 +783,11 @@ struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learni
     return input->palm_threshold;
   }
 
+  static const decltype(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfig::crop_heatmap)& crop_heatmap(
+      const ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr& input) {
+    return input->crop_heatmap;
+  }
+
   static bool Read(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfig::DataView input, ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr* output);
 };
 
@@ -592,6 +809,36 @@ struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learni
   }
 
   static bool Read(::chromeos::machine_learning::mojom::HeatmapProcessedEvent::DataView input, ::chromeos::machine_learning::mojom::HeatmapProcessedEventPtr* output);
+};
+
+
+template <>
+struct COMPONENT_EXPORT(MLSERVICE_MOJOM) StructTraits<::chromeos::machine_learning::mojom::CropHeatmap::DataView,
+                                         ::chromeos::machine_learning::mojom::CropHeatmapPtr> {
+  static bool IsNull(const ::chromeos::machine_learning::mojom::CropHeatmapPtr& input) { return !input; }
+  static void SetToNull(::chromeos::machine_learning::mojom::CropHeatmapPtr* output) { output->reset(); }
+
+  static decltype(::chromeos::machine_learning::mojom::CropHeatmap::bottom_crop) bottom_crop(
+      const ::chromeos::machine_learning::mojom::CropHeatmapPtr& input) {
+    return input->bottom_crop;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::CropHeatmap::left_crop) left_crop(
+      const ::chromeos::machine_learning::mojom::CropHeatmapPtr& input) {
+    return input->left_crop;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::CropHeatmap::right_crop) right_crop(
+      const ::chromeos::machine_learning::mojom::CropHeatmapPtr& input) {
+    return input->right_crop;
+  }
+
+  static decltype(::chromeos::machine_learning::mojom::CropHeatmap::top_crop) top_crop(
+      const ::chromeos::machine_learning::mojom::CropHeatmapPtr& input) {
+    return input->top_crop;
+  }
+
+  static bool Read(::chromeos::machine_learning::mojom::CropHeatmap::DataView input, ::chromeos::machine_learning::mojom::CropHeatmapPtr* output);
 };
 
 }  // namespace mojo

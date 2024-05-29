@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_BANNED_BASE_FEATURE_PREFIX() (0)
 
 #endif  // BASE_FEATURE_LIST_BUILDFLAGS_H_

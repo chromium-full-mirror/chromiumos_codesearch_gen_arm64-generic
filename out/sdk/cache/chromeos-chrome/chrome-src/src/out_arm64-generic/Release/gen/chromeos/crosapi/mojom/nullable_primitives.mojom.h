@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/crosapi/mojom/nullable_primitives.mojom-features.h"
-#include "chromeos/crosapi/mojom/nullable_primitives.mojom-shared.h"
-#include "chromeos/crosapi/mojom/nullable_primitives.mojom-forward.h"
+#include "chromeos/crosapi/mojom/nullable_primitives.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/crosapi/mojom/nullable_primitives.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/crosapi/mojom/nullable_primitives.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

@@ -452,6 +452,36 @@ std::ostream& operator<<(std::ostream& os, SensitiveSensorInfo_Type value) {
   return os << SensitiveSensorInfo_TypeToString(value);
 }
 
+NOINLINE static const char* CameraFrameAnalysisRoutineDetail_IssueToStringHelper(CameraFrameAnalysisRoutineDetail_Issue value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case CameraFrameAnalysisRoutineDetail_Issue::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case CameraFrameAnalysisRoutineDetail_Issue::kNone:
+      return "kNone";
+    case CameraFrameAnalysisRoutineDetail_Issue::kCameraServiceNotAvailable:
+      return "kCameraServiceNotAvailable";
+    case CameraFrameAnalysisRoutineDetail_Issue::kBlockedByPrivacyShutter:
+      return "kBlockedByPrivacyShutter";
+    case CameraFrameAnalysisRoutineDetail_Issue::kLensAreDirty:
+      return "kLensAreDirty";
+    default:
+      return nullptr;
+  }
+}
+
+std::string CameraFrameAnalysisRoutineDetail_IssueToString(CameraFrameAnalysisRoutineDetail_Issue value) {
+  const char *str = CameraFrameAnalysisRoutineDetail_IssueToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown CameraFrameAnalysisRoutineDetail_Issue value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, CameraFrameAnalysisRoutineDetail_Issue value) {
+  return os << CameraFrameAnalysisRoutineDetail_IssueToString(value);
+}
+
 namespace internal {
 // static
 bool RoutineArgument_Data::Validate(
@@ -671,6 +701,16 @@ bool RoutineArgument_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_sensitive_sensor, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineArgument_Tag::kCameraFrameAnalysis: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_camera_frame_analysis, 21, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_camera_frame_analysis, validation_context))
         return false;
       return true;
     }
@@ -1092,6 +1132,16 @@ bool RoutineDetail_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_sensitive_sensor, validation_context))
+        return false;
+      return true;
+    }
+    case RoutineDetail_Tag::kCameraFrameAnalysis: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_camera_frame_analysis, 13, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_camera_frame_analysis, validation_context))
         return false;
       return true;
     }
@@ -1600,6 +1650,29 @@ bool SensitiveSensorRoutineArgument_Data::Validate(
 }
 
 SensitiveSensorRoutineArgument_Data::SensitiveSensorRoutineArgument_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CameraFrameAnalysisRoutineArgument_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraFrameAnalysisRoutineArgument_Data* object =
+      static_cast<const CameraFrameAnalysisRoutineArgument_Data*>(data);
+
+  return true;
+}
+
+CameraFrameAnalysisRoutineArgument_Data::CameraFrameAnalysisRoutineArgument_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -2524,6 +2597,44 @@ SensitiveSensorRoutineDetail_Data::SensitiveSensorRoutineDetail_Data()
 
 
 // static
+bool CameraFrameAnalysisRoutineDetail_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraFrameAnalysisRoutineDetail_Data* object =
+      static_cast<const CameraFrameAnalysisRoutineDetail_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineDetail_Issue_Data
+        ::Validate(object->issue, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraSubtestResult_Data
+        ::Validate(object->privacy_shutter_open_test, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::CameraSubtestResult_Data
+        ::Validate(object->lens_not_dirty_test, validation_context))
+    return false;
+
+  return true;
+}
+
+CameraFrameAnalysisRoutineDetail_Data::CameraFrameAnalysisRoutineDetail_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdRoutinesService_CreateRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2903,6 +3014,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::SensitiveSensorInfo_Type value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::SensitiveSensorInfo_TypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_IssueToString(value));
 }
 
 } // namespace perfetto

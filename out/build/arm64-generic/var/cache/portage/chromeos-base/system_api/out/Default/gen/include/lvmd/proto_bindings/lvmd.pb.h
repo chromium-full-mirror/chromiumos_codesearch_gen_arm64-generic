@@ -1600,6 +1600,7 @@ class LogicalVolume final :
     kNameFieldNumber = 2,
     kPathFieldNumber = 3,
     kVolumeGroupFieldNumber = 1,
+    kSizeFieldNumber = 4,
   };
   // string name = 2;
   void clear_name() ;
@@ -1655,6 +1656,16 @@ class LogicalVolume final :
   void unsafe_arena_set_allocated_volume_group(
       ::lvmd::VolumeGroup* volume_group);
   ::lvmd::VolumeGroup* unsafe_arena_release_volume_group();
+  // int64 size = 4;
+  void clear_size() ;
+  ::int64_t size() const;
+  void set_size(::int64_t value);
+
+  private:
+  ::int64_t _internal_size() const;
+  void _internal_set_size(::int64_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:lvmd.LogicalVolume)
  private:
   class _Internal;
@@ -1668,6 +1679,7 @@ class LogicalVolume final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
     ::lvmd::VolumeGroup* volume_group_;
+    ::int64_t size_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_lvmd_2eproto;
@@ -2869,6 +2881,26 @@ inline void LogicalVolume::set_allocated_path(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:lvmd.LogicalVolume.path)
+}
+
+// int64 size = 4;
+inline void LogicalVolume::clear_size() {
+  _impl_.size_ = ::int64_t{0};
+}
+inline ::int64_t LogicalVolume::size() const {
+  // @@protoc_insertion_point(field_get:lvmd.LogicalVolume.size)
+  return _internal_size();
+}
+inline void LogicalVolume::set_size(::int64_t value) {
+  _internal_set_size(value);
+  // @@protoc_insertion_point(field_set:lvmd.LogicalVolume.size)
+}
+inline ::int64_t LogicalVolume::_internal_size() const {
+  return _impl_.size_;
+}
+inline void LogicalVolume::_internal_set_size(::int64_t value) {
+  ;
+  _impl_.size_ = value;
 }
 
 // -------------------------------------------------------------------

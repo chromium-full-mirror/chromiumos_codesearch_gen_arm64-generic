@@ -658,10 +658,14 @@ namespace printscanmgr::mojom {
 
 
 void ExecutorInterceptorForTesting::RestartUpstartJob(UpstartJob job, RestartUpstartJobCallback callback) {
-  GetForwardingInterface()->RestartUpstartJob(std::move(job), std::move(callback));
+  GetForwardingInterface()->RestartUpstartJob(
+    std::move(job)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetPpdFile(const std::string& fileName, GetPpdFileCallback callback) {
-  GetForwardingInterface()->GetPpdFile(std::move(fileName), std::move(callback));
+  GetForwardingInterface()->GetPpdFile(
+    std::move(fileName)
+    , std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}

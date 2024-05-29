@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ml/mojom/handwriting_recognizer.mojom-features.h"
-#include "ml/mojom/handwriting_recognizer.mojom-shared.h"
-#include "ml/mojom/handwriting_recognizer.mojom-forward.h"
+#include "ml/mojom/handwriting_recognizer.mojom-features.h"  // IWYU pragma: export
+#include "ml/mojom/handwriting_recognizer.mojom-shared.h"  // IWYU pragma: export
+#include "ml/mojom/handwriting_recognizer.mojom-forward.h"  // IWYU pragma: export
 #include "ml/mojom/time.mojom.h"
 #include <string>
 #include <vector>

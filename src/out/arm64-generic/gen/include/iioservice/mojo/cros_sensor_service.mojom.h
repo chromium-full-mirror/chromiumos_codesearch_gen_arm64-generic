@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "iioservice/mojo/cros_sensor_service.mojom-features.h"
-#include "iioservice/mojo/cros_sensor_service.mojom-shared.h"
-#include "iioservice/mojo/cros_sensor_service.mojom-forward.h"
+#include "iioservice/mojo/cros_sensor_service.mojom-features.h"  // IWYU pragma: export
+#include "iioservice/mojo/cros_sensor_service.mojom-shared.h"  // IWYU pragma: export
+#include "iioservice/mojo/cros_sensor_service.mojom-forward.h"  // IWYU pragma: export
 #include "iioservice/mojo/sensor.mojom-forward.h"
 #include <string>
 #include <vector>

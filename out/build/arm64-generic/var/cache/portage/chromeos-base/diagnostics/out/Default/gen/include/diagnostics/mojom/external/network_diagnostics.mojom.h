@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "diagnostics/mojom/external/network_diagnostics.mojom-features.h"
-#include "diagnostics/mojom/external/network_diagnostics.mojom-shared.h"
-#include "diagnostics/mojom/external/network_diagnostics.mojom-forward.h"
+#include "diagnostics/mojom/external/network_diagnostics.mojom-features.h"  // IWYU pragma: export
+#include "diagnostics/mojom/external/network_diagnostics.mojom-shared.h"  // IWYU pragma: export
+#include "diagnostics/mojom/external/network_diagnostics.mojom-forward.h"  // IWYU pragma: export
 #include "diagnostics/mojom/external/time.mojom.h"
 #include <string>
 #include <vector>

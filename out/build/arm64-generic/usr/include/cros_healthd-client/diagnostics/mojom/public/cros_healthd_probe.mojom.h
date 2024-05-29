@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "diagnostics/mojom/public/cros_healthd_probe.mojom-features.h"
-#include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
-#include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-features.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"  // IWYU pragma: export
 #include "diagnostics/mojom/external/network_health_types.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include <string>
@@ -14759,6 +14759,12 @@ class  TouchpadDevice {
       InputDevicePtr input_device,
       const std::string& driver_name);
 
+  TouchpadDevice(
+      InputDevicePtr input_device,
+      const std::string& driver_name,
+      const std::optional<std::string>& vendor_id,
+      const std::optional<std::string>& product_id);
+
 TouchpadDevice(const TouchpadDevice&) = delete;
 TouchpadDevice& operator=(const TouchpadDevice&) = delete;
 
@@ -14781,7 +14787,6 @@ TouchpadDevice& operator=(const TouchpadDevice&) = delete;
 
   template <typename T, TouchpadDevice::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -14841,6 +14846,10 @@ TouchpadDevice& operator=(const TouchpadDevice&) = delete;
   InputDevicePtr input_device;
   
   std::string driver_name;
+  
+  std::optional<std::string> vendor_id;
+  
+  std::optional<std::string> product_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -19823,7 +19832,9 @@ template <typename StructPtrType>
 TouchpadDevicePtr TouchpadDevice::Clone() const {
   return New(
       mojo::Clone(input_device),
-      mojo::Clone(driver_name)
+      mojo::Clone(driver_name),
+      mojo::Clone(vendor_id),
+      mojo::Clone(product_id)
   );
 }
 
@@ -19832,6 +19843,10 @@ bool TouchpadDevice::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->input_device, other_struct.input_device))
     return false;
   if (!mojo::Equals(this->driver_name, other_struct.driver_name))
+    return false;
+  if (!mojo::Equals(this->vendor_id, other_struct.vendor_id))
+    return false;
+  if (!mojo::Equals(this->product_id, other_struct.product_id))
     return false;
   return true;
 }
@@ -19845,6 +19860,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.driver_name < rhs.driver_name)
     return true;
   if (rhs.driver_name < lhs.driver_name)
+    return false;
+  if (lhs.vendor_id < rhs.vendor_id)
+    return true;
+  if (rhs.vendor_id < lhs.vendor_id)
+    return false;
+  if (lhs.product_id < rhs.product_id)
+    return true;
+  if (rhs.product_id < lhs.product_id)
     return false;
   return false;
 }
@@ -22573,6 +22596,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::TouchpadDevice::DataView,
   static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::driver_name)& driver_name(
       const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
     return input->driver_name;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::vendor_id)& vendor_id(
+      const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
+    return input->vendor_id;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchpadDevice::product_id)& product_id(
+      const ::ash::cros_healthd::mojom::TouchpadDevicePtr& input) {
+    return input->product_id;
   }
 
   static bool Read(::ash::cros_healthd::mojom::TouchpadDevice::DataView input, ::ash::cros_healthd::mojom::TouchpadDevicePtr* output);

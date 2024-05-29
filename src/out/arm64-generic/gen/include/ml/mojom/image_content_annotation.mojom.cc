@@ -861,10 +861,20 @@ namespace chromeos::machine_learning::mojom {
 
 
 void ImageContentAnnotatorInterceptorForTesting::AnnotateRawImage(::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr rgb_bytes, uint32_t width, uint32_t height, uint32_t line_stride, AnnotateRawImageCallback callback) {
-  GetForwardingInterface()->AnnotateRawImage(std::move(rgb_bytes), std::move(width), std::move(height), std::move(line_stride), std::move(callback));
+  GetForwardingInterface()->AnnotateRawImage(
+    std::move(rgb_bytes)
+    , 
+    std::move(width)
+    , 
+    std::move(height)
+    , 
+    std::move(line_stride)
+    , std::move(callback));
 }
 void ImageContentAnnotatorInterceptorForTesting::AnnotateEncodedImage(::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr encoded_image, AnnotateEncodedImageCallback callback) {
-  GetForwardingInterface()->AnnotateEncodedImage(std::move(encoded_image), std::move(callback));
+  GetForwardingInterface()->AnnotateEncodedImage(
+    std::move(encoded_image)
+    , std::move(callback));
 }
 ImageContentAnnotatorAsyncWaiter::ImageContentAnnotatorAsyncWaiter(
     ImageContentAnnotator* proxy) : proxy_(proxy) {}

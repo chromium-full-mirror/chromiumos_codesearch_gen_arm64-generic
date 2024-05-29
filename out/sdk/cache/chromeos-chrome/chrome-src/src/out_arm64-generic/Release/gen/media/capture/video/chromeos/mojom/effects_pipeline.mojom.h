@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-features.h"
-#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared.h"
-#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-forward.h"
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-features.h"  // IWYU pragma: export
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared.h"  // IWYU pragma: export
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-forward.h"  // IWYU pragma: export
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include <string>
 #include <vector>

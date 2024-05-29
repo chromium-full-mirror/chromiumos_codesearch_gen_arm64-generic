@@ -4876,16 +4876,24 @@ namespace cros::mojom {
 
 
 void Camera3CallbackOpsInterceptorForTesting::ProcessCaptureResult(Camera3CaptureResultPtr result) {
-  GetForwardingInterface()->ProcessCaptureResult(std::move(result));
+  GetForwardingInterface()->ProcessCaptureResult(
+    std::move(result)
+    );
 }
 void Camera3CallbackOpsInterceptorForTesting::Notify(Camera3NotifyMsgPtr msg) {
-  GetForwardingInterface()->Notify(std::move(msg));
+  GetForwardingInterface()->Notify(
+    std::move(msg)
+    );
 }
 void Camera3CallbackOpsInterceptorForTesting::RequestStreamBuffers(std::vector<Camera3BufferRequestPtr> buffer_reqs, RequestStreamBuffersCallback callback) {
-  GetForwardingInterface()->RequestStreamBuffers(std::move(buffer_reqs), std::move(callback));
+  GetForwardingInterface()->RequestStreamBuffers(
+    std::move(buffer_reqs)
+    , std::move(callback));
 }
 void Camera3CallbackOpsInterceptorForTesting::ReturnStreamBuffers(std::vector<Camera3StreamBufferPtr> buffers) {
-  GetForwardingInterface()->ReturnStreamBuffers(std::move(buffers));
+  GetForwardingInterface()->ReturnStreamBuffers(
+    std::move(buffers)
+    );
 }
 Camera3CallbackOpsAsyncWaiter::Camera3CallbackOpsAsyncWaiter(
     Camera3CallbackOps* proxy) : proxy_(proxy) {}
@@ -4918,40 +4926,76 @@ void Camera3CallbackOpsAsyncWaiter::RequestStreamBuffers(
 
 
 void Camera3DeviceOpsInterceptorForTesting::Initialize(::mojo::PendingRemote<Camera3CallbackOps> callback_ops, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(callback_ops), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(callback_ops)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::ConfigureStreams(Camera3StreamConfigurationPtr config, ConfigureStreamsCallback callback) {
-  GetForwardingInterface()->ConfigureStreams(std::move(config), std::move(callback));
+  GetForwardingInterface()->ConfigureStreams(
+    std::move(config)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::ConstructDefaultRequestSettings(Camera3RequestTemplate type, ConstructDefaultRequestSettingsCallback callback) {
-  GetForwardingInterface()->ConstructDefaultRequestSettings(std::move(type), std::move(callback));
+  GetForwardingInterface()->ConstructDefaultRequestSettings(
+    std::move(type)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::ProcessCaptureRequest(Camera3CaptureRequestPtr request, ProcessCaptureRequestCallback callback) {
-  GetForwardingInterface()->ProcessCaptureRequest(std::move(request), std::move(callback));
+  GetForwardingInterface()->ProcessCaptureRequest(
+    std::move(request)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::Dump(::mojo::ScopedHandle fd) {
-  GetForwardingInterface()->Dump(std::move(fd));
+  GetForwardingInterface()->Dump(
+    std::move(fd)
+    );
 }
 void Camera3DeviceOpsInterceptorForTesting::Flush(FlushCallback callback) {
   GetForwardingInterface()->Flush(std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::RegisterBuffer(uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets, RegisterBufferCallback callback) {
-  GetForwardingInterface()->RegisterBuffer(std::move(buffer_id), std::move(type), std::move(fds), std::move(drm_format), std::move(hal_pixel_format), std::move(width), std::move(height), std::move(strides), std::move(offsets), std::move(callback));
+  GetForwardingInterface()->RegisterBuffer(
+    std::move(buffer_id)
+    , 
+    std::move(type)
+    , 
+    std::move(fds)
+    , 
+    std::move(drm_format)
+    , 
+    std::move(hal_pixel_format)
+    , 
+    std::move(width)
+    , 
+    std::move(height)
+    , 
+    std::move(strides)
+    , 
+    std::move(offsets)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::Close(CloseCallback callback) {
   GetForwardingInterface()->Close(std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::ConfigureStreamsAndGetAllocatedBuffers(Camera3StreamConfigurationPtr config, ConfigureStreamsAndGetAllocatedBuffersCallback callback) {
-  GetForwardingInterface()->ConfigureStreamsAndGetAllocatedBuffers(std::move(config), std::move(callback));
+  GetForwardingInterface()->ConfigureStreamsAndGetAllocatedBuffers(
+    std::move(config)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::SignalStreamFlush(const std::vector<uint64_t>& stream_ids) {
-  GetForwardingInterface()->SignalStreamFlush(std::move(stream_ids));
+  GetForwardingInterface()->SignalStreamFlush(
+    std::move(stream_ids)
+    );
 }
 void Camera3DeviceOpsInterceptorForTesting::OnNewBuffer(CameraBufferHandlePtr buffer, OnNewBufferCallback callback) {
-  GetForwardingInterface()->OnNewBuffer(std::move(buffer), std::move(callback));
+  GetForwardingInterface()->OnNewBuffer(
+    std::move(buffer)
+    , std::move(callback));
 }
 void Camera3DeviceOpsInterceptorForTesting::OnBufferRetired(uint64_t buffer_id) {
-  GetForwardingInterface()->OnBufferRetired(std::move(buffer_id));
+  GetForwardingInterface()->OnBufferRetired(
+    std::move(buffer_id)
+    );
 }
 Camera3DeviceOpsAsyncWaiter::Camera3DeviceOpsAsyncWaiter(
     Camera3DeviceOps* proxy) : proxy_(proxy) {}

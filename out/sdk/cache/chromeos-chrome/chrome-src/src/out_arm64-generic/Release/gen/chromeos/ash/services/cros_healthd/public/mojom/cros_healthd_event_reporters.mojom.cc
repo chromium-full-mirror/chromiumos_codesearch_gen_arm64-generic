@@ -238,7 +238,9 @@ namespace ash::cros_healthd::mojom {
 
 
 void AshEventReporterInterceptorForTesting::SendKeyboardDiagnosticEvent(::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr info) {
-  GetForwardingInterface()->SendKeyboardDiagnosticEvent(std::move(info));
+  GetForwardingInterface()->SendKeyboardDiagnosticEvent(
+    std::move(info)
+    );
 }
 AshEventReporterAsyncWaiter::AshEventReporterAsyncWaiter(
     AshEventReporter* proxy) : proxy_(proxy) {}

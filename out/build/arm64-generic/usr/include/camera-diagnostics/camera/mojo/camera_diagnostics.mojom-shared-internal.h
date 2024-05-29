@@ -94,7 +94,6 @@ struct CameraIssue_Data {
       case 1:
       case 2:
       case 3:
-      case 4:
         return true;
     }
     return false;
@@ -144,8 +143,6 @@ struct DataSource_Data {
     switch (value) {
       case 0:
       case 1:
-      case 2:
-      case 3:
         return true;
     }
     return false;
@@ -174,8 +171,6 @@ struct ErrorCode_Data {
       case 3:
       case 4:
       case 5:
-      case 6:
-      case 7:
         return true;
     }
     return false;

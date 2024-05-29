@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-features.h"
-#include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-shared.h"
-#include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-forward.h"
+#include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-features.h"  // IWYU pragma: export
+#include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-shared.h"  // IWYU pragma: export
+#include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-forward.h"  // IWYU pragma: export
 #include "arc/vm/libvda/gpu/mojom/gfx.mojom.h"
 #include "arc/vm/libvda/gpu/mojom/video_common.mojom.h"
 #include <string>
@@ -104,6 +104,7 @@ template <typename ImplRefTraits>
 class VideoFramePoolClientStub;
 
 class VideoFramePoolClientRequestValidator;
+class VideoFramePoolClientResponseValidator;
 
 
 class VideoFramePoolClient
@@ -114,7 +115,7 @@ class VideoFramePoolClient
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -125,14 +126,18 @@ class VideoFramePoolClient
   using Stub_ = VideoFramePoolClientStub<ImplRefTraits>;
 
   using RequestValidator_ = VideoFramePoolClientRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = VideoFramePoolClientResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kRequestVideoFramesMinVersion = 0,
+    kDEPRECATED_RequestVideoFramesMinVersion = 0,
+    kRequestVideoFramesMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct DEPRECATED_RequestVideoFrames_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct RequestVideoFrames_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -140,7 +145,12 @@ class VideoFramePoolClient
   virtual ~VideoFramePoolClient() = default;
 
   
-  virtual void RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) = 0;
+  virtual void DEPRECATED_RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) = 0;
+
+
+  using RequestVideoFramesCallback = base::OnceCallback<void()>;
+  
+  virtual void RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames, RequestVideoFramesCallback callback) = 0;
 };
 
 
@@ -169,7 +179,9 @@ class  VideoFramePoolClientProxy
 
   explicit VideoFramePoolClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) final;
+  void DEPRECATED_RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) final;
+  
+  void RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames, RequestVideoFramesCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -265,6 +277,10 @@ class  VideoFramePoolClientRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  VideoFramePoolResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  VideoFramePoolClientResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

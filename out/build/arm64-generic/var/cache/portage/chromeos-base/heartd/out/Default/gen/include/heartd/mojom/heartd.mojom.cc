@@ -1522,7 +1522,9 @@ void HeartdControlInterceptorForTesting::EnableForceRebootAction() {
   GetForwardingInterface()->EnableForceRebootAction();
 }
 void HeartdControlInterceptorForTesting::RunAction(ActionType action, RunActionCallback callback) {
-  GetForwardingInterface()->RunAction(std::move(action), std::move(callback));
+  GetForwardingInterface()->RunAction(
+    std::move(action)
+    , std::move(callback));
 }
 HeartdControlAsyncWaiter::HeartdControlAsyncWaiter(
     HeartdControl* proxy) : proxy_(proxy) {}
@@ -1556,7 +1558,13 @@ bool HeartdControlAsyncWaiter::RunAction(
 
 
 void HeartbeatServiceInterceptorForTesting::Register(ServiceName name, HeartbeatServiceArgumentPtr argument, ::mojo::PendingReceiver<Pacemaker> receiver, RegisterCallback callback) {
-  GetForwardingInterface()->Register(std::move(name), std::move(argument), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->Register(
+    std::move(name)
+    , 
+    std::move(argument)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 HeartbeatServiceAsyncWaiter::HeartbeatServiceAsyncWaiter(
     HeartbeatService* proxy) : proxy_(proxy) {}

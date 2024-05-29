@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-features.h"
-#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-shared.h"
-#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-forward.h"
+#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-features.h"  // IWYU pragma: export
+#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-shared.h"  // IWYU pragma: export
+#include "chrome/browser/ui/webui/ash/sensor_info/sensor.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

@@ -157,7 +157,7 @@ const char* ToString(ChooseEntryType enum_param) {
     case ChooseEntryType::kNone:
       return "";
   }
-  NOTREACHED();
+  NOTREACHED_IN_MIGRATION();
   return "";
 }
 

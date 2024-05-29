@@ -5086,55 +5086,89 @@ namespace chromeos::network_diagnostics::mojom {
 
 
 void NetworkDiagnosticsRoutinesInterceptorForTesting::GetResult(RoutineType routine, GetResultCallback callback) {
-  GetForwardingInterface()->GetResult(std::move(routine), std::move(callback));
+  GetForwardingInterface()->GetResult(
+    std::move(routine)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::GetAllResults(GetAllResultsCallback callback) {
   GetForwardingInterface()->GetAllResults(std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunLanConnectivity(std::optional<RoutineCallSource> source, RunLanConnectivityCallback callback) {
-  GetForwardingInterface()->RunLanConnectivity(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunLanConnectivity(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunSignalStrength(std::optional<RoutineCallSource> source, RunSignalStrengthCallback callback) {
-  GetForwardingInterface()->RunSignalStrength(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunSignalStrength(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunGatewayCanBePinged(std::optional<RoutineCallSource> source, RunGatewayCanBePingedCallback callback) {
-  GetForwardingInterface()->RunGatewayCanBePinged(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunGatewayCanBePinged(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHasSecureWiFiConnection(std::optional<RoutineCallSource> source, RunHasSecureWiFiConnectionCallback callback) {
-  GetForwardingInterface()->RunHasSecureWiFiConnection(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunHasSecureWiFiConnection(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsResolverPresent(std::optional<RoutineCallSource> source, RunDnsResolverPresentCallback callback) {
-  GetForwardingInterface()->RunDnsResolverPresent(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunDnsResolverPresent(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsLatency(std::optional<RoutineCallSource> source, RunDnsLatencyCallback callback) {
-  GetForwardingInterface()->RunDnsLatency(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunDnsLatency(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsResolution(std::optional<RoutineCallSource> source, RunDnsResolutionCallback callback) {
-  GetForwardingInterface()->RunDnsResolution(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunDnsResolution(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunCaptivePortal(std::optional<RoutineCallSource> source, RunCaptivePortalCallback callback) {
-  GetForwardingInterface()->RunCaptivePortal(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunCaptivePortal(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpFirewall(std::optional<RoutineCallSource> source, RunHttpFirewallCallback callback) {
-  GetForwardingInterface()->RunHttpFirewall(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunHttpFirewall(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsFirewall(std::optional<RoutineCallSource> source, RunHttpsFirewallCallback callback) {
-  GetForwardingInterface()->RunHttpsFirewall(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunHttpsFirewall(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsLatency(std::optional<RoutineCallSource> source, RunHttpsLatencyCallback callback) {
-  GetForwardingInterface()->RunHttpsLatency(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunHttpsLatency(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RunVideoConferencingCallback callback) {
-  GetForwardingInterface()->RunVideoConferencing(std::move(stun_server_hostname), std::move(source), std::move(callback));
+  GetForwardingInterface()->RunVideoConferencing(
+    std::move(stun_server_hostname)
+    , 
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcHttp(std::optional<RoutineCallSource> source, RunArcHttpCallback callback) {
-  GetForwardingInterface()->RunArcHttp(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunArcHttp(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcPing(std::optional<RoutineCallSource> source, RunArcPingCallback callback) {
-  GetForwardingInterface()->RunArcPing(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunArcPing(
+    std::move(source)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcDnsResolution(std::optional<RoutineCallSource> source, RunArcDnsResolutionCallback callback) {
-  GetForwardingInterface()->RunArcDnsResolution(std::move(source), std::move(callback));
+  GetForwardingInterface()->RunArcDnsResolution(
+    std::move(source)
+    , std::move(callback));
 }
 NetworkDiagnosticsRoutinesAsyncWaiter::NetworkDiagnosticsRoutinesAsyncWaiter(
     NetworkDiagnosticsRoutines* proxy) : proxy_(proxy) {}

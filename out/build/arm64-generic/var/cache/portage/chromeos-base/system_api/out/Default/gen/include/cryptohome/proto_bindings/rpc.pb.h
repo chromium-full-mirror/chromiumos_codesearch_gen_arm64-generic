@@ -52,9 +52,6 @@ namespace cryptohome {
 class AccountIdentifier;
 struct AccountIdentifierDefaultTypeInternal;
 extern AccountIdentifierDefaultTypeInternal _AccountIdentifier_default_instance_;
-class AuthorizationRequest;
-struct AuthorizationRequestDefaultTypeInternal;
-extern AuthorizationRequestDefaultTypeInternal _AuthorizationRequest_default_instance_;
 class KeyChallengeRequest;
 struct KeyChallengeRequestDefaultTypeInternal;
 extern KeyChallengeRequestDefaultTypeInternal _KeyChallengeRequest_default_instance_;
@@ -74,8 +71,6 @@ extern SignatureKeyChallengeResponseDataDefaultTypeInternal _SignatureKeyChallen
 PROTOBUF_NAMESPACE_OPEN
 template <>
 ::cryptohome::AccountIdentifier* Arena::CreateMaybeMessage<::cryptohome::AccountIdentifier>(Arena*);
-template <>
-::cryptohome::AuthorizationRequest* Arena::CreateMaybeMessage<::cryptohome::AuthorizationRequest>(Arena*);
 template <>
 ::cryptohome::KeyChallengeRequest* Arena::CreateMaybeMessage<::cryptohome::KeyChallengeRequest>(Arena*);
 template <>
@@ -562,164 +557,6 @@ class KeyDelegate final :
   friend struct ::TableStruct_rpc_2eproto;
 };// -------------------------------------------------------------------
 
-class AuthorizationRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.AuthorizationRequest) */ {
- public:
-  inline AuthorizationRequest() : AuthorizationRequest(nullptr) {}
-  ~AuthorizationRequest() override;
-  template<typename = void>
-  explicit PROTOBUF_CONSTEXPR AuthorizationRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  AuthorizationRequest(const AuthorizationRequest& from);
-  AuthorizationRequest(AuthorizationRequest&& from) noexcept
-    : AuthorizationRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline AuthorizationRequest& operator=(const AuthorizationRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline AuthorizationRequest& operator=(AuthorizationRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const AuthorizationRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const AuthorizationRequest* internal_default_instance() {
-    return reinterpret_cast<const AuthorizationRequest*>(
-               &_AuthorizationRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(AuthorizationRequest& a, AuthorizationRequest& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(AuthorizationRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(AuthorizationRequest* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  AuthorizationRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<AuthorizationRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const AuthorizationRequest& from);
-  void MergeFrom(const AuthorizationRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  ::size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(AuthorizationRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::absl::string_view FullMessageName() {
-    return "cryptohome.AuthorizationRequest";
-  }
-  protected:
-  explicit AuthorizationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kKeyFieldNumber = 1,
-    kKeyDelegateFieldNumber = 2,
-  };
-  // optional .cryptohome.Key key = 1;
-  bool has_key() const;
-  void clear_key() ;
-  const ::cryptohome::Key& key() const;
-  PROTOBUF_NODISCARD ::cryptohome::Key* release_key();
-  ::cryptohome::Key* mutable_key();
-  void set_allocated_key(::cryptohome::Key* key);
-  private:
-  const ::cryptohome::Key& _internal_key() const;
-  ::cryptohome::Key* _internal_mutable_key();
-  public:
-  void unsafe_arena_set_allocated_key(
-      ::cryptohome::Key* key);
-  ::cryptohome::Key* unsafe_arena_release_key();
-  // optional .cryptohome.KeyDelegate key_delegate = 2;
-  bool has_key_delegate() const;
-  void clear_key_delegate() ;
-  const ::cryptohome::KeyDelegate& key_delegate() const;
-  PROTOBUF_NODISCARD ::cryptohome::KeyDelegate* release_key_delegate();
-  ::cryptohome::KeyDelegate* mutable_key_delegate();
-  void set_allocated_key_delegate(::cryptohome::KeyDelegate* key_delegate);
-  private:
-  const ::cryptohome::KeyDelegate& _internal_key_delegate() const;
-  ::cryptohome::KeyDelegate* _internal_mutable_key_delegate();
-  public:
-  void unsafe_arena_set_allocated_key_delegate(
-      ::cryptohome::KeyDelegate* key_delegate);
-  ::cryptohome::KeyDelegate* unsafe_arena_release_key_delegate();
-  // @@protoc_insertion_point(class_scope:cryptohome.AuthorizationRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-    ::cryptohome::Key* key_;
-    ::cryptohome::KeyDelegate* key_delegate_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_rpc_2eproto;
-};// -------------------------------------------------------------------
-
 class KeyChallengeRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.KeyChallengeRequest) */ {
  public:
@@ -767,7 +604,7 @@ class KeyChallengeRequest final :
                &_KeyChallengeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(KeyChallengeRequest& a, KeyChallengeRequest& b) {
     a.Swap(&b);
@@ -938,7 +775,7 @@ class SignatureKeyChallengeRequestData final :
                &_SignatureKeyChallengeRequestData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(SignatureKeyChallengeRequestData& a, SignatureKeyChallengeRequestData& b) {
     a.Swap(&b);
@@ -1123,7 +960,7 @@ class KeyChallengeResponse final :
                &_KeyChallengeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(KeyChallengeResponse& a, KeyChallengeResponse& b) {
     a.Swap(&b);
@@ -1265,7 +1102,7 @@ class SignatureKeyChallengeResponseData final :
                &_SignatureKeyChallengeResponseData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(SignatureKeyChallengeResponseData& a, SignatureKeyChallengeResponseData& b) {
     a.Swap(&b);
@@ -1645,181 +1482,6 @@ inline void KeyDelegate::set_allocated_dbus_object_path(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:cryptohome.KeyDelegate.dbus_object_path)
-}
-
-// -------------------------------------------------------------------
-
-// AuthorizationRequest
-
-// optional .cryptohome.Key key = 1;
-inline bool AuthorizationRequest::has_key() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.key_ != nullptr);
-  return value;
-}
-inline const ::cryptohome::Key& AuthorizationRequest::_internal_key() const {
-  const ::cryptohome::Key* p = _impl_.key_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::Key&>(
-      ::cryptohome::_Key_default_instance_);
-}
-inline const ::cryptohome::Key& AuthorizationRequest::key() const {
-  // @@protoc_insertion_point(field_get:cryptohome.AuthorizationRequest.key)
-  return _internal_key();
-}
-inline void AuthorizationRequest::unsafe_arena_set_allocated_key(
-    ::cryptohome::Key* key) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.key_);
-  }
-  _impl_.key_ = key;
-  if (key) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cryptohome.AuthorizationRequest.key)
-}
-inline ::cryptohome::Key* AuthorizationRequest::release_key() {
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::cryptohome::Key* temp = _impl_.key_;
-  _impl_.key_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::Key* AuthorizationRequest::unsafe_arena_release_key() {
-  // @@protoc_insertion_point(field_release:cryptohome.AuthorizationRequest.key)
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::cryptohome::Key* temp = _impl_.key_;
-  _impl_.key_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::Key* AuthorizationRequest::_internal_mutable_key() {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  if (_impl_.key_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::Key>(GetArenaForAllocation());
-    _impl_.key_ = p;
-  }
-  return _impl_.key_;
-}
-inline ::cryptohome::Key* AuthorizationRequest::mutable_key() {
-  ::cryptohome::Key* _msg = _internal_mutable_key();
-  // @@protoc_insertion_point(field_mutable:cryptohome.AuthorizationRequest.key)
-  return _msg;
-}
-inline void AuthorizationRequest::set_allocated_key(::cryptohome::Key* key) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.key_);
-  }
-  if (key) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(key));
-    if (message_arena != submessage_arena) {
-      key = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, key, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  _impl_.key_ = key;
-  // @@protoc_insertion_point(field_set_allocated:cryptohome.AuthorizationRequest.key)
-}
-
-// optional .cryptohome.KeyDelegate key_delegate = 2;
-inline bool AuthorizationRequest::has_key_delegate() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.key_delegate_ != nullptr);
-  return value;
-}
-inline void AuthorizationRequest::clear_key_delegate() {
-  if (_impl_.key_delegate_ != nullptr) _impl_.key_delegate_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline const ::cryptohome::KeyDelegate& AuthorizationRequest::_internal_key_delegate() const {
-  const ::cryptohome::KeyDelegate* p = _impl_.key_delegate_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::KeyDelegate&>(
-      ::cryptohome::_KeyDelegate_default_instance_);
-}
-inline const ::cryptohome::KeyDelegate& AuthorizationRequest::key_delegate() const {
-  // @@protoc_insertion_point(field_get:cryptohome.AuthorizationRequest.key_delegate)
-  return _internal_key_delegate();
-}
-inline void AuthorizationRequest::unsafe_arena_set_allocated_key_delegate(
-    ::cryptohome::KeyDelegate* key_delegate) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.key_delegate_);
-  }
-  _impl_.key_delegate_ = key_delegate;
-  if (key_delegate) {
-    _impl_._has_bits_[0] |= 0x00000002u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cryptohome.AuthorizationRequest.key_delegate)
-}
-inline ::cryptohome::KeyDelegate* AuthorizationRequest::release_key_delegate() {
-  _impl_._has_bits_[0] &= ~0x00000002u;
-  ::cryptohome::KeyDelegate* temp = _impl_.key_delegate_;
-  _impl_.key_delegate_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::KeyDelegate* AuthorizationRequest::unsafe_arena_release_key_delegate() {
-  // @@protoc_insertion_point(field_release:cryptohome.AuthorizationRequest.key_delegate)
-  _impl_._has_bits_[0] &= ~0x00000002u;
-  ::cryptohome::KeyDelegate* temp = _impl_.key_delegate_;
-  _impl_.key_delegate_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::KeyDelegate* AuthorizationRequest::_internal_mutable_key_delegate() {
-  _impl_._has_bits_[0] |= 0x00000002u;
-  if (_impl_.key_delegate_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::KeyDelegate>(GetArenaForAllocation());
-    _impl_.key_delegate_ = p;
-  }
-  return _impl_.key_delegate_;
-}
-inline ::cryptohome::KeyDelegate* AuthorizationRequest::mutable_key_delegate() {
-  ::cryptohome::KeyDelegate* _msg = _internal_mutable_key_delegate();
-  // @@protoc_insertion_point(field_mutable:cryptohome.AuthorizationRequest.key_delegate)
-  return _msg;
-}
-inline void AuthorizationRequest::set_allocated_key_delegate(::cryptohome::KeyDelegate* key_delegate) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.key_delegate_;
-  }
-  if (key_delegate) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(key_delegate);
-    if (message_arena != submessage_arena) {
-      key_delegate = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, key_delegate, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000002u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
-  }
-  _impl_.key_delegate_ = key_delegate;
-  // @@protoc_insertion_point(field_set_allocated:cryptohome.AuthorizationRequest.key_delegate)
 }
 
 // -------------------------------------------------------------------

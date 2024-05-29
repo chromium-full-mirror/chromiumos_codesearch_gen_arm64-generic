@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_NSS_SLOTS_SOFTWARE_FALLBACK() (0)
 
 #endif  // CHROMEOS_ASH_COMPONENTS_TPM_BUILDFLAGS_H_

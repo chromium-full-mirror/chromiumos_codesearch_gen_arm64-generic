@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ash/system/diagnostics/mojom/input.mojom-features.h"
-#include "ash/system/diagnostics/mojom/input.mojom-shared.h"
-#include "ash/system/diagnostics/mojom/input.mojom-forward.h"
+#include "ash/system/diagnostics/mojom/input.mojom-features.h"  // IWYU pragma: export
+#include "ash/system/diagnostics/mojom/input.mojom-shared.h"  // IWYU pragma: export
+#include "ash/system/diagnostics/mojom/input.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

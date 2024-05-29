@@ -950,7 +950,9 @@ namespace ml::model_loader::mojom {
 
 
 void ModelLoaderInterceptorForTesting::Load(::mojo_base::BigBuffer model_content, LoadCallback callback) {
-  GetForwardingInterface()->Load(std::move(model_content), std::move(callback));
+  GetForwardingInterface()->Load(
+    std::move(model_content)
+    , std::move(callback));
 }
 ModelLoaderAsyncWaiter::ModelLoaderAsyncWaiter(
     ModelLoader* proxy) : proxy_(proxy) {}
@@ -987,7 +989,9 @@ void ModelLoaderAsyncWaiter::Load(
 
 
 void ModelInterceptorForTesting::Compute(const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeCallback callback) {
-  GetForwardingInterface()->Compute(std::move(input_tensors), std::move(callback));
+  GetForwardingInterface()->Compute(
+    std::move(input_tensors)
+    , std::move(callback));
 }
 ModelAsyncWaiter::ModelAsyncWaiter(
     Model* proxy) : proxy_(proxy) {}

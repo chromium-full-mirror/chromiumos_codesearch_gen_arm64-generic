@@ -500,7 +500,7 @@ size_t TextEntityData::Hash(size_t seed) const {
     case Tag::kStringValue:
       return mojo::internal::Hash(seed, data_.string_value);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -1523,13 +1523,19 @@ namespace chromeos::machine_learning::mojom {
 
 
 void TextClassifierInterceptorForTesting::Annotate(TextAnnotationRequestPtr request, AnnotateCallback callback) {
-  GetForwardingInterface()->Annotate(std::move(request), std::move(callback));
+  GetForwardingInterface()->Annotate(
+    std::move(request)
+    , std::move(callback));
 }
 void TextClassifierInterceptorForTesting::FindLanguages(const std::string& text, FindLanguagesCallback callback) {
-  GetForwardingInterface()->FindLanguages(std::move(text), std::move(callback));
+  GetForwardingInterface()->FindLanguages(
+    std::move(text)
+    , std::move(callback));
 }
 void TextClassifierInterceptorForTesting::REMOVED_1(REMOVED_TextSuggestSelectionRequestPtr request, REMOVED_1Callback callback) {
-  GetForwardingInterface()->REMOVED_1(std::move(request), std::move(callback));
+  GetForwardingInterface()->REMOVED_1(
+    std::move(request)
+    , std::move(callback));
 }
 TextClassifierAsyncWaiter::TextClassifierAsyncWaiter(
     TextClassifier* proxy) : proxy_(proxy) {}

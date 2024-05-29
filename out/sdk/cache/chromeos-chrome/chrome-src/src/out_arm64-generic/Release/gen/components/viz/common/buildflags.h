@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_VIZ_DEBUGGER() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_CAST_OVERLAY_STRATEGY() (0)
 #define BUILDFLAG_INTERNAL_ALWAYS_ENABLE_BLENDING_FOR_PRIMARY() (0)

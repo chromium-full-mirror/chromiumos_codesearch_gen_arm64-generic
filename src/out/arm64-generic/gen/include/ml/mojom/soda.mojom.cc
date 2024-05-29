@@ -1876,7 +1876,9 @@ void SodaClientInterceptorForTesting::OnStop() {
   GetForwardingInterface()->OnStop();
 }
 void SodaClientInterceptorForTesting::OnSpeechRecognizerEvent(SpeechRecognizerEventPtr event) {
-  GetForwardingInterface()->OnSpeechRecognizerEvent(std::move(event));
+  GetForwardingInterface()->OnSpeechRecognizerEvent(
+    std::move(event)
+    );
 }
 SodaClientAsyncWaiter::SodaClientAsyncWaiter(
     SodaClient* proxy) : proxy_(proxy) {}
@@ -1887,7 +1889,9 @@ SodaClientAsyncWaiter::~SodaClientAsyncWaiter() = default;
 
 
 void SodaRecognizerInterceptorForTesting::AddAudio(const std::vector<uint8_t>& audio) {
-  GetForwardingInterface()->AddAudio(std::move(audio));
+  GetForwardingInterface()->AddAudio(
+    std::move(audio)
+    );
 }
 void SodaRecognizerInterceptorForTesting::Stop() {
   GetForwardingInterface()->Stop();

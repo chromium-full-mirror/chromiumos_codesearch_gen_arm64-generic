@@ -65,8 +65,7 @@ class DevicePolicyImpl : public DevicePolicy {
   std::optional<bool> GetMetricsEnabled() const override;
   std::optional<bool> GetUnenrolledHwDataUsageEnabled() const override;
   std::optional<bool> GetEnrolledHwDataUsageEnabled() const override;
-  bool GetEphemeralSettings(
-      EphemeralSettings* ephemeral_settings) const override;
+  std::optional<EphemeralSettings> GetEphemeralSettings() const override;
   std::optional<bool> GetDeviceExtendedAutoUpdateEnabled() const override;
   bool GetReleaseChannel(std::string* release_channel) const override;
   bool GetReleaseChannelDelegated(
@@ -88,10 +87,9 @@ class DevicePolicyImpl : public DevicePolicy {
   bool GetAuP2PEnabled(bool* au_p2p_enabled) const override;
   bool GetAllowKioskAppControlChromeVersion(
       bool* allow_kiosk_app_control_chrome_version) const override;
-  bool GetUsbDetachableWhitelist(
-      std::vector<UsbDeviceId>* usb_whitelist) const override;
-  bool IsEnterpriseManaged() const override;
-  bool GetSecondFactorAuthenticationMode(int* mode_out) const override;
+  std::optional<std::vector<UsbDeviceId>> GetUsbDetachableAllowlist()
+      const override;
+  std::optional<int> GetSecondFactorAuthenticationMode() const override;
   std::optional<bool> GetRunAutomaticCleanupOnLogin() const override;
   bool GetDisallowedTimeIntervals(
       std::vector<WeeklyTimeInterval>* intervals_out) const override;
@@ -99,8 +97,7 @@ class DevicePolicyImpl : public DevicePolicy {
       std::vector<DayPercentagePair>* staging_schedule_out) const override;
   bool GetDeviceQuickFixBuildToken(
       std::string* device_quick_fix_build_token) const override;
-  bool GetDeviceDirectoryApiId(
-      std::string* device_directory_api_out) const override;
+  std::optional<std::string> GetDeviceDirectoryApiId() const override;
   bool GetCustomerId(std::string* customer_id_out) const override;
   bool GetChannelDowngradeBehavior(
       int* channel_downgrade_behavior_out) const override;

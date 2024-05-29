@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_RCS_COUNT_EVERYTHING() (0)
 #define BUILDFLAG_INTERNAL_BLINK_BINDINGS_TRACE_ENABLED() (0)
 #define BUILDFLAG_INTERNAL_BLINK_BINDINGS_COOPERATIVE_SCHEDULING_ENABLED() (0)

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_CROS_SCALABLE_IPH() (0)
 
 #endif  // CHROMEOS_ASH_COMPONENTS_SCALABLE_IPH_BUILDFLAGS_H_

@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "printscanmgr/mojom/executor.mojom-features.h"
-#include "printscanmgr/mojom/executor.mojom-shared.h"
-#include "printscanmgr/mojom/executor.mojom-forward.h"
+#include "printscanmgr/mojom/executor.mojom-features.h"  // IWYU pragma: export
+#include "printscanmgr/mojom/executor.mojom-shared.h"  // IWYU pragma: export
+#include "printscanmgr/mojom/executor.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ml/mojom/text_classifier.mojom-features.h"
-#include "ml/mojom/text_classifier.mojom-shared.h"
-#include "ml/mojom/text_classifier.mojom-forward.h"
+#include "ml/mojom/text_classifier.mojom-features.h"  // IWYU pragma: export
+#include "ml/mojom/text_classifier.mojom-shared.h"  // IWYU pragma: export
+#include "ml/mojom/text_classifier.mojom-forward.h"  // IWYU pragma: export
 #include "ml/mojom/time.mojom.h"
 #include <string>
 #include <vector>

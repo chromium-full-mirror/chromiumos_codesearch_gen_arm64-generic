@@ -337,10 +337,14 @@ namespace cros::mojom {
 
 
 void JpegAcceleratorProviderInterceptorForTesting::GetJpegEncodeAccelerator(::mojo::PendingReceiver<::cros::mojom::JpegEncodeAccelerator> jea) {
-  GetForwardingInterface()->GetJpegEncodeAccelerator(std::move(jea));
+  GetForwardingInterface()->GetJpegEncodeAccelerator(
+    std::move(jea)
+    );
 }
 void JpegAcceleratorProviderInterceptorForTesting::GetMjpegDecodeAccelerator(::mojo::PendingReceiver<::cros::mojom::MjpegDecodeAccelerator> jda) {
-  GetForwardingInterface()->GetMjpegDecodeAccelerator(std::move(jda));
+  GetForwardingInterface()->GetMjpegDecodeAccelerator(
+    std::move(jda)
+    );
 }
 JpegAcceleratorProviderAsyncWaiter::JpegAcceleratorProviderAsyncWaiter(
     JpegAcceleratorProvider* proxy) : proxy_(proxy) {}

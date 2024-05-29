@@ -67,9 +67,9 @@ class MockDevicePolicy : public DevicePolicy {
               GetEnrolledHwDataUsageEnabled,
               (),
               (const, override));
-  MOCK_METHOD(bool,
+  MOCK_METHOD(std::optional<EphemeralSettings>,
               GetEphemeralSettings,
-              (EphemeralSettings*),
+              (),
               (const, override));
   MOCK_METHOD(std::optional<bool>,
               GetDeviceExtendedAutoUpdateEnabled,
@@ -94,14 +94,13 @@ class MockDevicePolicy : public DevicePolicy {
               GetAllowKioskAppControlChromeVersion,
               (bool*),
               (const, override));
-  MOCK_METHOD(bool,
-              GetUsbDetachableWhitelist,
-              (std::vector<DevicePolicy::UsbDeviceId>*),
+  MOCK_METHOD(std::optional<std::vector<DevicePolicy::UsbDeviceId>>,
+              GetUsbDetachableAllowlist,
+              (),
               (const, override));
-  MOCK_METHOD(bool, IsEnterpriseManaged, (), (const, override));
-  MOCK_METHOD(bool,
+  MOCK_METHOD(std::optional<int>,
               GetSecondFactorAuthenticationMode,
-              (int*),
+              (),
               (const, override));
   MOCK_METHOD(std::optional<bool>,
               GetRunAutomaticCleanupOnLogin,
@@ -119,7 +118,10 @@ class MockDevicePolicy : public DevicePolicy {
               GetDeviceQuickFixBuildToken,
               (std::string*),
               (const, override));
-  MOCK_METHOD(bool, GetDeviceDirectoryApiId, (std::string*), (const, override));
+  MOCK_METHOD(std::optional<std::string>,
+              GetDeviceDirectoryApiId,
+              (),
+              (const, override));
   MOCK_METHOD(bool, GetCustomerId, (std::string*), (const, override));
   MOCK_METHOD(bool, VerifyPolicySignature, (), (override));
   MOCK_METHOD(bool, GetChannelDowngradeBehavior, (int*), (const, override));

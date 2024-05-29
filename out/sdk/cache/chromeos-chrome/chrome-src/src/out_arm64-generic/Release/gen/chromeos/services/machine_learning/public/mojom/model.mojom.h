@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/services/machine_learning/public/mojom/model.mojom-features.h"
-#include "chromeos/services/machine_learning/public/mojom/model.mojom-shared.h"
-#include "chromeos/services/machine_learning/public/mojom/model.mojom-forward.h"
+#include "chromeos/services/machine_learning/public/mojom/model.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/model.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/model.mojom-forward.h"  // IWYU pragma: export
 #include "chromeos/services/machine_learning/public/mojom/graph_executor.mojom-forward.h"
 #include <string>
 #include <vector>

@@ -1684,7 +1684,11 @@ namespace smbfs::mojom {
 
 
 void SmbFsBootstrapInterceptorForTesting::MountShare(MountOptionsPtr options, ::mojo::PendingRemote<SmbFsDelegate> delegate, MountShareCallback callback) {
-  GetForwardingInterface()->MountShare(std::move(options), std::move(delegate), std::move(callback));
+  GetForwardingInterface()->MountShare(
+    std::move(options)
+    , 
+    std::move(delegate)
+    , std::move(callback));
 }
 SmbFsBootstrapAsyncWaiter::SmbFsBootstrapAsyncWaiter(
     SmbFsBootstrap* proxy) : proxy_(proxy) {}
@@ -1720,7 +1724,9 @@ void SmbFsInterceptorForTesting::RemoveSavedCredentials(RemoveSavedCredentialsCa
   GetForwardingInterface()->RemoveSavedCredentials(std::move(callback));
 }
 void SmbFsInterceptorForTesting::DeleteRecursively(const base::FilePath& path, DeleteRecursivelyCallback callback) {
-  GetForwardingInterface()->DeleteRecursively(std::move(path), std::move(callback));
+  GetForwardingInterface()->DeleteRecursively(
+    std::move(path)
+    , std::move(callback));
 }
 SmbFsAsyncWaiter::SmbFsAsyncWaiter(
     SmbFs* proxy) : proxy_(proxy) {}

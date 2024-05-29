@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_HIDPI() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_MESSAGE_CENTER() (1)
 #define BUILDFLAG_INTERNAL_USE_ATK() (0)

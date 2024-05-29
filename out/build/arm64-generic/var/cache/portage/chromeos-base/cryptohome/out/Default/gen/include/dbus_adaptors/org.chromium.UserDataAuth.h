@@ -121,9 +121,6 @@ class UserDataAuthInterfaceInterface {
   virtual void TerminateAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::TerminateAuthFactorReply>> response,
       const user_data_auth::TerminateAuthFactorRequest& in_request) = 0;
-  virtual void GetRecoveryRequest(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRecoveryRequestReply>> response,
-      const user_data_auth::GetRecoveryRequestRequest& in_request) = 0;
   virtual void LockFactorUntilReboot(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::LockFactorUntilRebootReply>> response,
       const user_data_auth::LockFactorUntilRebootRequest& in_request) = 0;
@@ -283,10 +280,6 @@ class UserDataAuthInterfaceAdaptor {
         "TerminateAuthFactor",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::TerminateAuthFactor);
-    itf->AddMethodHandler(
-        "GetRecoveryRequest",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::GetRecoveryRequest);
     itf->AddMethodHandler(
         "LockFactorUntilReboot",
         base::Unretained(interface_),
@@ -552,10 +545,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"TerminateAuthFactor\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetRecoveryRequest\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

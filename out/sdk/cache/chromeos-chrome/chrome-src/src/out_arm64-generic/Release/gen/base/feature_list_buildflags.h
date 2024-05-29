@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_BANNED_BASE_FEATURE_PREFIX() (1)
 #define BUILDFLAG_INTERNAL_BANNED_BASE_FEATURE_PREFIX() ("CrOSLateBoot")
 

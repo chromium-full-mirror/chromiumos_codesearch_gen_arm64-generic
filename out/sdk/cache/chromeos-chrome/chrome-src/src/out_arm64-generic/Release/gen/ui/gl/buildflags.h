@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_DAWN_ENABLE_BACKEND_OPENGLES() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_SWIFTSHADER() (1)
 #define BUILDFLAG_INTERNAL_USE_DAWN() (1)

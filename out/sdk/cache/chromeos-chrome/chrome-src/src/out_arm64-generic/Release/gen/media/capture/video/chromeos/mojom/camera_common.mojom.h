@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "media/capture/video/chromeos/mojom/camera_common.mojom-features.h"
-#include "media/capture/video/chromeos/mojom/camera_common.mojom-shared.h"
-#include "media/capture/video/chromeos/mojom/camera_common.mojom-forward.h"
+#include "media/capture/video/chromeos/mojom/camera_common.mojom-features.h"  // IWYU pragma: export
+#include "media/capture/video/chromeos/mojom/camera_common.mojom-shared.h"  // IWYU pragma: export
+#include "media/capture/video/chromeos/mojom/camera_common.mojom-forward.h"  // IWYU pragma: export
 #include "media/capture/video/chromeos/mojom/camera3.mojom-forward.h"
 #include "media/capture/video/chromeos/mojom/camera_metadata.mojom.h"
 #include <string>

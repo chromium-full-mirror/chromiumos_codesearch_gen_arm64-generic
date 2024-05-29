@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-features.h"
-#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-shared.h"
-#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-forward.h"
+#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-features.h"  // IWYU pragma: export
+#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-shared.h"  // IWYU pragma: export
+#include "arc/vm/libvda/gpu/mojom/video_decoder.mojom-forward.h"  // IWYU pragma: export
 #include "arc/vm/libvda/gpu/mojom/gfx.mojom.h"
 #include "arc/vm/libvda/gpu/mojom/video_common.mojom-forward.h"
 #include "arc/vm/libvda/gpu/mojom/video_frame_pool.mojom-forward.h"

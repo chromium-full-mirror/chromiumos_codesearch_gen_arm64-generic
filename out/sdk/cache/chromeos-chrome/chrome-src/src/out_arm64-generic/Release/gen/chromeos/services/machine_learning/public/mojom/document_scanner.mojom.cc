@@ -1110,13 +1110,23 @@ namespace chromeos::machine_learning::mojom {
 
 
 void DocumentScannerInterceptorForTesting::DetectCornersFromNV12Image(::base::ReadOnlySharedMemoryRegion nv12_image, DetectCornersFromNV12ImageCallback callback) {
-  GetForwardingInterface()->DetectCornersFromNV12Image(std::move(nv12_image), std::move(callback));
+  GetForwardingInterface()->DetectCornersFromNV12Image(
+    std::move(nv12_image)
+    , std::move(callback));
 }
 void DocumentScannerInterceptorForTesting::DetectCornersFromJPEGImage(::base::ReadOnlySharedMemoryRegion jpeg_image, DetectCornersFromJPEGImageCallback callback) {
-  GetForwardingInterface()->DetectCornersFromJPEGImage(std::move(jpeg_image), std::move(callback));
+  GetForwardingInterface()->DetectCornersFromJPEGImage(
+    std::move(jpeg_image)
+    , std::move(callback));
 }
 void DocumentScannerInterceptorForTesting::DoPostProcessing(::base::ReadOnlySharedMemoryRegion jpeg_image, const std::vector<::gfx::PointF>& corners, ::chromeos::machine_learning::mojom::Rotation rotation, DoPostProcessingCallback callback) {
-  GetForwardingInterface()->DoPostProcessing(std::move(jpeg_image), std::move(corners), std::move(rotation), std::move(callback));
+  GetForwardingInterface()->DoPostProcessing(
+    std::move(jpeg_image)
+    , 
+    std::move(corners)
+    , 
+    std::move(rotation)
+    , std::move(callback));
 }
 DocumentScannerAsyncWaiter::DocumentScannerAsyncWaiter(
     DocumentScanner* proxy) : proxy_(proxy) {}

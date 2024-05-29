@@ -46,6 +46,7 @@ class CameraAvailabilityRoutineArgument_Data;
 class UrandomRoutineArgument_Data;
 class NetworkBandwidthRoutineArgument_Data;
 class SensitiveSensorRoutineArgument_Data;
+class CameraFrameAnalysisRoutineArgument_Data;
 class RoutineState_Data;
 class RoutineStateInitialized_Data;
 class RoutineStateRunning_Data;
@@ -72,6 +73,7 @@ class NetworkBandwidthRoutineDetail_Data;
 class SensitiveSensorInfo_Data;
 class SensitiveSensorReport_Data;
 class SensitiveSensorRoutineDetail_Data;
+class CameraFrameAnalysisRoutineDetail_Data;
 class RoutineArgument_Data;
 class RoutineStateUnion_Data;
 class RoutineRunningInfo_Data;
@@ -462,6 +464,33 @@ struct SensitiveSensorInfo_Type_Data {
   }
 };
 
+struct CameraFrameAnalysisRoutineDetail_Issue_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -533,6 +562,8 @@ class  RoutineArgument_Data {
     kNetworkBandwidth,
     
     kSensitiveSensor,
+    
+    kCameraFrameAnalysis,
   };
 
   // A note on layout:
@@ -560,6 +591,7 @@ class  RoutineArgument_Data {
     mojo::internal::Pointer<internal::UrandomRoutineArgument_Data> f_urandom;
     mojo::internal::Pointer<internal::NetworkBandwidthRoutineArgument_Data> f_network_bandwidth;
     mojo::internal::Pointer<internal::SensitiveSensorRoutineArgument_Data> f_sensitive_sensor;
+    mojo::internal::Pointer<internal::CameraFrameAnalysisRoutineArgument_Data> f_camera_frame_analysis;
     uint64_t unknown;
   };
 
@@ -892,6 +924,8 @@ class  RoutineDetail_Data {
     kNetworkBandwidth,
     
     kSensitiveSensor,
+    
+    kCameraFrameAnalysis,
   };
 
   // A note on layout:
@@ -911,6 +945,7 @@ class  RoutineDetail_Data {
     mojo::internal::Pointer<internal::CameraAvailabilityRoutineDetail_Data> f_camera_availability;
     mojo::internal::Pointer<internal::NetworkBandwidthRoutineDetail_Data> f_network_bandwidth;
     mojo::internal::Pointer<internal::SensitiveSensorRoutineDetail_Data> f_sensitive_sensor;
+    mojo::internal::Pointer<internal::CameraFrameAnalysisRoutineDetail_Data> f_camera_frame_analysis;
     uint64_t unknown;
   };
 
@@ -1834,6 +1869,53 @@ struct SensitiveSensorRoutineArgument_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SensitiveSensorRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CameraFrameAnalysisRoutineArgument_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraFrameAnalysisRoutineArgument_Data>;
+
+  CameraFrameAnalysisRoutineArgument_Data();
+  ~CameraFrameAnalysisRoutineArgument_Data() = delete;
+};
+static_assert(sizeof(CameraFrameAnalysisRoutineArgument_Data) == 8,
+              "Bad sizeof(CameraFrameAnalysisRoutineArgument_Data)");
+// Used by CameraFrameAnalysisRoutineArgument::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CameraFrameAnalysisRoutineArgument_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CameraFrameAnalysisRoutineArgument_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CameraFrameAnalysisRoutineArgument_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CameraFrameAnalysisRoutineArgument_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CameraFrameAnalysisRoutineArgument_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  RoutineState_Data {
  public:
   static bool Validate(const void* data,
@@ -3133,6 +3215,57 @@ struct SensitiveSensorRoutineDetail_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SensitiveSensorRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CameraFrameAnalysisRoutineDetail_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t issue;
+  int32_t privacy_shutter_open_test;
+  int32_t lens_not_dirty_test;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraFrameAnalysisRoutineDetail_Data>;
+
+  CameraFrameAnalysisRoutineDetail_Data();
+  ~CameraFrameAnalysisRoutineDetail_Data() = delete;
+};
+static_assert(sizeof(CameraFrameAnalysisRoutineDetail_Data) == 24,
+              "Bad sizeof(CameraFrameAnalysisRoutineDetail_Data)");
+// Used by CameraFrameAnalysisRoutineDetail::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CameraFrameAnalysisRoutineDetail_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CameraFrameAnalysisRoutineDetail_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CameraFrameAnalysisRoutineDetail_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CameraFrameAnalysisRoutineDetail_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CameraFrameAnalysisRoutineDetail_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

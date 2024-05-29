@@ -4765,7 +4765,9 @@ namespace chromeos::network_diagnostics::mojom {
 
 
 void NetworkDiagnosticsRoutinesInterceptorForTesting::GetResult(RoutineType routine, GetResultCallback callback) {
-  GetForwardingInterface()->GetResult(std::move(routine), std::move(callback));
+  GetForwardingInterface()->GetResult(
+    std::move(routine)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::GetAllResults(GetAllResultsCallback callback) {
   GetForwardingInterface()->GetAllResults(std::move(callback));
@@ -4804,7 +4806,9 @@ void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsLatency(RunHttpsLa
   GetForwardingInterface()->RunHttpsLatency(std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) {
-  GetForwardingInterface()->RunVideoConferencing(std::move(stun_server_hostname), std::move(callback));
+  GetForwardingInterface()->RunVideoConferencing(
+    std::move(stun_server_hostname)
+    , std::move(callback));
 }
 void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcHttp(RunArcHttpCallback callback) {
   GetForwardingInterface()->RunArcHttp(std::move(callback));

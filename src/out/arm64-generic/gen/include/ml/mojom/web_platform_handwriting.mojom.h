@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ml/mojom/web_platform_handwriting.mojom-features.h"
-#include "ml/mojom/web_platform_handwriting.mojom-shared.h"
-#include "ml/mojom/web_platform_handwriting.mojom-forward.h"
+#include "ml/mojom/web_platform_handwriting.mojom-features.h"  // IWYU pragma: export
+#include "ml/mojom/web_platform_handwriting.mojom-shared.h"  // IWYU pragma: export
+#include "ml/mojom/web_platform_handwriting.mojom-forward.h"  // IWYU pragma: export
 #include "ml/mojom/time.mojom.h"
 #include "ml/mojom/geometry.mojom.h"
 #include <string>

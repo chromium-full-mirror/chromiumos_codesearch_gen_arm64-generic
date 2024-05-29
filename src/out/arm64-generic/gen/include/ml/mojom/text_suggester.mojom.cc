@@ -303,7 +303,7 @@ size_t TextSuggestionCandidate::Hash(size_t seed) const {
     case Tag::kMultiWord:
       return mojo::internal::Hash(seed, data_.multi_word);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -766,7 +766,9 @@ namespace chromeos::machine_learning::mojom {
 
 
 void TextSuggesterInterceptorForTesting::Suggest(TextSuggesterQueryPtr query, SuggestCallback callback) {
-  GetForwardingInterface()->Suggest(std::move(query), std::move(callback));
+  GetForwardingInterface()->Suggest(
+    std::move(query)
+    , std::move(callback));
 }
 TextSuggesterAsyncWaiter::TextSuggesterAsyncWaiter(
     TextSuggester* proxy) : proxy_(proxy) {}

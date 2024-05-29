@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_SPEECH_SERVICE() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_BROWSER_SPEECH_SERVICE() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_SERVER_BASED_RECOGNITION_RECOGNIZER() (0)

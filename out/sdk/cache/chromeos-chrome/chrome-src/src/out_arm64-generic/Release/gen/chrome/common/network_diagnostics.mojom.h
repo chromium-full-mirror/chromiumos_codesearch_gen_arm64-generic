@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chrome/common/network_diagnostics.mojom-features.h"
-#include "chrome/common/network_diagnostics.mojom-shared.h"
-#include "chrome/common/network_diagnostics.mojom-forward.h"
+#include "chrome/common/network_diagnostics.mojom-features.h"  // IWYU pragma: export
+#include "chrome/common/network_diagnostics.mojom-shared.h"  // IWYU pragma: export
+#include "chrome/common/network_diagnostics.mojom-forward.h"  // IWYU pragma: export
 #include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>

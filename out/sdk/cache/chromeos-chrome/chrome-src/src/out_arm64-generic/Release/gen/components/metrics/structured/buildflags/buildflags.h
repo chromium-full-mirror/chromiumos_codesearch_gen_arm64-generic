@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_STRUCTURED_METRICS_ENABLED() (1)
 #define BUILDFLAG_INTERNAL_STRUCTURED_METRICS_DEBUG_ENABLED() (1)
 

@@ -5926,20 +5926,29 @@ bool TouchscreenDevice::Validate(
 }
 TouchpadDevice::TouchpadDevice()
     : input_device(),
-      driver_name() {}
+      driver_name(),
+      vendor_id(),
+      product_id() {}
 
 TouchpadDevice::TouchpadDevice(
     InputDevicePtr input_device_in,
     const std::string& driver_name_in)
     : input_device(std::move(input_device_in)),
-      driver_name(std::move(driver_name_in)) {}
+      driver_name(std::move(driver_name_in)),
+      vendor_id(),
+      product_id() {}
+
+TouchpadDevice::TouchpadDevice(
+    InputDevicePtr input_device_in,
+    const std::string& driver_name_in,
+    const std::optional<std::string>& vendor_id_in,
+    const std::optional<std::string>& product_id_in)
+    : input_device(std::move(input_device_in)),
+      driver_name(std::move(driver_name_in)),
+      vendor_id(std::move(vendor_id_in)),
+      product_id(std::move(product_id_in)) {}
 
 TouchpadDevice::~TouchpadDevice() = default;
-size_t TouchpadDevice::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->input_device);
-  seed = mojo::internal::Hash(seed, this->driver_name);
-  return seed;
-}
 
 void TouchpadDevice::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -5958,6 +5967,24 @@ void TouchpadDevice::WriteIntoTrace(
       "driver_name"), this->driver_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "vendor_id"), this->vendor_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "product_id"), this->product_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7032,7 +7059,7 @@ size_t BlockDeviceVendor::Hash(size_t seed) const {
     case Tag::kJedecManfid:
       return mojo::internal::Hash(seed, data_.jedec_manfid);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7114,7 +7141,7 @@ size_t BlockDeviceProduct::Hash(size_t seed) const {
     case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7196,7 +7223,7 @@ size_t BlockDeviceRevision::Hash(size_t seed) const {
     case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7291,7 +7318,7 @@ size_t BlockDeviceFirmware::Hash(size_t seed) const {
     case Tag::kUfsFwrev:
       return mojo::internal::Hash(seed, data_.ufs_fwrev);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7385,7 +7412,7 @@ size_t BlockDeviceInfo::Hash(size_t seed) const {
     case Tag::kUfsDeviceInfo:
       return mojo::internal::Hash(seed, data_.ufs_device_info);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7500,7 +7527,7 @@ size_t TimezoneResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7717,7 +7744,7 @@ size_t StatefulPartitionResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -7815,7 +7842,7 @@ size_t DEPRECATED_SystemResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -10062,6 +10089,10 @@ bool StructTraits<::ash::cros_healthd::mojom::TouchpadDevice::DataView, ::ash::c
       if (success && !input.ReadInputDevice(&result->input_device))
         success = false;
       if (success && !input.ReadDriverName(&result->driver_name))
+        success = false;
+      if (success && !input.ReadVendorId(&result->vendor_id))
+        success = false;
+      if (success && !input.ReadProductId(&result->product_id))
         success = false;
   *output = std::move(result);
   return success;

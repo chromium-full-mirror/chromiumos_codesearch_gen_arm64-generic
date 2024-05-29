@@ -121,9 +121,11 @@ CRDTP_BEGIN_DESERIALIZER(ResourceTiming)
     CRDTP_DESERIALIZE_FIELD("sendStart", m_sendStart),
     CRDTP_DESERIALIZE_FIELD("sslEnd", m_sslEnd),
     CRDTP_DESERIALIZE_FIELD("sslStart", m_sslStart),
+    CRDTP_DESERIALIZE_FIELD_OPT("workerCacheLookupStart", m_workerCacheLookupStart),
     CRDTP_DESERIALIZE_FIELD("workerFetchStart", m_workerFetchStart),
     CRDTP_DESERIALIZE_FIELD("workerReady", m_workerReady),
     CRDTP_DESERIALIZE_FIELD("workerRespondWithSettled", m_workerRespondWithSettled),
+    CRDTP_DESERIALIZE_FIELD_OPT("workerRouterEvaluationStart", m_workerRouterEvaluationStart),
     CRDTP_DESERIALIZE_FIELD("workerStart", m_workerStart),
 CRDTP_END_DESERIALIZER()
 
@@ -141,6 +143,8 @@ CRDTP_BEGIN_SERIALIZER(ResourceTiming)
     CRDTP_SERIALIZE_FIELD("workerReady", m_workerReady);
     CRDTP_SERIALIZE_FIELD("workerFetchStart", m_workerFetchStart);
     CRDTP_SERIALIZE_FIELD("workerRespondWithSettled", m_workerRespondWithSettled);
+    CRDTP_SERIALIZE_FIELD("workerRouterEvaluationStart", m_workerRouterEvaluationStart);
+    CRDTP_SERIALIZE_FIELD("workerCacheLookupStart", m_workerCacheLookupStart);
     CRDTP_SERIALIZE_FIELD("sendStart", m_sendStart);
     CRDTP_SERIALIZE_FIELD("sendEnd", m_sendEnd);
     CRDTP_SERIALIZE_FIELD("pushStart", m_pushStart);
@@ -394,6 +398,7 @@ const char RaceNetworkAndFetchHandler[] = "race-network-and-fetch-handler";
 
 
 CRDTP_BEGIN_DESERIALIZER(ServiceWorkerRouterInfo)
+    CRDTP_DESERIALIZE_FIELD_OPT("actualSourceType", m_actualSourceType),
     CRDTP_DESERIALIZE_FIELD_OPT("matchedSourceType", m_matchedSourceType),
     CRDTP_DESERIALIZE_FIELD_OPT("ruleIdMatched", m_ruleIdMatched),
 CRDTP_END_DESERIALIZER()
@@ -401,6 +406,7 @@ CRDTP_END_DESERIALIZER()
 CRDTP_BEGIN_SERIALIZER(ServiceWorkerRouterInfo)
     CRDTP_SERIALIZE_FIELD("ruleIdMatched", m_ruleIdMatched);
     CRDTP_SERIALIZE_FIELD("matchedSourceType", m_matchedSourceType);
+    CRDTP_SERIALIZE_FIELD("actualSourceType", m_actualSourceType);
 CRDTP_END_SERIALIZER();
 
 
@@ -586,6 +592,7 @@ const char EnterprisePolicy[] = "EnterprisePolicy";
 const char StorageAccess[] = "StorageAccess";
 const char TopLevelStorageAccess[] = "TopLevelStorageAccess";
 const char CorsOptIn[] = "CorsOptIn";
+const char Scheme[] = "Scheme";
 } // namespace CookieExemptionReasonEnum
 
 

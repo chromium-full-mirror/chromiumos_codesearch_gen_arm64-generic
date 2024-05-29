@@ -37,7 +37,8 @@ class  VideoFramePoolAsyncWaiter {
 
 class  VideoFramePoolClientInterceptorForTesting : public VideoFramePoolClient {
   virtual VideoFramePoolClient* GetForwardingInterface() = 0;
-  void RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) override;
+  void DEPRECATED_RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) override;
+  void RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames, RequestVideoFramesCallback callback) override;
 };
 class  VideoFramePoolClientAsyncWaiter {
  public:
@@ -47,6 +48,9 @@ class  VideoFramePoolClientAsyncWaiter {
   VideoFramePoolClientAsyncWaiter& operator=(const VideoFramePoolClientAsyncWaiter&) = delete;
 
   ~VideoFramePoolClientAsyncWaiter();
+  void RequestVideoFrames(
+      ::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames);
+  
 
  private:
   VideoFramePoolClient* const proxy_;

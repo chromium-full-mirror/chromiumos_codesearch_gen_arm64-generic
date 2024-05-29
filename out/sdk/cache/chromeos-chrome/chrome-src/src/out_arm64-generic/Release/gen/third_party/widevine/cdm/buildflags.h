@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_WIDEVINE() (0)
 #define BUILDFLAG_INTERNAL_BUNDLE_WIDEVINE_CDM() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_WIDEVINE_CDM_COMPONENT() (0)

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_MERGE_REQUEST() (0)
 
 #endif  // CHROMEOS_COMPONENTS_LIBSEGMENTATION_BUILDFLAGS_H_

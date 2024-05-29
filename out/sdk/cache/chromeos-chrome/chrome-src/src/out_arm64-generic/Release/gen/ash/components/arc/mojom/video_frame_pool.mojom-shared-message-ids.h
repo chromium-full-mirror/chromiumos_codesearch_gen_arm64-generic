@@ -19,7 +19,8 @@ enum class VideoFramePool : uint32_t {
   kAddVideoFrame = 1,
 };
 enum class VideoFramePoolClient : uint32_t {
-  kRequestVideoFrames = 0,
+  kDEPRECATED_RequestVideoFrames = 0,
+  kRequestVideoFrames = 1,
 };
 
 }  // namespace messages

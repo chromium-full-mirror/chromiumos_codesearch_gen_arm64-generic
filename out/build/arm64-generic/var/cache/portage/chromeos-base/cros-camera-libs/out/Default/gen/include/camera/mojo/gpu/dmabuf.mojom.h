@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "camera/mojo/gpu/dmabuf.mojom-features.h"
-#include "camera/mojo/gpu/dmabuf.mojom-shared.h"
-#include "camera/mojo/gpu/dmabuf.mojom-forward.h"
+#include "camera/mojo/gpu/dmabuf.mojom-features.h"  // IWYU pragma: export
+#include "camera/mojo/gpu/dmabuf.mojom-shared.h"  // IWYU pragma: export
+#include "camera/mojo/gpu/dmabuf.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

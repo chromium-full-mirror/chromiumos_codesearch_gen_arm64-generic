@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/ash/components/smbfs/mojom/ip_address.mojom-features.h"
-#include "chromeos/ash/components/smbfs/mojom/ip_address.mojom-shared.h"
-#include "chromeos/ash/components/smbfs/mojom/ip_address.mojom-forward.h"
+#include "chromeos/ash/components/smbfs/mojom/ip_address.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/ash/components/smbfs/mojom/ip_address.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/ash/components/smbfs/mojom/ip_address.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-features.h"
-#include "camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-shared.h"
-#include "camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-forward.h"
+#include "camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-features.h"  // IWYU pragma: export
+#include "camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-shared.h"  // IWYU pragma: export
+#include "camera/common/basic_ops_perf_tests/mojom/mojo_perf_test.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

@@ -1286,10 +1286,14 @@ void ChromiumDataCollectorInterceptorForTesting::GetTouchpadLibraryName(GetTouch
   GetForwardingInterface()->GetTouchpadLibraryName(std::move(callback));
 }
 void ChromiumDataCollectorInterceptorForTesting::SetPrivacyScreenState(bool state, SetPrivacyScreenStateCallback callback) {
-  GetForwardingInterface()->SetPrivacyScreenState(std::move(state), std::move(callback));
+  GetForwardingInterface()->SetPrivacyScreenState(
+    std::move(state)
+    , std::move(callback));
 }
 void ChromiumDataCollectorInterceptorForTesting::DEPRECATED_SetAudioOutputMute(bool mute_on, DEPRECATED_SetAudioOutputMuteCallback callback) {
-  GetForwardingInterface()->DEPRECATED_SetAudioOutputMute(std::move(mute_on), std::move(callback));
+  GetForwardingInterface()->DEPRECATED_SetAudioOutputMute(
+    std::move(mute_on)
+    , std::move(callback));
 }
 ChromiumDataCollectorAsyncWaiter::ChromiumDataCollectorAsyncWaiter(
     ChromiumDataCollector* proxy) : proxy_(proxy) {}

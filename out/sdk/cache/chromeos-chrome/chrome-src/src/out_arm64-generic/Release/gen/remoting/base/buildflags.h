@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_REMOTING_INTERNAL() (0)
 
 #endif  // REMOTING_BASE_BUILDFLAGS_H_

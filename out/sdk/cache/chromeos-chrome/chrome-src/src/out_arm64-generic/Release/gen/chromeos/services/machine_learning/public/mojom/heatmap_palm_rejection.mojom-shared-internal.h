@@ -28,6 +28,7 @@ namespace chromeos::machine_learning::mojom {
 namespace internal {
 class HeatmapPalmRejectionConfig_Data;
 class HeatmapProcessedEvent_Data;
+class CropHeatmap_Data;
 
 struct LoadHeatmapPalmRejectionResult_Data {
  public:
@@ -40,6 +41,8 @@ struct LoadHeatmapPalmRejectionResult_Data {
       case 2:
       case 3:
       case 4:
+      case 5:
+      case 6:
         return true;
     }
     return false;
@@ -68,6 +71,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) HeatmapPalmRejectionConfig_Data {
   uint32_t input_node;
   uint32_t output_node;
   double palm_threshold;
+  mojo::internal::Pointer<internal::CropHeatmap_Data> crop_heatmap;
 
  private:
   friend class mojo::internal::MessageFragment<HeatmapPalmRejectionConfig_Data>;
@@ -75,7 +79,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) HeatmapPalmRejectionConfig_Data {
   HeatmapPalmRejectionConfig_Data();
   ~HeatmapPalmRejectionConfig_Data() = delete;
 };
-static_assert(sizeof(HeatmapPalmRejectionConfig_Data) == 40,
+static_assert(sizeof(HeatmapPalmRejectionConfig_Data) == 48,
               "Bad sizeof(HeatmapPalmRejectionConfig_Data)");
 // Used by HeatmapPalmRejectionConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -159,6 +163,58 @@ struct HeatmapProcessedEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     HeatmapProcessedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) CropHeatmap_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t bottom_crop;
+  uint8_t left_crop;
+  uint8_t right_crop;
+  uint8_t top_crop;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CropHeatmap_Data>;
+
+  CropHeatmap_Data();
+  ~CropHeatmap_Data() = delete;
+};
+static_assert(sizeof(CropHeatmap_Data) == 16,
+              "Bad sizeof(CropHeatmap_Data)");
+// Used by CropHeatmap::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CropHeatmap_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CropHeatmap_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CropHeatmap_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CropHeatmap_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CropHeatmap_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

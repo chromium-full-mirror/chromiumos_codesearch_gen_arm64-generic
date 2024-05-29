@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_FEED_V2() (1)
 
 #endif  // COMPONENTS_FEED_BUILDFLAGS_H_

@@ -50,7 +50,8 @@ HeatmapPalmRejectionConfig::HeatmapPalmRejectionConfig()
       heatmap_hidraw_device(),
       input_node(),
       output_node(),
-      palm_threshold() {}
+      palm_threshold(),
+      crop_heatmap() {}
 
 HeatmapPalmRejectionConfig::HeatmapPalmRejectionConfig(
     const std::string& tf_model_path_in,
@@ -61,7 +62,8 @@ HeatmapPalmRejectionConfig::HeatmapPalmRejectionConfig(
       heatmap_hidraw_device(std::move(heatmap_hidraw_device_in)),
       input_node(std::move(input_node_in)),
       output_node(std::move(output_node_in)),
-      palm_threshold() {}
+      palm_threshold(),
+      crop_heatmap() {}
 
 HeatmapPalmRejectionConfig::HeatmapPalmRejectionConfig(
     const std::string& tf_model_path_in,
@@ -73,17 +75,24 @@ HeatmapPalmRejectionConfig::HeatmapPalmRejectionConfig(
       heatmap_hidraw_device(std::move(heatmap_hidraw_device_in)),
       input_node(std::move(input_node_in)),
       output_node(std::move(output_node_in)),
-      palm_threshold(std::move(palm_threshold_in)) {}
+      palm_threshold(std::move(palm_threshold_in)),
+      crop_heatmap() {}
+
+HeatmapPalmRejectionConfig::HeatmapPalmRejectionConfig(
+    const std::string& tf_model_path_in,
+    const std::string& heatmap_hidraw_device_in,
+    uint32_t input_node_in,
+    uint32_t output_node_in,
+    double palm_threshold_in,
+    CropHeatmapPtr crop_heatmap_in)
+    : tf_model_path(std::move(tf_model_path_in)),
+      heatmap_hidraw_device(std::move(heatmap_hidraw_device_in)),
+      input_node(std::move(input_node_in)),
+      output_node(std::move(output_node_in)),
+      palm_threshold(std::move(palm_threshold_in)),
+      crop_heatmap(std::move(crop_heatmap_in)) {}
 
 HeatmapPalmRejectionConfig::~HeatmapPalmRejectionConfig() = default;
-size_t HeatmapPalmRejectionConfig::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->tf_model_path);
-  seed = mojo::internal::Hash(seed, this->heatmap_hidraw_device);
-  seed = mojo::internal::Hash(seed, this->input_node);
-  seed = mojo::internal::Hash(seed, this->output_node);
-  seed = mojo::internal::Hash(seed, this->palm_threshold);
-  return seed;
-}
 
 void HeatmapPalmRejectionConfig::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -133,6 +142,15 @@ void HeatmapPalmRejectionConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "crop_heatmap"), this->crop_heatmap,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CropHeatmapPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool HeatmapPalmRejectionConfig::Validate(
@@ -176,6 +194,77 @@ void HeatmapProcessedEvent::WriteIntoTrace(
 }
 
 bool HeatmapProcessedEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CropHeatmap::CropHeatmap()
+    : bottom_crop(),
+      left_crop(),
+      right_crop(),
+      top_crop() {}
+
+CropHeatmap::CropHeatmap(
+    uint8_t bottom_crop_in,
+    uint8_t left_crop_in,
+    uint8_t right_crop_in,
+    uint8_t top_crop_in)
+    : bottom_crop(std::move(bottom_crop_in)),
+      left_crop(std::move(left_crop_in)),
+      right_crop(std::move(right_crop_in)),
+      top_crop(std::move(top_crop_in)) {}
+
+CropHeatmap::~CropHeatmap() = default;
+size_t CropHeatmap::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->bottom_crop);
+  seed = mojo::internal::Hash(seed, this->left_crop);
+  seed = mojo::internal::Hash(seed, this->right_crop);
+  seed = mojo::internal::Hash(seed, this->top_crop);
+  return seed;
+}
+
+void CropHeatmap::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bottom_crop"), this->bottom_crop,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "left_crop"), this->left_crop,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "right_crop"), this->right_crop,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "top_crop"), this->top_crop,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CropHeatmap::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -380,6 +469,8 @@ bool StructTraits<::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfi
         result->output_node = input.output_node();
       if (success)
         result->palm_threshold = input.palm_threshold();
+      if (success && !input.ReadCropHeatmap(&result->crop_heatmap))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -400,6 +491,26 @@ bool StructTraits<::chromeos::machine_learning::mojom::HeatmapProcessedEvent::Da
   return success;
 }
 
+
+// static
+bool StructTraits<::chromeos::machine_learning::mojom::CropHeatmap::DataView, ::chromeos::machine_learning::mojom::CropHeatmapPtr>::Read(
+    ::chromeos::machine_learning::mojom::CropHeatmap::DataView input,
+    ::chromeos::machine_learning::mojom::CropHeatmapPtr* output) {
+  bool success = true;
+  ::chromeos::machine_learning::mojom::CropHeatmapPtr result(::chromeos::machine_learning::mojom::CropHeatmap::New());
+  
+      if (success)
+        result->bottom_crop = input.bottom_crop();
+      if (success)
+        result->left_crop = input.left_crop();
+      if (success)
+        result->right_crop = input.right_crop();
+      if (success)
+        result->top_crop = input.top_crop();
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -411,7 +522,9 @@ namespace chromeos::machine_learning::mojom {
 
 
 void HeatmapPalmRejectionClientInterceptorForTesting::OnHeatmapProcessedEvent(HeatmapProcessedEventPtr event) {
-  GetForwardingInterface()->OnHeatmapProcessedEvent(std::move(event));
+  GetForwardingInterface()->OnHeatmapProcessedEvent(
+    std::move(event)
+    );
 }
 HeatmapPalmRejectionClientAsyncWaiter::HeatmapPalmRejectionClientAsyncWaiter(
     HeatmapPalmRejectionClient* proxy) : proxy_(proxy) {}

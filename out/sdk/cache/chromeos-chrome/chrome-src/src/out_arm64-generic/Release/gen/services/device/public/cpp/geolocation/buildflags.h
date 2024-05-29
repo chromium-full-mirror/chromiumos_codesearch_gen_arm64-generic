@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_OS_LEVEL_GEOLOCATION_PERMISSION_SUPPORTED() (1)
 
 #endif  // SERVICES_DEVICE_PUBLIC_CPP_GEOLOCATION_BUILDFLAGS_H_

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_BUILD_WEBNN_WITH_XNNPACK() (0)
 
 #endif  // THIRD_PARTY_BLINK_RENDERER_MODULES_ML_BUILDFLAGS_H_

@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "services/device/public/mojom/sensor.mojom-features.h"
-#include "services/device/public/mojom/sensor.mojom-shared.h"
-#include "services/device/public/mojom/sensor.mojom-forward.h"
+#include "services/device/public/mojom/sensor.mojom-features.h"  // IWYU pragma: export
+#include "services/device/public/mojom/sensor.mojom-shared.h"  // IWYU pragma: export
+#include "services/device/public/mojom/sensor.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

@@ -756,13 +756,25 @@ namespace arc::mojom {
 
 
 void VideoProtectedBufferAllocatorInterceptorForTesting::AllocateProtectedSharedMemory(::mojo::ScopedHandle handle_fd, uint64_t size, AllocateProtectedSharedMemoryCallback callback) {
-  GetForwardingInterface()->AllocateProtectedSharedMemory(std::move(handle_fd), std::move(size), std::move(callback));
+  GetForwardingInterface()->AllocateProtectedSharedMemory(
+    std::move(handle_fd)
+    , 
+    std::move(size)
+    , std::move(callback));
 }
 void VideoProtectedBufferAllocatorInterceptorForTesting::AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, ::arc::mojom::SizePtr picture_size, AllocateProtectedNativePixmapCallback callback) {
-  GetForwardingInterface()->AllocateProtectedNativePixmap(std::move(handle_fd), std::move(pixel_format), std::move(picture_size), std::move(callback));
+  GetForwardingInterface()->AllocateProtectedNativePixmap(
+    std::move(handle_fd)
+    , 
+    std::move(pixel_format)
+    , 
+    std::move(picture_size)
+    , std::move(callback));
 }
 void VideoProtectedBufferAllocatorInterceptorForTesting::ReleaseProtectedBuffer(::mojo::ScopedHandle handle_fd) {
-  GetForwardingInterface()->ReleaseProtectedBuffer(std::move(handle_fd));
+  GetForwardingInterface()->ReleaseProtectedBuffer(
+    std::move(handle_fd)
+    );
 }
 VideoProtectedBufferAllocatorAsyncWaiter::VideoProtectedBufferAllocatorAsyncWaiter(
     VideoProtectedBufferAllocator* proxy) : proxy_(proxy) {}

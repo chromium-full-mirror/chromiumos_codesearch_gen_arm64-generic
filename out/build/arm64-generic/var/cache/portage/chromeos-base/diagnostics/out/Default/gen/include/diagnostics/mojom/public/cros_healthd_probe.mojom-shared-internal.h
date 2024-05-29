@@ -5822,6 +5822,8 @@ class  TouchpadDevice_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::InputDevice_Data> input_device;
   mojo::internal::Pointer<mojo::internal::String_Data> driver_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> vendor_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> product_id;
 
  private:
   friend class mojo::internal::MessageFragment<TouchpadDevice_Data>;
@@ -5829,7 +5831,7 @@ class  TouchpadDevice_Data {
   TouchpadDevice_Data();
   ~TouchpadDevice_Data() = delete;
 };
-static_assert(sizeof(TouchpadDevice_Data) == 24,
+static_assert(sizeof(TouchpadDevice_Data) == 40,
               "Bad sizeof(TouchpadDevice_Data)");
 // Used by TouchpadDevice::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

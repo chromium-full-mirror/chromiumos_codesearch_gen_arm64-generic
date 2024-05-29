@@ -71,6 +71,25 @@ class  VideoFramePool_AddVideoFrame_ResponseParams_Data {
 };
 static_assert(sizeof(VideoFramePool_AddVideoFrame_ResponseParams_Data) == 16,
               "Bad sizeof(VideoFramePool_AddVideoFrame_ResponseParams_Data)");
+class  VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t format;
+  uint32_t num_frames;
+  mojo::internal::Pointer<::arc::mojom::internal::Size_Data> coded_size;
+  mojo::internal::Pointer<::arc::mojom::internal::Rect_Data> visible_rect;
+
+ private:
+  friend class mojo::internal::MessageFragment<VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data>;
+
+  VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data();
+  ~VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data() = delete;
+};
+static_assert(sizeof(VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data) == 32,
+              "Bad sizeof(VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data)");
 class  VideoFramePoolClient_RequestVideoFrames_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -90,6 +109,21 @@ class  VideoFramePoolClient_RequestVideoFrames_Params_Data {
 };
 static_assert(sizeof(VideoFramePoolClient_RequestVideoFrames_Params_Data) == 32,
               "Bad sizeof(VideoFramePoolClient_RequestVideoFrames_Params_Data)");
+class  VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data>;
+
+  VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data();
+  ~VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data) == 8,
+              "Bad sizeof(VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -163,6 +197,55 @@ class VideoFramePool_AddVideoFrame_ResponseParamsDataView {
 };
 
 
+class VideoFramePoolClient_DEPRECATED_RequestVideoFrames_ParamsDataView {
+ public:
+  VideoFramePoolClient_DEPRECATED_RequestVideoFrames_ParamsDataView() = default;
+
+  VideoFramePoolClient_DEPRECATED_RequestVideoFrames_ParamsDataView(
+      internal::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFormat(UserType* output) const {
+    auto data_value = data_->format;
+    return mojo::internal::Deserialize<::arc::mojom::VideoPixelFormat>(
+        data_value, output);
+  }
+  ::arc::mojom::VideoPixelFormat format() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::arc::mojom::VideoPixelFormat>(data_->format));
+  }
+  inline void GetCodedSizeDataView(
+      ::arc::mojom::SizeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCodedSize(UserType* output) {
+    
+    auto* pointer = data_->coded_size.Get();
+    return mojo::internal::Deserialize<::arc::mojom::SizeDataView>(
+        pointer, output, message_);
+  }
+  inline void GetVisibleRectDataView(
+      ::arc::mojom::RectDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVisibleRect(UserType* output) {
+    
+    auto* pointer = data_->visible_rect.Get();
+    return mojo::internal::Deserialize<::arc::mojom::RectDataView>(
+        pointer, output, message_);
+  }
+  uint32_t num_frames() const {
+    return data_->num_frames;
+  }
+ private:
+  internal::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class VideoFramePoolClient_RequestVideoFrames_ParamsDataView {
  public:
   VideoFramePoolClient_RequestVideoFrames_ParamsDataView() = default;
@@ -212,6 +295,21 @@ class VideoFramePoolClient_RequestVideoFrames_ParamsDataView {
 };
 
 
+class VideoFramePoolClient_RequestVideoFrames_ResponseParamsDataView {
+ public:
+  VideoFramePoolClient_RequestVideoFrames_ResponseParamsDataView() = default;
+
+  VideoFramePoolClient_RequestVideoFrames_ResponseParamsDataView(
+      internal::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data* data_ = nullptr;
+};
+
+
 
 inline void VideoFramePool_AddVideoFrame_ParamsDataView::GetVideoFrameDataView(
     VideoFrameDataView* output) {
@@ -220,6 +318,18 @@ inline void VideoFramePool_AddVideoFrame_ParamsDataView::GetVideoFrameDataView(
 }
 
 
+
+
+inline void VideoFramePoolClient_DEPRECATED_RequestVideoFrames_ParamsDataView::GetCodedSizeDataView(
+    ::arc::mojom::SizeDataView* output) {
+  auto pointer = data_->coded_size.Get();
+  *output = ::arc::mojom::SizeDataView(pointer, message_);
+}
+inline void VideoFramePoolClient_DEPRECATED_RequestVideoFrames_ParamsDataView::GetVisibleRectDataView(
+    ::arc::mojom::RectDataView* output) {
+  auto pointer = data_->visible_rect.Get();
+  *output = ::arc::mojom::RectDataView(pointer, message_);
+}
 
 
 inline void VideoFramePoolClient_RequestVideoFrames_ParamsDataView::GetCodedSizeDataView(
@@ -232,6 +342,8 @@ inline void VideoFramePoolClient_RequestVideoFrames_ParamsDataView::GetVisibleRe
   auto pointer = data_->visible_rect.Get();
   *output = ::arc::mojom::RectDataView(pointer, message_);
 }
+
+
 
 
 

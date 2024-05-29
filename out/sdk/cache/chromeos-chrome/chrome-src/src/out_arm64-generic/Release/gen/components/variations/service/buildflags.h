@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_FIELDTRIAL_TESTING_ENABLED() (1)
 
 #endif  // COMPONENTS_VARIATIONS_SERVICE_BUILDFLAGS_H_

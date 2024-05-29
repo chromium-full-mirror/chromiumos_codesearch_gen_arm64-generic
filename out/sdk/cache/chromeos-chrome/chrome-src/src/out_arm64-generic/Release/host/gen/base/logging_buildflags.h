@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_LOG_ERROR_NOT_REACHED() (0)
 
 #endif  // BASE_LOGGING_BUILDFLAGS_H_

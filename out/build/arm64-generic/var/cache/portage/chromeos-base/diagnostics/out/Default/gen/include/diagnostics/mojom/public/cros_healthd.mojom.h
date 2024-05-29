@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "diagnostics/mojom/public/cros_healthd.mojom-features.h"
-#include "diagnostics/mojom/public/cros_healthd.mojom-shared.h"
-#include "diagnostics/mojom/public/cros_healthd.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd.mojom-features.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd.mojom-shared.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd.mojom-forward.h"  // IWYU pragma: export
 #include "diagnostics/mojom/external/cros_healthd_internal.mojom-forward.h"
 #include "diagnostics/mojom/external/network_diagnostics.mojom-forward.h"
 #include "diagnostics/mojom/external/network_health.mojom-forward.h"
@@ -559,13 +559,13 @@ class CrosHealthdEventService
   using RequestValidator_ = CrosHealthdEventServiceRequestValidator;
   using ResponseValidator_ = CrosHealthdEventServiceResponseValidator;
   enum MethodMinVersions : uint32_t {
-    kAddBluetoothObserverMinVersion = 0,
-    kAddLidObserverMinVersion = 0,
-    kAddPowerObserverMinVersion = 0,
+    kDEPRECATED_AddBluetoothObserverMinVersion = 0,
+    kDEPRECATED_AddLidObserverMinVersion = 0,
+    kDEPRECATED_AddPowerObserverMinVersion = 0,
     kAddNetworkObserverMinVersion = 0,
-    kAddAudioObserverMinVersion = 0,
-    kAddThunderboltObserverMinVersion = 0,
-    kAddUsbObserverMinVersion = 1,
+    kDEPRECATED_AddAudioObserverMinVersion = 0,
+    kDEPRECATED_AddThunderboltObserverMinVersion = 0,
+    kDEPRECATED_AddUsbObserverMinVersion = 1,
     kAddEventObserverMinVersion = 2,
     kIsEventSupportedMinVersion = 3,
   };
@@ -573,25 +573,25 @@ class CrosHealthdEventService
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct AddBluetoothObserver_Sym {
+  struct DEPRECATED_AddBluetoothObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct AddLidObserver_Sym {
+  struct DEPRECATED_AddLidObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct AddPowerObserver_Sym {
+  struct DEPRECATED_AddPowerObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddNetworkObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct AddAudioObserver_Sym {
+  struct DEPRECATED_AddAudioObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct AddThunderboltObserver_Sym {
+  struct DEPRECATED_AddThunderboltObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct AddUsbObserver_Sym {
+  struct DEPRECATED_AddUsbObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct AddEventObserver_Sym {
@@ -604,25 +604,25 @@ class CrosHealthdEventService
   virtual ~CrosHealthdEventService() = default;
 
   
-  virtual void AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) = 0;
+  virtual void DEPRECATED_AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) = 0;
 
   
-  virtual void AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) = 0;
+  virtual void DEPRECATED_AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) = 0;
 
   
-  virtual void AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) = 0;
+  virtual void DEPRECATED_AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) = 0;
 
   
   virtual void AddNetworkObserver(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> observer) = 0;
 
   
-  virtual void AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) = 0;
+  virtual void DEPRECATED_AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) = 0;
 
   
-  virtual void AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) = 0;
+  virtual void DEPRECATED_AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) = 0;
 
   
-  virtual void AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) = 0;
+  virtual void DEPRECATED_AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) = 0;
 
   
   virtual void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) = 0;
@@ -819,19 +819,19 @@ class  CrosHealthdEventServiceProxy
 
   explicit CrosHealthdEventServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) final;
+  void DEPRECATED_AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) final;
   
-  void AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) final;
+  void DEPRECATED_AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) final;
   
-  void AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) final;
+  void DEPRECATED_AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) final;
   
   void AddNetworkObserver(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> observer) final;
   
-  void AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) final;
+  void DEPRECATED_AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) final;
   
-  void AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) final;
+  void DEPRECATED_AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) final;
   
-  void AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) final;
+  void DEPRECATED_AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) final;
   
   void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) final;
   

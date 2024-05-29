@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_VAAPI() (0)
 #define BUILDFLAG_INTERNAL_USE_VAAPI_IMAGE_CODECS() (0)
 #define BUILDFLAG_INTERNAL_USE_V4L2_CODEC() (1)

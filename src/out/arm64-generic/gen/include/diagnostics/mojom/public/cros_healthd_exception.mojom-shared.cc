@@ -33,6 +33,8 @@ NOINLINE static const char* Exception_ReasonToStringHelper(Exception_Reason valu
       return "kUnexpected";
     case Exception_Reason::kUnsupported:
       return "kUnsupported";
+    case Exception_Reason::kCameraFrontendNotOpened:
+      return "kCameraFrontendNotOpened";
     default:
       return nullptr;
   }

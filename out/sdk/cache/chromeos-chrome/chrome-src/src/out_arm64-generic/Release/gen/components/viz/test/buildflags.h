@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_GL_BACKEND_TESTS() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_VULKAN_BACKEND_TESTS() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_SKIA_GRAPHITE_TESTS() (0)

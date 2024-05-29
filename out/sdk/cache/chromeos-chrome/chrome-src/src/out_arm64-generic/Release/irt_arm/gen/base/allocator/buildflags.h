@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_PARTITION_ALLOC_AS_GWP_ASAN_STORE() (0)
 
 #endif  // BASE_ALLOCATOR_BUILDFLAGS_H_

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_DCHECK_IS_CONFIGURABLE() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_PROFILING() (0)
 #define BUILDFLAG_INTERNAL_CAN_UNWIND_WITH_FRAME_POINTERS() (1)

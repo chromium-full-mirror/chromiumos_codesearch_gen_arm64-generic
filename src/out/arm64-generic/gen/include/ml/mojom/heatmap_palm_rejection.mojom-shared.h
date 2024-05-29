@@ -38,6 +38,8 @@ class HeatmapPalmRejectionConfigDataView;
 
 class HeatmapProcessedEventDataView;
 
+class CropHeatmapDataView;
+
 
 
 }  // chromeos::machine_learning::mojom
@@ -55,6 +57,13 @@ struct MojomTypeTraits<::chromeos::machine_learning::mojom::HeatmapPalmRejection
 template <>
 struct MojomTypeTraits<::chromeos::machine_learning::mojom::HeatmapProcessedEventDataView> {
   using Data = ::chromeos::machine_learning::mojom::internal::HeatmapProcessedEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::chromeos::machine_learning::mojom::CropHeatmapDataView> {
+  using Data = ::chromeos::machine_learning::mojom::internal::CropHeatmap_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -151,6 +160,27 @@ class HeatmapPalmRejectionConfigDataView {
       return double{};
     return data_->palm_threshold;
   }
+  inline void GetCropHeatmapDataView(
+      CropHeatmapDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCropHeatmap(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::chromeos::machine_learning::mojom::CropHeatmapDataView, UserType>(),
+    "Attempting to read the optional `crop_heatmap` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadCropHeatmap` instead "
+    "of `ReadCropHeatmap if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 3
+                    ? data_->crop_heatmap.Get() : nullptr;
+    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::CropHeatmapDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::HeatmapPalmRejectionConfig_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -183,6 +213,33 @@ class HeatmapProcessedEventDataView {
  private:
   internal::HeatmapProcessedEvent_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class CropHeatmapDataView {
+ public:
+  CropHeatmapDataView() = default;
+
+  CropHeatmapDataView(
+      internal::CropHeatmap_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t bottom_crop() const {
+    return data_->bottom_crop;
+  }
+  uint8_t left_crop() const {
+    return data_->left_crop;
+  }
+  uint8_t right_crop() const {
+    return data_->right_crop;
+  }
+  uint8_t top_crop() const {
+    return data_->top_crop;
+  }
+ private:
+  internal::CropHeatmap_Data* data_ = nullptr;
 };
 
 
@@ -259,6 +316,14 @@ struct Serializer<::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfi
     fragment->input_node = Traits::input_node(input);
     fragment->output_node = Traits::output_node(input);
     fragment->palm_threshold = Traits::palm_threshold(input);
+    decltype(Traits::crop_heatmap(input)) in_crop_heatmap = Traits::crop_heatmap(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->crop_heatmap)::BaseType> crop_heatmap_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::chromeos::machine_learning::mojom::CropHeatmapDataView>(
+        in_crop_heatmap, crop_heatmap_fragment);
+    fragment->crop_heatmap.Set(
+        crop_heatmap_fragment.is_null() ? nullptr : crop_heatmap_fragment.data());
   }
 
   static bool Deserialize(::chromeos::machine_learning::mojom::internal::HeatmapPalmRejectionConfig_Data* input,
@@ -316,6 +381,39 @@ struct Serializer<::chromeos::machine_learning::mojom::HeatmapProcessedEventData
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::machine_learning::mojom::CropHeatmapDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::chromeos::machine_learning::mojom::CropHeatmapDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::chromeos::machine_learning::mojom::internal::CropHeatmap_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->bottom_crop = Traits::bottom_crop(input);
+    fragment->left_crop = Traits::left_crop(input);
+    fragment->right_crop = Traits::right_crop(input);
+    fragment->top_crop = Traits::top_crop(input);
+  }
+
+  static bool Deserialize(::chromeos::machine_learning::mojom::internal::CropHeatmap_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::machine_learning::mojom::CropHeatmapDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -331,6 +429,12 @@ inline void HeatmapPalmRejectionConfigDataView::GetHeatmapHidrawDeviceDataView(
   auto pointer = data_->heatmap_hidraw_device.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void HeatmapPalmRejectionConfigDataView::GetCropHeatmapDataView(
+    CropHeatmapDataView* output) {
+  auto pointer = data_->header_.version >= 3
+                 ? data_->crop_heatmap.Get() : nullptr;
+  *output = CropHeatmapDataView(pointer, message_);
+}
 
 
 inline void HeatmapProcessedEventDataView::GetTimestampDataView(
@@ -338,6 +442,8 @@ inline void HeatmapProcessedEventDataView::GetTimestampDataView(
   auto pointer = data_->timestamp.Get();
   *output = ::mojo_base::mojom::TimeDataView(pointer, message_);
 }
+
+
 
 
 

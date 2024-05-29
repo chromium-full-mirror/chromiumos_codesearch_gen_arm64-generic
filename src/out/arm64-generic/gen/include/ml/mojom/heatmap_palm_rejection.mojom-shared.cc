@@ -69,6 +69,7 @@ bool HeatmapPalmRejectionConfig_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 32 },
     { 1, 40 },
+    { 3, 48 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -101,12 +102,17 @@ bool HeatmapPalmRejectionConfig_Data::Validate(
                                          &heatmap_hidraw_device_validate_params)) {
     return false;
   }
+  if (object->header_.version < 3)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->crop_heatmap, validation_context))
+    return false;
 
   return true;
 }
 
 HeatmapPalmRejectionConfig_Data::HeatmapPalmRejectionConfig_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 3}) {}
 
 
 // static
@@ -136,6 +142,29 @@ bool HeatmapProcessedEvent_Data::Validate(
 }
 
 HeatmapProcessedEvent_Data::HeatmapProcessedEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CropHeatmap_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CropHeatmap_Data* object =
+      static_cast<const CropHeatmap_Data*>(data);
+
+  return true;
+}
+
+CropHeatmap_Data::CropHeatmap_Data()
     : header_({sizeof(*this), 0}) {}
 
 

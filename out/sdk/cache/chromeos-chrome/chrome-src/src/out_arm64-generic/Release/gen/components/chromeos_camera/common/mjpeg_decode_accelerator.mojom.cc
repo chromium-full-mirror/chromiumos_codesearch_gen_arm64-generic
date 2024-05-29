@@ -1169,10 +1169,28 @@ void MjpegDecodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback 
   GetForwardingInterface()->Initialize(std::move(callback));
 }
 void MjpegDecodeAcceleratorInterceptorForTesting::Decode(::media::BitstreamBuffer input_buffer, const ::gfx::Size& coded_size, ::mojo::ScopedSharedBufferHandle output_handle, uint32_t output_buffer_size, DecodeCallback callback) {
-  GetForwardingInterface()->Decode(std::move(input_buffer), std::move(coded_size), std::move(output_handle), std::move(output_buffer_size), std::move(callback));
+  GetForwardingInterface()->Decode(
+    std::move(input_buffer)
+    , 
+    std::move(coded_size)
+    , 
+    std::move(output_handle)
+    , 
+    std::move(output_buffer_size)
+    , std::move(callback));
 }
 void MjpegDecodeAcceleratorInterceptorForTesting::DecodeWithDmaBuf(int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::chromeos_camera::mojom::DmaBufVideoFramePtr dst_frame, DecodeWithDmaBufCallback callback) {
-  GetForwardingInterface()->DecodeWithDmaBuf(std::move(task_id), std::move(src_dmabuf_fd), std::move(src_size), std::move(src_offset), std::move(dst_frame), std::move(callback));
+  GetForwardingInterface()->DecodeWithDmaBuf(
+    std::move(task_id)
+    , 
+    std::move(src_dmabuf_fd)
+    , 
+    std::move(src_size)
+    , 
+    std::move(src_offset)
+    , 
+    std::move(dst_frame)
+    , std::move(callback));
 }
 void MjpegDecodeAcceleratorInterceptorForTesting::Uninitialize() {
   GetForwardingInterface()->Uninitialize();

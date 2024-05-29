@@ -6270,34 +6270,52 @@ namespace ash::cros_healthd::mojom {
 
 
 void DelegateInterceptorForTesting::GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) {
-  GetForwardingInterface()->GetFingerprintFrame(std::move(type), std::move(callback));
+  GetForwardingInterface()->GetFingerprintFrame(
+    std::move(type)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::GetFingerprintInfo(GetFingerprintInfoCallback callback) {
   GetForwardingInterface()->GetFingerprintInfo(std::move(callback));
 }
 void DelegateInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) {
-  GetForwardingInterface()->SetLedColor(std::move(name), std::move(color), std::move(callback));
+  GetForwardingInterface()->SetLedColor(
+    std::move(name)
+    , 
+    std::move(color)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) {
-  GetForwardingInterface()->ResetLedColor(std::move(name), std::move(callback));
+  GetForwardingInterface()->ResetLedColor(
+    std::move(name)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) {
-  GetForwardingInterface()->MonitorAudioJack(std::move(observer));
+  GetForwardingInterface()->MonitorAudioJack(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) {
-  GetForwardingInterface()->MonitorTouchpad(std::move(observer));
+  GetForwardingInterface()->MonitorTouchpad(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::FetchBootPerformance(FetchBootPerformanceCallback callback) {
   GetForwardingInterface()->FetchBootPerformance(std::move(callback));
 }
 void DelegateInterceptorForTesting::MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) {
-  GetForwardingInterface()->MonitorTouchscreen(std::move(observer));
+  GetForwardingInterface()->MonitorTouchscreen(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) {
-  GetForwardingInterface()->MonitorStylusGarage(std::move(observer));
+  GetForwardingInterface()->MonitorStylusGarage(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::MonitorStylus(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusObserver> observer) {
-  GetForwardingInterface()->MonitorStylus(std::move(observer));
+  GetForwardingInterface()->MonitorStylus(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
   GetForwardingInterface()->GetLidAngle(std::move(callback));
@@ -6306,7 +6324,9 @@ void DelegateInterceptorForTesting::GetPsr(GetPsrCallback callback) {
   GetForwardingInterface()->GetPsr(std::move(callback));
 }
 void DelegateInterceptorForTesting::GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) {
-  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(std::move(last_known_connectors), std::move(callback));
+  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(
+    std::move(last_known_connectors)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
   GetForwardingInterface()->GetPrivacyScreenInfo(std::move(callback));
@@ -6315,22 +6335,34 @@ void DelegateInterceptorForTesting::FetchDisplayInfo(FetchDisplayInfoCallback ca
   GetForwardingInterface()->FetchDisplayInfo(std::move(callback));
 }
 void DelegateInterceptorForTesting::MonitorPowerButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::PowerButtonObserver> observer) {
-  GetForwardingInterface()->MonitorPowerButton(std::move(observer));
+  GetForwardingInterface()->MonitorPowerButton(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, RunPrimeSearchCallback callback) {
-  GetForwardingInterface()->RunPrimeSearch(std::move(exec_duration), std::move(max_num), std::move(callback));
+  GetForwardingInterface()->RunPrimeSearch(
+    std::move(exec_duration)
+    , 
+    std::move(max_num)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::MonitorVolumeButton(::mojo::PendingRemote<::ash::cros_healthd::mojom::VolumeButtonObserver> observer) {
-  GetForwardingInterface()->MonitorVolumeButton(std::move(observer));
+  GetForwardingInterface()->MonitorVolumeButton(
+    std::move(observer)
+    );
 }
 void DelegateInterceptorForTesting::RunFloatingPoint(base::TimeDelta exec_duration, RunFloatingPointCallback callback) {
-  GetForwardingInterface()->RunFloatingPoint(std::move(exec_duration), std::move(callback));
+  GetForwardingInterface()->RunFloatingPoint(
+    std::move(exec_duration)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::GetAllFanSpeed(GetAllFanSpeedCallback callback) {
   GetForwardingInterface()->GetAllFanSpeed(std::move(callback));
 }
 void DelegateInterceptorForTesting::SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) {
-  GetForwardingInterface()->SetFanSpeed(std::move(fan_id_to_rpm), std::move(callback));
+  GetForwardingInterface()->SetFanSpeed(
+    std::move(fan_id_to_rpm)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::SetAllFanAutoControl(SetAllFanAutoControlCallback callback) {
   GetForwardingInterface()->SetAllFanAutoControl(std::move(callback));
@@ -6342,16 +6374,28 @@ void DelegateInterceptorForTesting::GetTouchpadDevices(GetTouchpadDevicesCallbac
   GetForwardingInterface()->GetTouchpadDevices(std::move(callback));
 }
 void DelegateInterceptorForTesting::GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) {
-  GetForwardingInterface()->GetSmartBatteryManufactureDate(std::move(i2c_port), std::move(callback));
+  GetForwardingInterface()->GetSmartBatteryManufactureDate(
+    std::move(i2c_port)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) {
-  GetForwardingInterface()->GetSmartBatteryTemperature(std::move(i2c_port), std::move(callback));
+  GetForwardingInterface()->GetSmartBatteryTemperature(
+    std::move(i2c_port)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, RunUrandomCallback callback) {
-  GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(callback));
+  GetForwardingInterface()->RunUrandom(
+    std::move(exec_duration)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::RunNetworkBandwidthTest(::ash::cros_healthd::mojom::NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<::ash::cros_healthd::mojom::NetworkBandwidthObserver> observer, RunNetworkBandwidthTestCallback callback) {
-  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(oem_name), std::move(observer), std::move(callback));
+  GetForwardingInterface()->RunNetworkBandwidthTest(
+    std::move(type)
+    , 
+    std::move(oem_name)
+    , 
+    std::move(observer)
+    , std::move(callback));
 }
 void DelegateInterceptorForTesting::FetchGraphicsInfo(FetchGraphicsInfoCallback callback) {
   GetForwardingInterface()->FetchGraphicsInfo(std::move(callback));

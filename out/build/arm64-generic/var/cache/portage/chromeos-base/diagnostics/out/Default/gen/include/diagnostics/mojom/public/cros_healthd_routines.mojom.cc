@@ -576,6 +576,23 @@ bool SensitiveSensorRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CameraFrameAnalysisRoutineArgument::CameraFrameAnalysisRoutineArgument() {}
+
+CameraFrameAnalysisRoutineArgument::~CameraFrameAnalysisRoutineArgument() = default;
+size_t CameraFrameAnalysisRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void CameraFrameAnalysisRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool CameraFrameAnalysisRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -1794,6 +1811,64 @@ bool SensitiveSensorRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CameraFrameAnalysisRoutineDetail::CameraFrameAnalysisRoutineDetail()
+    : issue(),
+      privacy_shutter_open_test(),
+      lens_not_dirty_test() {}
+
+CameraFrameAnalysisRoutineDetail::CameraFrameAnalysisRoutineDetail(
+    CameraFrameAnalysisRoutineDetail::Issue issue_in,
+    CameraSubtestResult privacy_shutter_open_test_in,
+    CameraSubtestResult lens_not_dirty_test_in)
+    : issue(std::move(issue_in)),
+      privacy_shutter_open_test(std::move(privacy_shutter_open_test_in)),
+      lens_not_dirty_test(std::move(lens_not_dirty_test_in)) {}
+
+CameraFrameAnalysisRoutineDetail::~CameraFrameAnalysisRoutineDetail() = default;
+size_t CameraFrameAnalysisRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->issue);
+  seed = mojo::internal::Hash(seed, this->privacy_shutter_open_test);
+  seed = mojo::internal::Hash(seed, this->lens_not_dirty_test);
+  return seed;
+}
+
+void CameraFrameAnalysisRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "issue"), this->issue,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraFrameAnalysisRoutineDetail::Issue>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "privacy_shutter_open_test"), this->privacy_shutter_open_test,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraSubtestResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lens_not_dirty_test"), this->lens_not_dirty_test,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraSubtestResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CameraFrameAnalysisRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -2020,6 +2095,17 @@ void RoutineArgument::set_sensitive_sensor(
         std::move(sensitive_sensor));
   }
 }
+void RoutineArgument::set_camera_frame_analysis(
+    CameraFrameAnalysisRoutineArgumentPtr camera_frame_analysis) {
+  if (tag_ == Tag::kCameraFrameAnalysis) {
+    *(data_.camera_frame_analysis) = std::move(camera_frame_analysis);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCameraFrameAnalysis;
+    data_.camera_frame_analysis = new CameraFrameAnalysisRoutineArgumentPtr(
+        std::move(camera_frame_analysis));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -2102,6 +2188,10 @@ void RoutineArgument::DestroyActive() {
     case Tag::kSensitiveSensor:
 
       delete data_.sensitive_sensor;
+      break;
+    case Tag::kCameraFrameAnalysis:
+
+      delete data_.camera_frame_analysis;
       break;
   }
 }
@@ -2253,7 +2343,7 @@ size_t RoutineRunningInfo::Hash(size_t seed) const {
     case Tag::kNetworkBandwidth:
       return mojo::internal::Hash(seed, data_.network_bandwidth);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2313,7 +2403,7 @@ size_t RoutineInteraction::Hash(size_t seed) const {
     case Tag::kInquiry:
       return mojo::internal::Hash(seed, data_.inquiry);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2373,7 +2463,7 @@ size_t RoutineInquiry::Hash(size_t seed) const {
     case Tag::kCheckLedLitUpState:
       return mojo::internal::Hash(seed, data_.check_led_lit_up_state);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2433,7 +2523,7 @@ size_t RoutineInquiryReply::Hash(size_t seed) const {
     case Tag::kCheckLedLitUpState:
       return mojo::internal::Hash(seed, data_.check_led_lit_up_state);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2581,6 +2671,17 @@ void RoutineDetail::set_sensitive_sensor(
         std::move(sensitive_sensor));
   }
 }
+void RoutineDetail::set_camera_frame_analysis(
+    CameraFrameAnalysisRoutineDetailPtr camera_frame_analysis) {
+  if (tag_ == Tag::kCameraFrameAnalysis) {
+    *(data_.camera_frame_analysis) = std::move(camera_frame_analysis);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCameraFrameAnalysis;
+    data_.camera_frame_analysis = new CameraFrameAnalysisRoutineDetailPtr(
+        std::move(camera_frame_analysis));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -2631,6 +2732,10 @@ void RoutineDetail::DestroyActive() {
     case Tag::kSensitiveSensor:
 
       delete data_.sensitive_sensor;
+      break;
+    case Tag::kCameraFrameAnalysis:
+
+      delete data_.camera_frame_analysis;
       break;
   }
 }
@@ -4038,6 +4143,18 @@ bool StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgument::Da
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::DataView, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr result(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -4473,6 +4590,24 @@ bool StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetail::Data
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::DataView, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr result(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::New());
+  
+      if (success && !input.ReadIssue(&result->issue))
+        success = false;
+      if (success && !input.ReadPrivacyShutterOpenTest(&result->privacy_shutter_open_test))
+        success = false;
+      if (success && !input.ReadLensNotDirtyTest(&result->lens_not_dirty_test))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -4654,6 +4789,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewSensitiveSensor(
           std::move(result_sensitive_sensor));
+      break;
+    }
+    case Tag::kCameraFrameAnalysis: {
+      ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr result_camera_frame_analysis;
+      if (!input.ReadCameraFrameAnalysis(&result_camera_frame_analysis))
+        return false;
+
+      *output = UnionType::NewCameraFrameAnalysis(
+          std::move(result_camera_frame_analysis));
       break;
     }
     default:
@@ -4945,6 +5089,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
           std::move(result_sensitive_sensor));
       break;
     }
+    case Tag::kCameraFrameAnalysis: {
+      ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr result_camera_frame_analysis;
+      if (!input.ReadCameraFrameAnalysis(&result_camera_frame_analysis))
+        return false;
+
+      *output = UnionType::NewCameraFrameAnalysis(
+          std::move(result_camera_frame_analysis));
+      break;
+    }
     default:
 
       *output = UnionType::NewUnrecognizedArgument({});
@@ -4964,10 +5117,18 @@ namespace ash::cros_healthd::mojom {
 
 
 void CrosHealthdRoutinesServiceInterceptorForTesting::CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) {
-  GetForwardingInterface()->CreateRoutine(std::move(routine_argument), std::move(routine_receiver), std::move(routine_observer));
+  GetForwardingInterface()->CreateRoutine(
+    std::move(routine_argument)
+    , 
+    std::move(routine_receiver)
+    , 
+    std::move(routine_observer)
+    );
 }
 void CrosHealthdRoutinesServiceInterceptorForTesting::IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) {
-  GetForwardingInterface()->IsRoutineArgumentSupported(std::move(routine_argument), std::move(callback));
+  GetForwardingInterface()->IsRoutineArgumentSupported(
+    std::move(routine_argument)
+    , std::move(callback));
 }
 CrosHealthdRoutinesServiceAsyncWaiter::CrosHealthdRoutinesServiceAsyncWaiter(
     CrosHealthdRoutinesService* proxy) : proxy_(proxy) {}
@@ -5007,7 +5168,9 @@ void RoutineControlInterceptorForTesting::Start() {
   GetForwardingInterface()->Start();
 }
 void RoutineControlInterceptorForTesting::ReplyInquiry(RoutineInquiryReplyPtr reply) {
-  GetForwardingInterface()->ReplyInquiry(std::move(reply));
+  GetForwardingInterface()->ReplyInquiry(
+    std::move(reply)
+    );
 }
 RoutineControlAsyncWaiter::RoutineControlAsyncWaiter(
     RoutineControl* proxy) : proxy_(proxy) {}
@@ -5041,7 +5204,9 @@ RoutineStatePtr RoutineControlAsyncWaiter::GetState(
 
 
 void RoutineObserverInterceptorForTesting::OnRoutineStateChange(RoutineStatePtr state) {
-  GetForwardingInterface()->OnRoutineStateChange(std::move(state));
+  GetForwardingInterface()->OnRoutineStateChange(
+    std::move(state)
+    );
 }
 RoutineObserverAsyncWaiter::RoutineObserverAsyncWaiter(
     RoutineObserver* proxy) : proxy_(proxy) {}

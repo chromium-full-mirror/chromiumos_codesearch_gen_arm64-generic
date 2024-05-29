@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_PLATFORM_ICU_ALTERNATIVES() (0)
 
 #endif  // URL_BUILDFLAGS_H_

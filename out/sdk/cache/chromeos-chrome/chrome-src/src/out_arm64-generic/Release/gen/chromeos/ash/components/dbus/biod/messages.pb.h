@@ -198,11 +198,12 @@ bool DeleteCredentialReply_DeleteCredentialStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeleteCredentialReply_DeleteCredentialStatus* value);
 enum ListLegacyRecordsReply_ListLegacyRecordsStatus : int {
   ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN = 0,
-  ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS = 1
+  ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS = 1,
+  ListLegacyRecordsReply_ListLegacyRecordsStatus_INCORRECT_STATE = 2
 };
 bool ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(int value);
 constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MIN = ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN;
-constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX = ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS;
+constexpr ListLegacyRecordsReply_ListLegacyRecordsStatus ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX = ListLegacyRecordsReply_ListLegacyRecordsStatus_INCORRECT_STATE;
 constexpr int ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_ARRAYSIZE = ListLegacyRecordsReply_ListLegacyRecordsStatus_ListLegacyRecordsStatus_MAX + 1;
 
 const std::string& ListLegacyRecordsReply_ListLegacyRecordsStatus_Name(ListLegacyRecordsReply_ListLegacyRecordsStatus value);
@@ -3519,6 +3520,8 @@ class ListLegacyRecordsReply final :
     ListLegacyRecordsReply_ListLegacyRecordsStatus_UNKNOWN;
   static constexpr ListLegacyRecordsStatus SUCCESS =
     ListLegacyRecordsReply_ListLegacyRecordsStatus_SUCCESS;
+  static constexpr ListLegacyRecordsStatus INCORRECT_STATE =
+    ListLegacyRecordsReply_ListLegacyRecordsStatus_INCORRECT_STATE;
   static inline bool ListLegacyRecordsStatus_IsValid(int value) {
     return ListLegacyRecordsReply_ListLegacyRecordsStatus_IsValid(value);
   }

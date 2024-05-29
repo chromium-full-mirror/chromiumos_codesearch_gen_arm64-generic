@@ -19,9 +19,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "camera/mojo/cros_camera_enum.mojom-features.h"
-#include "camera/mojo/cros_camera_enum.mojom-shared.h"
-#include "camera/mojo/cros_camera_enum.mojom-forward.h"
+#include "camera/mojo/cros_camera_enum.mojom-features.h"  // IWYU pragma: export
+#include "camera/mojo/cros_camera_enum.mojom-shared.h"  // IWYU pragma: export
+#include "camera/mojo/cros_camera_enum.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

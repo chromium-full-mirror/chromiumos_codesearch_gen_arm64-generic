@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_PLATFORM_CFM() (0)
 
 #endif  // BUILD_CONFIG_CHROMEBOX_FOR_MEETINGS_BUILDFLAGS_H_

@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_EXTERNAL_POPUP_MENU() (0)
 #define BUILDFLAG_INTERNAL_ALLOW_CRITICAL_MEMORY_PRESSURE_HANDLING_IN_FOREGROUND() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_SCREEN_CAPTURE() (1)

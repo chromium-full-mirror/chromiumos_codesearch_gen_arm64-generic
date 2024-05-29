@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chrome/browser/lens/core/mojom/geometry.mojom-features.h"
-#include "chrome/browser/lens/core/mojom/geometry.mojom-shared.h"
-#include "chrome/browser/lens/core/mojom/geometry.mojom-forward.h"
+#include "chrome/browser/lens/core/mojom/geometry.mojom-features.h"  // IWYU pragma: export
+#include "chrome/browser/lens/core/mojom/geometry.mojom-shared.h"  // IWYU pragma: export
+#include "chrome/browser/lens/core/mojom/geometry.mojom-forward.h"  // IWYU pragma: export
 #include "chrome/browser/lens/core/mojom/polygon.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include <string>

@@ -4500,6 +4500,10 @@ PROTOBUF_CONSTEXPR ClientCertificateProvisioningRequest::ClientCertificateProvis
     &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
   }
 
+  , /*decltype(_impl_.certificate_provisioning_process_id_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.request_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ClientCertificateProvisioningRequestDefaultTypeInternal {
@@ -4603,6 +4607,61 @@ struct BrowserPublicKeyUploadResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BrowserPublicKeyUploadResponseDefaultTypeInternal _BrowserPublicKeyUploadResponse_default_instance_;
 template <typename>
+PROTOBUF_CONSTEXPR FmRegistrationTokenUploadRequest_TokenData::FmRegistrationTokenUploadRequest_TokenData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.token_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.protocol_version_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.expiration_timestamp_ms_)*/ ::int64_t{0}
+
+  , /*decltype(_impl_.token_type_)*/ 0
+} {}
+struct FmRegistrationTokenUploadRequest_TokenDataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FmRegistrationTokenUploadRequest_TokenDataDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FmRegistrationTokenUploadRequest_TokenDataDefaultTypeInternal() {}
+  union {
+    FmRegistrationTokenUploadRequest_TokenData _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FmRegistrationTokenUploadRequest_TokenDataDefaultTypeInternal _FmRegistrationTokenUploadRequest_TokenData_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR FmRegistrationTokenUploadRequest::FmRegistrationTokenUploadRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.signed_request_)*/nullptr} {}
+struct FmRegistrationTokenUploadRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FmRegistrationTokenUploadRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FmRegistrationTokenUploadRequestDefaultTypeInternal() {}
+  union {
+    FmRegistrationTokenUploadRequest _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FmRegistrationTokenUploadRequestDefaultTypeInternal _FmRegistrationTokenUploadRequest_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR FmRegistrationTokenUploadResponse::FmRegistrationTokenUploadResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
+struct FmRegistrationTokenUploadResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FmRegistrationTokenUploadResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FmRegistrationTokenUploadResponseDefaultTypeInternal() {}
+  union {
+    FmRegistrationTokenUploadResponse _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FmRegistrationTokenUploadResponseDefaultTypeInternal _FmRegistrationTokenUploadResponse_default_instance_;
+template <typename>
 PROTOBUF_CONSTEXPR DeviceManagementRequest::DeviceManagementRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
@@ -4646,7 +4705,8 @@ PROTOBUF_CONSTEXPR DeviceManagementRequest::DeviceManagementRequest(
   , /*decltype(_impl_.browser_public_key_upload_request_)*/nullptr
   , /*decltype(_impl_.upload_euicc_info_request_)*/nullptr
   , /*decltype(_impl_.chrome_profile_report_request_)*/nullptr
-  , /*decltype(_impl_.token_based_device_register_request_)*/nullptr} {}
+  , /*decltype(_impl_.token_based_device_register_request_)*/nullptr
+  , /*decltype(_impl_.fm_registration_token_upload_request_)*/nullptr} {}
 struct DeviceManagementRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceManagementRequestDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DeviceManagementRequestDefaultTypeInternal() {}
@@ -4703,7 +4763,8 @@ PROTOBUF_CONSTEXPR DeviceManagementResponse::DeviceManagementResponse(
   , /*decltype(_impl_.browser_public_key_upload_response_)*/nullptr
   , /*decltype(_impl_.upload_euicc_info_response_)*/nullptr
   , /*decltype(_impl_.chrome_profile_report_response_)*/nullptr
-  , /*decltype(_impl_.token_based_device_register_response_)*/nullptr} {}
+  , /*decltype(_impl_.token_based_device_register_response_)*/nullptr
+  , /*decltype(_impl_.fm_registration_token_upload_response_)*/nullptr} {}
 struct DeviceManagementResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceManagementResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
   ~DeviceManagementResponseDefaultTypeInternal() {}
@@ -11578,6 +11639,73 @@ constexpr BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResp
 constexpr BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResponse::ResponseCode_MIN;
 constexpr BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResponse::ResponseCode_MAX;
 constexpr int BrowserPublicKeyUploadResponse::ResponseCode_ARRAYSIZE;
+
+#endif  // (__cplusplus < 201703) &&
+        // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool FmRegistrationTokenUploadRequest_TokenData_TokenType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
+    FmRegistrationTokenUploadRequest_TokenData_TokenType_strings[3] = {};
+
+static const char FmRegistrationTokenUploadRequest_TokenData_TokenType_names[] = {
+    "BROWSER"
+    "DEVICE"
+    "USER"
+};
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FmRegistrationTokenUploadRequest_TokenData_TokenType_entries[] =
+    {
+        {{&FmRegistrationTokenUploadRequest_TokenData_TokenType_names[0], 7}, 1},
+        {{&FmRegistrationTokenUploadRequest_TokenData_TokenType_names[7], 6}, 0},
+        {{&FmRegistrationTokenUploadRequest_TokenData_TokenType_names[13], 4}, 2},
+};
+
+static const int FmRegistrationTokenUploadRequest_TokenData_TokenType_entries_by_number[] = {
+    1,  // 0 -> DEVICE
+    0,  // 1 -> BROWSER
+    2,  // 2 -> USER
+};
+
+const std::string& FmRegistrationTokenUploadRequest_TokenData_TokenType_Name(FmRegistrationTokenUploadRequest_TokenData_TokenType value) {
+  static const bool kDummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          FmRegistrationTokenUploadRequest_TokenData_TokenType_entries, FmRegistrationTokenUploadRequest_TokenData_TokenType_entries_by_number,
+          3, FmRegistrationTokenUploadRequest_TokenData_TokenType_strings);
+  (void)kDummy;
+
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      FmRegistrationTokenUploadRequest_TokenData_TokenType_entries, FmRegistrationTokenUploadRequest_TokenData_TokenType_entries_by_number, 3,
+      value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
+                   : FmRegistrationTokenUploadRequest_TokenData_TokenType_strings[idx].get();
+}
+
+bool FmRegistrationTokenUploadRequest_TokenData_TokenType_Parse(absl::string_view name, FmRegistrationTokenUploadRequest_TokenData_TokenType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      FmRegistrationTokenUploadRequest_TokenData_TokenType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<FmRegistrationTokenUploadRequest_TokenData_TokenType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && \
+  (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+
+constexpr FmRegistrationTokenUploadRequest_TokenData_TokenType FmRegistrationTokenUploadRequest_TokenData::DEVICE;
+constexpr FmRegistrationTokenUploadRequest_TokenData_TokenType FmRegistrationTokenUploadRequest_TokenData::BROWSER;
+constexpr FmRegistrationTokenUploadRequest_TokenData_TokenType FmRegistrationTokenUploadRequest_TokenData::USER;
+constexpr FmRegistrationTokenUploadRequest_TokenData_TokenType FmRegistrationTokenUploadRequest_TokenData::TokenType_MIN;
+constexpr FmRegistrationTokenUploadRequest_TokenData_TokenType FmRegistrationTokenUploadRequest_TokenData::TokenType_MAX;
+constexpr int FmRegistrationTokenUploadRequest_TokenData::TokenType_ARRAYSIZE;
 
 #endif  // (__cplusplus < 201703) &&
         // (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
@@ -71413,6 +71541,9 @@ class ClientCertificateProvisioningRequest::_Internal {
     8 * PROTOBUF_FIELD_OFFSET(ClientCertificateProvisioningRequest, _impl_._has_bits_);
   static constexpr ::int32_t kOneofCaseOffset =
     PROTOBUF_FIELD_OFFSET(::enterprise_management::ClientCertificateProvisioningRequest, _impl_._oneof_case_);
+  static void set_has_certificate_provisioning_process_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
   static void set_has_certificate_scope(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -71591,6 +71722,8 @@ ClientCertificateProvisioningRequest::ClientCertificateProvisioningRequest(const
 
     , decltype(_impl_.policy_version_) {}
 
+    , decltype(_impl_.certificate_provisioning_process_id_) {}
+
     , decltype(_impl_.request_){}
     , /*decltype(_impl_._oneof_case_)*/{}};
 
@@ -71629,6 +71762,13 @@ ClientCertificateProvisioningRequest::ClientCertificateProvisioningRequest(const
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if ((from._impl_._has_bits_[0] & 0x00000010u) != 0) {
     _this->_impl_.policy_version_.Set(from._internal_policy_version(), _this->GetArenaForAllocation());
+  }
+  _impl_.certificate_provisioning_process_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.certificate_provisioning_process_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000020u) != 0) {
+    _this->_impl_.certificate_provisioning_process_id_.Set(from._internal_certificate_provisioning_process_id(), _this->GetArenaForAllocation());
   }
   clear_has_request();
   switch (from.request_case()) {
@@ -71689,6 +71829,8 @@ inline void ClientCertificateProvisioningRequest::SharedCtor(::_pb::Arena* arena
 
     , decltype(_impl_.policy_version_) {}
 
+    , decltype(_impl_.certificate_provisioning_process_id_) {}
+
     , decltype(_impl_.request_){}
     , /*decltype(_impl_._oneof_case_)*/{}
   };
@@ -71712,6 +71854,10 @@ inline void ClientCertificateProvisioningRequest::SharedCtor(::_pb::Arena* arena
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         _impl_.policy_version_.Set("", GetArenaForAllocation());
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.certificate_provisioning_process_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.certificate_provisioning_process_id_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   clear_has_request();
 }
 
@@ -71731,6 +71877,7 @@ inline void ClientCertificateProvisioningRequest::SharedDtor() {
   _impl_.public_key_.Destroy();
   _impl_.device_dm_token_.Destroy();
   _impl_.policy_version_.Destroy();
+  _impl_.certificate_provisioning_process_id_.Destroy();
   if (has_request()) {
     clear_request();
   }
@@ -71800,7 +71947,7 @@ void ClientCertificateProvisioningRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _impl_.certificate_scope_.ClearNonDefaultToEmpty();
     }
@@ -71815,6 +71962,9 @@ void ClientCertificateProvisioningRequest::Clear() {
     }
     if (cached_has_bits & 0x00000010u) {
       _impl_.policy_version_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000020u) {
+      _impl_.certificate_provisioning_process_id_.ClearNonDefaultToEmpty();
     }
   }
   clear_request();
@@ -71942,6 +72092,16 @@ const char* ClientCertificateProvisioningRequest::_InternalParse(const char* ptr
           goto handle_unusual;
         }
         continue;
+      // optional string certificate_provisioning_process_id = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 130)) {
+          auto str = _internal_mutable_certificate_provisioning_process_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -72051,6 +72211,12 @@ failure:
     }
     default: ;
   }
+  // optional string certificate_provisioning_process_id = 16;
+  if (cached_has_bits & 0x00000020u) {
+    const std::string& _s = this->_internal_certificate_provisioning_process_id();
+    target = stream->WriteStringMaybeAliased(16, _s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -72068,7 +72234,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional string certificate_scope = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -72097,6 +72263,12 @@ failure:
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
                                       this->_internal_policy_version());
+    }
+
+    // optional string certificate_provisioning_process_id = 16;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 2 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_certificate_provisioning_process_id());
     }
 
   }
@@ -72176,7 +72348,7 @@ void ClientCertificateProvisioningRequest::MergeFrom(const ClientCertificateProv
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_certificate_scope(from._internal_certificate_scope());
     }
@@ -72191,6 +72363,9 @@ void ClientCertificateProvisioningRequest::MergeFrom(const ClientCertificateProv
     }
     if (cached_has_bits & 0x00000010u) {
       _this->_internal_set_policy_version(from._internal_policy_version());
+    }
+    if (cached_has_bits & 0x00000020u) {
+      _this->_internal_set_certificate_provisioning_process_id(from._internal_certificate_provisioning_process_id());
     }
   }
   switch (from.request_case()) {
@@ -72263,6 +72438,8 @@ void ClientCertificateProvisioningRequest::InternalSwap(ClientCertificateProvisi
                                        &other->_impl_.device_dm_token_, rhs_arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.policy_version_, lhs_arena,
                                        &other->_impl_.policy_version_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.certificate_provisioning_process_id_, lhs_arena,
+                                       &other->_impl_.certificate_provisioning_process_id_, rhs_arena);
   swap(_impl_.request_, other->_impl_.request_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
@@ -73920,6 +74097,689 @@ std::string BrowserPublicKeyUploadResponse::GetTypeName() const {
 
 // ===================================================================
 
+class FmRegistrationTokenUploadRequest_TokenData::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FmRegistrationTokenUploadRequest_TokenData>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(FmRegistrationTokenUploadRequest_TokenData, _impl_._has_bits_);
+  static void set_has_token(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_protocol_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_token_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_expiration_timestamp_ms(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+};
+
+FmRegistrationTokenUploadRequest_TokenData::FmRegistrationTokenUploadRequest_TokenData(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+}
+FmRegistrationTokenUploadRequest_TokenData::FmRegistrationTokenUploadRequest_TokenData(const FmRegistrationTokenUploadRequest_TokenData& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FmRegistrationTokenUploadRequest_TokenData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.token_) {}
+
+    , decltype(_impl_.protocol_version_) {}
+
+    , decltype(_impl_.expiration_timestamp_ms_) {}
+
+    , decltype(_impl_.token_type_) {}
+  };
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.token_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.token_.Set(from._internal_token(), _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.protocol_version_, &from._impl_.protocol_version_,
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.token_type_) -
+    reinterpret_cast<char*>(&_impl_.protocol_version_)) + sizeof(_impl_.token_type_));
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+}
+
+inline void FmRegistrationTokenUploadRequest_TokenData::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.token_) {}
+
+    , decltype(_impl_.protocol_version_) { ::int64_t{0} }
+
+    , decltype(_impl_.expiration_timestamp_ms_) { ::int64_t{0} }
+
+    , decltype(_impl_.token_type_) { 0 }
+
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.token_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+FmRegistrationTokenUploadRequest_TokenData::~FmRegistrationTokenUploadRequest_TokenData() {
+  // @@protoc_insertion_point(destructor:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FmRegistrationTokenUploadRequest_TokenData::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.token_.Destroy();
+}
+
+void FmRegistrationTokenUploadRequest_TokenData::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void FmRegistrationTokenUploadRequest_TokenData::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.token_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x0000000eu) {
+    ::memset(&_impl_.protocol_version_, 0, static_cast<::size_t>(
+        reinterpret_cast<char*>(&_impl_.token_type_) -
+        reinterpret_cast<char*>(&_impl_.protocol_version_)) + sizeof(_impl_.token_type_));
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FmRegistrationTokenUploadRequest_TokenData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string token = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional int64 protocol_version = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 16)) {
+          _Internal::set_has_protocol_version(&has_bits);
+          _impl_.protocol_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional .enterprise_management.FmRegistrationTokenUploadRequest.TokenData.TokenType token_type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
+          ::int32_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::FmRegistrationTokenUploadRequest_TokenData_TokenType_IsValid(static_cast<int>(val)))) {
+            _internal_set_token_type(static_cast<::enterprise_management::FmRegistrationTokenUploadRequest_TokenData_TokenType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
+          }
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional int64 expiration_timestamp_ms = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _Internal::set_has_expiration_timestamp_ms(&has_bits);
+          _impl_.expiration_timestamp_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* FmRegistrationTokenUploadRequest_TokenData::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional string token = 1;
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_token();
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // optional int64 protocol_version = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        2, this->_internal_protocol_version(), target);
+  }
+
+  // optional .enterprise_management.FmRegistrationTokenUploadRequest.TokenData.TokenType token_type = 3;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        3, this->_internal_token_type(), target);
+  }
+
+  // optional int64 expiration_timestamp_ms = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(
+        4, this->_internal_expiration_timestamp_ms(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  return target;
+}
+
+::size_t FmRegistrationTokenUploadRequest_TokenData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string token = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                      this->_internal_token());
+    }
+
+    // optional int64 protocol_version = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_protocol_version());
+    }
+
+    // optional int64 expiration_timestamp_ms = 4;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
+          this->_internal_expiration_timestamp_ms());
+    }
+
+    // optional .enterprise_management.FmRegistrationTokenUploadRequest.TokenData.TokenType token_type = 3;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+                    ::_pbi::WireFormatLite::EnumSize(this->_internal_token_type());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FmRegistrationTokenUploadRequest_TokenData::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FmRegistrationTokenUploadRequest_TokenData*>(
+      &from));
+}
+
+void FmRegistrationTokenUploadRequest_TokenData::MergeFrom(const FmRegistrationTokenUploadRequest_TokenData& from) {
+  FmRegistrationTokenUploadRequest_TokenData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_token(from._internal_token());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.protocol_version_ = from._impl_.protocol_version_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      _this->_impl_.expiration_timestamp_ms_ = from._impl_.expiration_timestamp_ms_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _this->_impl_.token_type_ = from._impl_.token_type_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FmRegistrationTokenUploadRequest_TokenData::CopyFrom(const FmRegistrationTokenUploadRequest_TokenData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.FmRegistrationTokenUploadRequest.TokenData)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FmRegistrationTokenUploadRequest_TokenData::IsInitialized() const {
+  return true;
+}
+
+void FmRegistrationTokenUploadRequest_TokenData::InternalSwap(FmRegistrationTokenUploadRequest_TokenData* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.token_, lhs_arena,
+                                       &other->_impl_.token_, rhs_arena);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FmRegistrationTokenUploadRequest_TokenData, _impl_.token_type_)
+      + sizeof(FmRegistrationTokenUploadRequest_TokenData::_impl_.token_type_)
+      - PROTOBUF_FIELD_OFFSET(FmRegistrationTokenUploadRequest_TokenData, _impl_.protocol_version_)>(
+          reinterpret_cast<char*>(&_impl_.protocol_version_),
+          reinterpret_cast<char*>(&other->_impl_.protocol_version_));
+}
+
+std::string FmRegistrationTokenUploadRequest_TokenData::GetTypeName() const {
+  return "enterprise_management.FmRegistrationTokenUploadRequest.TokenData";
+}
+
+// ===================================================================
+
+class FmRegistrationTokenUploadRequest::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FmRegistrationTokenUploadRequest>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(FmRegistrationTokenUploadRequest, _impl_._has_bits_);
+  static const ::enterprise_management::SignedData& signed_request(const FmRegistrationTokenUploadRequest* msg);
+  static void set_has_signed_request(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+const ::enterprise_management::SignedData&
+FmRegistrationTokenUploadRequest::_Internal::signed_request(const FmRegistrationTokenUploadRequest* msg) {
+  return *msg->_impl_.signed_request_;
+}
+FmRegistrationTokenUploadRequest::FmRegistrationTokenUploadRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.FmRegistrationTokenUploadRequest)
+}
+FmRegistrationTokenUploadRequest::FmRegistrationTokenUploadRequest(const FmRegistrationTokenUploadRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FmRegistrationTokenUploadRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.signed_request_){nullptr}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.signed_request_ = new ::enterprise_management::SignedData(*from._impl_.signed_request_);
+  }
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.FmRegistrationTokenUploadRequest)
+}
+
+inline void FmRegistrationTokenUploadRequest::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.signed_request_){nullptr}
+  };
+}
+
+FmRegistrationTokenUploadRequest::~FmRegistrationTokenUploadRequest() {
+  // @@protoc_insertion_point(destructor:enterprise_management.FmRegistrationTokenUploadRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FmRegistrationTokenUploadRequest::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.signed_request_;
+}
+
+void FmRegistrationTokenUploadRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void FmRegistrationTokenUploadRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.FmRegistrationTokenUploadRequest)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.signed_request_ != nullptr);
+    _impl_.signed_request_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FmRegistrationTokenUploadRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .enterprise_management.SignedData signed_request = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_signed_request(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* FmRegistrationTokenUploadRequest::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.FmRegistrationTokenUploadRequest)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .enterprise_management.SignedData signed_request = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::signed_request(this),
+        _Internal::signed_request(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.FmRegistrationTokenUploadRequest)
+  return target;
+}
+
+::size_t FmRegistrationTokenUploadRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.FmRegistrationTokenUploadRequest)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .enterprise_management.SignedData signed_request = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.signed_request_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FmRegistrationTokenUploadRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FmRegistrationTokenUploadRequest*>(
+      &from));
+}
+
+void FmRegistrationTokenUploadRequest::MergeFrom(const FmRegistrationTokenUploadRequest& from) {
+  FmRegistrationTokenUploadRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.FmRegistrationTokenUploadRequest)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_mutable_signed_request()->::enterprise_management::SignedData::MergeFrom(
+        from._internal_signed_request());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FmRegistrationTokenUploadRequest::CopyFrom(const FmRegistrationTokenUploadRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.FmRegistrationTokenUploadRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FmRegistrationTokenUploadRequest::IsInitialized() const {
+  return true;
+}
+
+void FmRegistrationTokenUploadRequest::InternalSwap(FmRegistrationTokenUploadRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.signed_request_, other->_impl_.signed_request_);
+}
+
+std::string FmRegistrationTokenUploadRequest::GetTypeName() const {
+  return "enterprise_management.FmRegistrationTokenUploadRequest";
+}
+
+// ===================================================================
+
+class FmRegistrationTokenUploadResponse::_Internal {
+ public:
+};
+
+FmRegistrationTokenUploadResponse::FmRegistrationTokenUploadResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.FmRegistrationTokenUploadResponse)
+}
+FmRegistrationTokenUploadResponse::FmRegistrationTokenUploadResponse(const FmRegistrationTokenUploadResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _impl_(from._impl_) {
+  _internal_metadata_.MergeFrom<std::string>(
+      from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.FmRegistrationTokenUploadResponse)
+}
+
+inline void FmRegistrationTokenUploadResponse::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+FmRegistrationTokenUploadResponse::~FmRegistrationTokenUploadResponse() {
+  // @@protoc_insertion_point(destructor:enterprise_management.FmRegistrationTokenUploadResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FmRegistrationTokenUploadResponse::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void FmRegistrationTokenUploadResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void FmRegistrationTokenUploadResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.FmRegistrationTokenUploadResponse)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FmRegistrationTokenUploadResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* FmRegistrationTokenUploadResponse::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.FmRegistrationTokenUploadResponse)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.FmRegistrationTokenUploadResponse)
+  return target;
+}
+
+::size_t FmRegistrationTokenUploadResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.FmRegistrationTokenUploadResponse)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FmRegistrationTokenUploadResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FmRegistrationTokenUploadResponse*>(
+      &from));
+}
+
+void FmRegistrationTokenUploadResponse::MergeFrom(const FmRegistrationTokenUploadResponse& from) {
+  FmRegistrationTokenUploadResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.FmRegistrationTokenUploadResponse)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FmRegistrationTokenUploadResponse::CopyFrom(const FmRegistrationTokenUploadResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.FmRegistrationTokenUploadResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FmRegistrationTokenUploadResponse::IsInitialized() const {
+  return true;
+}
+
+void FmRegistrationTokenUploadResponse::InternalSwap(FmRegistrationTokenUploadResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string FmRegistrationTokenUploadResponse::GetTypeName() const {
+  return "enterprise_management.FmRegistrationTokenUploadResponse";
+}
+
+// ===================================================================
+
 class DeviceManagementRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceManagementRequest>()._impl_._has_bits_);
@@ -74085,6 +74945,10 @@ class DeviceManagementRequest::_Internal {
   static void set_has_token_based_device_register_request(HasBits* has_bits) {
     (*has_bits)[1] |= 128u;
   }
+  static const ::enterprise_management::FmRegistrationTokenUploadRequest& fm_registration_token_upload_request(const DeviceManagementRequest* msg);
+  static void set_has_fm_registration_token_upload_request(HasBits* has_bits) {
+    (*has_bits)[1] |= 256u;
+  }
 };
 
 const ::enterprise_management::DeviceRegisterRequest&
@@ -74247,6 +75111,10 @@ const ::enterprise_management::TokenBasedDeviceRegisterRequest&
 DeviceManagementRequest::_Internal::token_based_device_register_request(const DeviceManagementRequest* msg) {
   return *msg->_impl_.token_based_device_register_request_;
 }
+const ::enterprise_management::FmRegistrationTokenUploadRequest&
+DeviceManagementRequest::_Internal::fm_registration_token_upload_request(const DeviceManagementRequest* msg) {
+  return *msg->_impl_.fm_registration_token_upload_request_;
+}
 DeviceManagementRequest::DeviceManagementRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
   SharedCtor(arena);
@@ -74297,7 +75165,8 @@ DeviceManagementRequest::DeviceManagementRequest(const DeviceManagementRequest& 
     , decltype(_impl_.browser_public_key_upload_request_){nullptr}
     , decltype(_impl_.upload_euicc_info_request_){nullptr}
     , decltype(_impl_.chrome_profile_report_request_){nullptr}
-    , decltype(_impl_.token_based_device_register_request_){nullptr}};
+    , decltype(_impl_.token_based_device_register_request_){nullptr}
+    , decltype(_impl_.fm_registration_token_upload_request_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
@@ -74420,6 +75289,9 @@ DeviceManagementRequest::DeviceManagementRequest(const DeviceManagementRequest& 
   if ((from._impl_._has_bits_[1] & 0x00000080u) != 0) {
     _this->_impl_.token_based_device_register_request_ = new ::enterprise_management::TokenBasedDeviceRegisterRequest(*from._impl_.token_based_device_register_request_);
   }
+  if ((from._impl_._has_bits_[1] & 0x00000100u) != 0) {
+    _this->_impl_.fm_registration_token_upload_request_ = new ::enterprise_management::FmRegistrationTokenUploadRequest(*from._impl_.fm_registration_token_upload_request_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceManagementRequest)
 }
 
@@ -74468,6 +75340,7 @@ inline void DeviceManagementRequest::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.upload_euicc_info_request_){nullptr}
     , decltype(_impl_.chrome_profile_report_request_){nullptr}
     , decltype(_impl_.token_based_device_register_request_){nullptr}
+    , decltype(_impl_.fm_registration_token_upload_request_){nullptr}
   };
 }
 
@@ -74522,6 +75395,7 @@ inline void DeviceManagementRequest::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.upload_euicc_info_request_;
   if (this != internal_default_instance()) delete _impl_.chrome_profile_report_request_;
   if (this != internal_default_instance()) delete _impl_.token_based_device_register_request_;
+  if (this != internal_default_instance()) delete _impl_.fm_registration_token_upload_request_;
 }
 
 void DeviceManagementRequest::SetCachedSize(int size) const {
@@ -74705,6 +75579,10 @@ void DeviceManagementRequest::Clear() {
       ABSL_DCHECK(_impl_.token_based_device_register_request_ != nullptr);
       _impl_.token_based_device_register_request_->Clear();
     }
+  }
+  if (cached_has_bits & 0x00000100u) {
+    ABSL_DCHECK(_impl_.fm_registration_token_upload_request_ != nullptr);
+    _impl_.fm_registration_token_upload_request_->Clear();
   }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -75076,6 +75954,15 @@ const char* DeviceManagementRequest::_InternalParse(const char* ptr, ::_pbi::Par
           goto handle_unusual;
         }
         continue;
+      // optional .enterprise_management.FmRegistrationTokenUploadRequest fm_registration_token_upload_request = 42;
+      case 42:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
+          ptr = ctx->ParseMessage(_internal_mutable_fm_registration_token_upload_request(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -75387,6 +76274,13 @@ failure:
         _Internal::token_based_device_register_request(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.FmRegistrationTokenUploadRequest fm_registration_token_upload_request = 42;
+  if (cached_has_bits & 0x00000100u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(42, _Internal::fm_registration_token_upload_request(this),
+        _Internal::fm_registration_token_upload_request(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -75695,6 +76589,13 @@ failure:
     }
 
   }
+  // optional .enterprise_management.FmRegistrationTokenUploadRequest fm_registration_token_upload_request = 42;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.fm_registration_token_upload_request_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -75888,6 +76789,10 @@ void DeviceManagementRequest::MergeFrom(const DeviceManagementRequest& from) {
           from._internal_token_based_device_register_request());
     }
   }
+  if (cached_has_bits & 0x00000100u) {
+    _this->_internal_mutable_fm_registration_token_upload_request()->::enterprise_management::FmRegistrationTokenUploadRequest::MergeFrom(
+        from._internal_fm_registration_token_upload_request());
+  }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -75911,8 +76816,8 @@ void DeviceManagementRequest::InternalSwap(DeviceManagementRequest* other) {
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   swap(_impl_._has_bits_[1], other->_impl_._has_bits_[1]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceManagementRequest, _impl_.token_based_device_register_request_)
-      + sizeof(DeviceManagementRequest::_impl_.token_based_device_register_request_)
+      PROTOBUF_FIELD_OFFSET(DeviceManagementRequest, _impl_.fm_registration_token_upload_request_)
+      + sizeof(DeviceManagementRequest::_impl_.fm_registration_token_upload_request_)
       - PROTOBUF_FIELD_OFFSET(DeviceManagementRequest, _impl_.register_request_)>(
           reinterpret_cast<char*>(&_impl_.register_request_),
           reinterpret_cast<char*>(&other->_impl_.register_request_));
@@ -76076,6 +76981,10 @@ class DeviceManagementResponse::_Internal {
   static void set_has_token_based_device_register_response(HasBits* has_bits) {
     (*has_bits)[1] |= 16u;
   }
+  static const ::enterprise_management::FmRegistrationTokenUploadResponse& fm_registration_token_upload_response(const DeviceManagementResponse* msg);
+  static void set_has_fm_registration_token_upload_response(HasBits* has_bits) {
+    (*has_bits)[1] |= 32u;
+  }
 };
 
 const ::enterprise_management::DeviceRegisterResponse&
@@ -76222,6 +77131,10 @@ const ::enterprise_management::TokenBasedDeviceRegisterResponse&
 DeviceManagementResponse::_Internal::token_based_device_register_response(const DeviceManagementResponse* msg) {
   return *msg->_impl_.token_based_device_register_response_;
 }
+const ::enterprise_management::FmRegistrationTokenUploadResponse&
+DeviceManagementResponse::_Internal::fm_registration_token_upload_response(const DeviceManagementResponse* msg) {
+  return *msg->_impl_.fm_registration_token_upload_response_;
+}
 DeviceManagementResponse::DeviceManagementResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
   SharedCtor(arena);
@@ -76272,7 +77185,8 @@ DeviceManagementResponse::DeviceManagementResponse(const DeviceManagementRespons
     , decltype(_impl_.browser_public_key_upload_response_){nullptr}
     , decltype(_impl_.upload_euicc_info_response_){nullptr}
     , decltype(_impl_.chrome_profile_report_response_){nullptr}
-    , decltype(_impl_.token_based_device_register_response_){nullptr}};
+    , decltype(_impl_.token_based_device_register_response_){nullptr}
+    , decltype(_impl_.fm_registration_token_upload_response_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   _impl_.error_message_.InitDefault();
@@ -76390,6 +77304,9 @@ DeviceManagementResponse::DeviceManagementResponse(const DeviceManagementRespons
   if ((from._impl_._has_bits_[1] & 0x00000010u) != 0) {
     _this->_impl_.token_based_device_register_response_ = new ::enterprise_management::TokenBasedDeviceRegisterResponse(*from._impl_.token_based_device_register_response_);
   }
+  if ((from._impl_._has_bits_[1] & 0x00000020u) != 0) {
+    _this->_impl_.fm_registration_token_upload_response_ = new ::enterprise_management::FmRegistrationTokenUploadResponse(*from._impl_.fm_registration_token_upload_response_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceManagementResponse)
 }
 
@@ -76438,6 +77355,7 @@ inline void DeviceManagementResponse::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.upload_euicc_info_response_){nullptr}
     , decltype(_impl_.chrome_profile_report_response_){nullptr}
     , decltype(_impl_.token_based_device_register_response_){nullptr}
+    , decltype(_impl_.fm_registration_token_upload_response_){nullptr}
   };
   _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -76494,6 +77412,7 @@ inline void DeviceManagementResponse::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.upload_euicc_info_response_;
   if (this != internal_default_instance()) delete _impl_.chrome_profile_report_response_;
   if (this != internal_default_instance()) delete _impl_.token_based_device_register_response_;
+  if (this != internal_default_instance()) delete _impl_.fm_registration_token_upload_response_;
 }
 
 void DeviceManagementResponse::SetCachedSize(int size) const {
@@ -76644,7 +77563,7 @@ void DeviceManagementResponse::Clear() {
     }
   }
   cached_has_bits = _impl_._has_bits_[1];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       ABSL_DCHECK(_impl_.private_set_membership_response_ != nullptr);
       _impl_.private_set_membership_response_->Clear();
@@ -76664,6 +77583,10 @@ void DeviceManagementResponse::Clear() {
     if (cached_has_bits & 0x00000010u) {
       ABSL_DCHECK(_impl_.token_based_device_register_response_ != nullptr);
       _impl_.token_based_device_register_response_->Clear();
+    }
+    if (cached_has_bits & 0x00000020u) {
+      ABSL_DCHECK(_impl_.fm_registration_token_upload_response_ != nullptr);
+      _impl_.fm_registration_token_upload_response_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -77032,6 +77955,15 @@ const char* DeviceManagementResponse::_InternalParse(const char* ptr, ::_pbi::Pa
           goto handle_unusual;
         }
         continue;
+      // optional .enterprise_management.FmRegistrationTokenUploadResponse fm_registration_token_upload_response = 41;
+      case 41:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_fm_registration_token_upload_response(), ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -77328,6 +78260,13 @@ failure:
         _Internal::token_based_device_register_response(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.FmRegistrationTokenUploadResponse fm_registration_token_upload_response = 41;
+  if (cached_has_bits & 0x00000020u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(41, _Internal::fm_registration_token_upload_response(this),
+        _Internal::fm_registration_token_upload_response(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -77590,7 +78529,7 @@ failure:
 
   }
   cached_has_bits = _impl_._has_bits_[1];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional .enterprise_management.PrivateSetMembershipResponse private_set_membership_response = 35;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -77624,6 +78563,13 @@ failure:
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.token_based_device_register_response_);
+    }
+
+    // optional .enterprise_management.FmRegistrationTokenUploadResponse fm_registration_token_upload_response = 41;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.fm_registration_token_upload_response_);
     }
 
   }
@@ -77786,7 +78732,7 @@ void DeviceManagementResponse::MergeFrom(const DeviceManagementResponse& from) {
     }
   }
   cached_has_bits = from._impl_._has_bits_[1];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_mutable_private_set_membership_response()->::enterprise_management::PrivateSetMembershipResponse::MergeFrom(
           from._internal_private_set_membership_response());
@@ -77806,6 +78752,10 @@ void DeviceManagementResponse::MergeFrom(const DeviceManagementResponse& from) {
     if (cached_has_bits & 0x00000010u) {
       _this->_internal_mutable_token_based_device_register_response()->::enterprise_management::TokenBasedDeviceRegisterResponse::MergeFrom(
           from._internal_token_based_device_register_response());
+    }
+    if (cached_has_bits & 0x00000020u) {
+      _this->_internal_mutable_fm_registration_token_upload_response()->::enterprise_management::FmRegistrationTokenUploadResponse::MergeFrom(
+          from._internal_fm_registration_token_upload_response());
     }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -77840,8 +78790,8 @@ void DeviceManagementResponse::InternalSwap(DeviceManagementResponse* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.error_message_, lhs_arena,
                                        &other->_impl_.error_message_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceManagementResponse, _impl_.token_based_device_register_response_)
-      + sizeof(DeviceManagementResponse::_impl_.token_based_device_register_response_)
+      PROTOBUF_FIELD_OFFSET(DeviceManagementResponse, _impl_.fm_registration_token_upload_response_)
+      + sizeof(DeviceManagementResponse::_impl_.fm_registration_token_upload_response_)
       - PROTOBUF_FIELD_OFFSET(DeviceManagementResponse, _impl_.register_response_)>(
           reinterpret_cast<char*>(&_impl_.register_response_),
           reinterpret_cast<char*>(&other->_impl_.register_response_));
@@ -78806,6 +79756,18 @@ Arena::CreateMaybeMessage< ::enterprise_management::BrowserPublicKeyUploadReques
 template<> PROTOBUF_NOINLINE ::enterprise_management::BrowserPublicKeyUploadResponse*
 Arena::CreateMaybeMessage< ::enterprise_management::BrowserPublicKeyUploadResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::BrowserPublicKeyUploadResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::FmRegistrationTokenUploadRequest_TokenData*
+Arena::CreateMaybeMessage< ::enterprise_management::FmRegistrationTokenUploadRequest_TokenData >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::FmRegistrationTokenUploadRequest_TokenData >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::FmRegistrationTokenUploadRequest*
+Arena::CreateMaybeMessage< ::enterprise_management::FmRegistrationTokenUploadRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::FmRegistrationTokenUploadRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::FmRegistrationTokenUploadResponse*
+Arena::CreateMaybeMessage< ::enterprise_management::FmRegistrationTokenUploadResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::FmRegistrationTokenUploadResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceManagementRequest*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceManagementRequest >(Arena* arena) {

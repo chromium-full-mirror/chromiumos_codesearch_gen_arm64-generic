@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_UPDATER() (0)
 #define BUILDFLAG_INTERNAL_ENABLE_UPDATE_NOTIFICATIONS() (0)
 #define BUILDFLAG_INTERNAL_USE_MINIKIN_HYPHENATION() (1)

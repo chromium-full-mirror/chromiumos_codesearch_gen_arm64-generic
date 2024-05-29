@@ -561,6 +561,9 @@ const char VideoFramePoolClient::Name_[] = "arc.mojom.VideoFramePoolClient";
 VideoFramePoolClient::IPCStableHashFunction VideoFramePoolClient::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (static_cast<messages::VideoFramePoolClient>(message.name())) {
+    case messages::VideoFramePoolClient::kDEPRECATED_RequestVideoFrames: {
+      return &VideoFramePoolClient::DEPRECATED_RequestVideoFrames_Sym::IPCStableHash;
+    }
     case messages::VideoFramePoolClient::kRequestVideoFrames: {
       return &VideoFramePoolClient::RequestVideoFrames_Sym::IPCStableHash;
     }
@@ -575,11 +578,15 @@ const char* VideoFramePoolClient::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (static_cast<messages::VideoFramePoolClient>(message.name())) {
+      case messages::VideoFramePoolClient::kDEPRECATED_RequestVideoFrames:
+            return "Receive arc::mojom::VideoFramePoolClient::DEPRECATED_RequestVideoFrames";
       case messages::VideoFramePoolClient::kRequestVideoFrames:
             return "Receive arc::mojom::VideoFramePoolClient::RequestVideoFrames";
     }
   } else {
     switch (static_cast<messages::VideoFramePoolClient>(message.name())) {
+      case messages::VideoFramePoolClient::kDEPRECATED_RequestVideoFrames:
+            return "Receive reply arc::mojom::VideoFramePoolClient::DEPRECATED_RequestVideoFrames";
       case messages::VideoFramePoolClient::kRequestVideoFrames:
             return "Receive reply arc::mojom::VideoFramePoolClient::RequestVideoFrames";
     }
@@ -596,6 +603,19 @@ const char* VideoFramePoolClient::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoFramePoolClient::DEPRECATED_RequestVideoFrames_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoFramePoolClient::DEPRECATED_RequestVideoFrames");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 uint32_t VideoFramePoolClient::RequestVideoFrames_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -611,12 +631,104 @@ uint32_t VideoFramePoolClient::RequestVideoFrames_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
+class VideoFramePoolClient_RequestVideoFrames_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  VideoFramePoolClient_RequestVideoFrames_ForwardToCallback(
+      VideoFramePoolClient::RequestVideoFramesCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  VideoFramePoolClient_RequestVideoFrames_ForwardToCallback(const VideoFramePoolClient_RequestVideoFrames_ForwardToCallback&) = delete;
+  VideoFramePoolClient_RequestVideoFrames_ForwardToCallback& operator=(const VideoFramePoolClient_RequestVideoFrames_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  VideoFramePoolClient::RequestVideoFramesCallback callback_;
+};
+
 VideoFramePoolClientProxy::VideoFramePoolClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void VideoFramePoolClientProxy::RequestVideoFrames(
+void VideoFramePoolClientProxy::DEPRECATED_RequestVideoFrames(
     ::arc::mojom::VideoPixelFormat in_format, ::arc::mojom::SizePtr in_coded_size, ::arc::mojom::RectPtr in_visible_rect, uint32_t in_num_frames) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send arc::mojom::VideoFramePoolClient::DEPRECATED_RequestVideoFrames", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("format"), in_format,
+                        "<value of type ::arc::mojom::VideoPixelFormat>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("coded_size"), in_coded_size,
+                        "<value of type ::arc::mojom::SizePtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("visible_rect"), in_visible_rect,
+                        "<value of type ::arc::mojom::RectPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("num_frames"), in_num_frames,
+                        "<value of type uint32_t>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::VideoFramePoolClient::kDEPRECATED_RequestVideoFrames), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::arc::mojom::VideoPixelFormat>(
+      in_format, &params->format);
+  mojo::internal::MessageFragment<
+      typename decltype(params->coded_size)::BaseType> coded_size_fragment(
+          params.message());
+  mojo::internal::Serialize<::arc::mojom::SizeDataView>(
+      in_coded_size, coded_size_fragment);
+  params->coded_size.Set(
+      coded_size_fragment.is_null() ? nullptr : coded_size_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->coded_size.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null coded_size in VideoFramePoolClient.DEPRECATED_RequestVideoFrames request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->visible_rect)::BaseType> visible_rect_fragment(
+          params.message());
+  mojo::internal::Serialize<::arc::mojom::RectDataView>(
+      in_visible_rect, visible_rect_fragment);
+  params->visible_rect.Set(
+      visible_rect_fragment.is_null() ? nullptr : visible_rect_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->visible_rect.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null visible_rect in VideoFramePoolClient.DEPRECATED_RequestVideoFrames request");
+  params->num_frames = in_num_frames;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(VideoFramePoolClient::Name_);
+  message.set_method_name("DEPRECATED_RequestVideoFrames");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void VideoFramePoolClientProxy::RequestVideoFrames(
+    ::arc::mojom::VideoPixelFormat in_format, ::arc::mojom::SizePtr in_coded_size, ::arc::mojom::RectPtr in_visible_rect, uint32_t in_num_frames, RequestVideoFramesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoFramePoolClient::RequestVideoFrames", "input_parameters",
@@ -637,7 +749,7 @@ void VideoFramePoolClientProxy::RequestVideoFrames(
    });
 #endif
 
-  const bool kExpectsResponse = false;
+  const bool kExpectsResponse = true;
   const bool kIsSync = false;
   const bool kAllowInterrupt = true;
   const bool is_urgent = false;
@@ -686,9 +798,120 @@ void VideoFramePoolClientProxy::RequestVideoFrames(
   message.set_interface_name(VideoFramePoolClient::Name_);
   message.set_method_name("RequestVideoFrames");
 #endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new VideoFramePoolClient_RequestVideoFrames_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class VideoFramePoolClient_RequestVideoFrames_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static VideoFramePoolClient::RequestVideoFramesCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<VideoFramePoolClient_RequestVideoFrames_ProxyToResponder> proxy(
+        new VideoFramePoolClient_RequestVideoFrames_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&VideoFramePoolClient_RequestVideoFrames_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~VideoFramePoolClient_RequestVideoFrames_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  VideoFramePoolClient_RequestVideoFrames_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "VideoFramePoolClient::RequestVideoFramesCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      );
+};
+
+bool VideoFramePoolClient_RequestVideoFrames_ForwardToCallback::Accept(
+    mojo::Message* message) {
+  DCHECK(message->is_serialized());
+  internal::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for VideoFramePoolClient.1
+  bool success = true;
+  VideoFramePoolClient_RequestVideoFrames_ResponseParamsDataView input_data_view(params, message);
+  
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        VideoFramePoolClient::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run();
+  return true;
+}
+
+void VideoFramePoolClient_RequestVideoFrames_ProxyToResponder::Run(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send reply arc::mojom::VideoFramePoolClient::RequestVideoFrames");
+#endif
+
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+
+  const size_t estimated_payload_size =
+    0;
+  mojo::Message message(
+      base::to_underlying(messages::VideoFramePoolClient::kRequestVideoFrames), kFlags, estimated_payload_size);
+  mojo::internal::MessageFragment<
+      ::arc::mojom::internal::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(VideoFramePoolClient::Name_);
+  message.set_method_name("RequestVideoFrames");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
@@ -696,14 +919,72 @@ bool VideoFramePoolClientStubDispatch::Accept(
     VideoFramePoolClient* impl,
     mojo::Message* message) {
   switch (static_cast<messages::VideoFramePoolClient>(message->header()->name)) {
-    case messages::VideoFramePoolClient::kRequestVideoFrames: {
+    case messages::VideoFramePoolClient::kDEPRECATED_RequestVideoFrames: {
       DCHECK(message->is_serialized());
-      internal::VideoFramePoolClient_RequestVideoFrames_Params_Data* params =
-          reinterpret_cast<internal::VideoFramePoolClient_RequestVideoFrames_Params_Data*>(
+      internal::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data* params =
+          reinterpret_cast<internal::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data*>(
               message->mutable_payload());
       
       
       // Validation for VideoFramePoolClient.0
+      bool success = true;
+      ::arc::mojom::VideoPixelFormat p_format{};
+      ::arc::mojom::SizePtr p_coded_size{};
+      ::arc::mojom::RectPtr p_visible_rect{};
+      uint32_t p_num_frames{};
+      VideoFramePoolClient_DEPRECATED_RequestVideoFrames_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadFormat(&p_format))
+        success = false;
+      if (success && !input_data_view.ReadCodedSize(&p_coded_size))
+        success = false;
+      if (success && !input_data_view.ReadVisibleRect(&p_visible_rect))
+        success = false;
+      if (success)
+        p_num_frames = input_data_view.num_frames();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            VideoFramePoolClient::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DEPRECATED_RequestVideoFrames(        
+        std::move(p_format), 
+        std::move(p_coded_size), 
+        std::move(p_visible_rect), 
+        std::move(p_num_frames));
+      return true;
+    }
+    case messages::VideoFramePoolClient::kRequestVideoFrames: {
+      break;
+    }
+  }
+  return false;
+}
+
+// static
+bool VideoFramePoolClientStubDispatch::AcceptWithResponder(
+    VideoFramePoolClient* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (static_cast<messages::VideoFramePoolClient>(message->header()->name)) {
+    case messages::VideoFramePoolClient::kDEPRECATED_RequestVideoFrames: {
+      break;
+    }
+    case messages::VideoFramePoolClient::kRequestVideoFrames: {
+      internal::VideoFramePoolClient_RequestVideoFrames_Params_Data* params =
+          reinterpret_cast<
+              internal::VideoFramePoolClient_RequestVideoFrames_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for VideoFramePoolClient.1
       bool success = true;
       ::arc::mojom::VideoPixelFormat p_format{};
       ::arc::mojom::SizePtr p_coded_size{};
@@ -723,33 +1004,20 @@ bool VideoFramePoolClientStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            VideoFramePoolClient::Name_, 0, false);
+            VideoFramePoolClient::Name_, 1, false);
         return false;
       }
+      VideoFramePoolClient::RequestVideoFramesCallback callback =
+          VideoFramePoolClient_RequestVideoFrames_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->RequestVideoFrames(        
         std::move(p_format), 
         std::move(p_coded_size), 
         std::move(p_visible_rect), 
-        std::move(p_num_frames));
+        std::move(p_num_frames), std::move(callback));
       return true;
-    }
-  }
-  return false;
-}
-
-// static
-bool VideoFramePoolClientStubDispatch::AcceptWithResponder(
-    VideoFramePoolClient* impl,
-    mojo::Message* message,
-    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-  [[maybe_unused]] const bool message_is_sync =
-      message->has_flag(mojo::Message::kFlagIsSync);
-  [[maybe_unused]] const uint64_t request_id = message->request_id();
-  switch (static_cast<messages::VideoFramePoolClient>(message->header()->name)) {
-    case messages::VideoFramePoolClient::kRequestVideoFrames: {
-      break;
     }
   }
   return false;
@@ -757,8 +1025,10 @@ bool VideoFramePoolClientStubDispatch::AcceptWithResponder(
 namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kVideoFramePoolClientValidationInfo[] = {
-    { &internal::VideoFramePoolClient_RequestVideoFrames_Params_Data::Validate,
+    { &internal::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data::Validate,
      nullptr /* no response */},
+    { &internal::VideoFramePoolClient_RequestVideoFrames_Params_Data::Validate,
+     &internal::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data::Validate},
 };
 
 bool VideoFramePoolClientRequestValidator::Accept(mojo::Message* message) {
@@ -766,6 +1036,10 @@ bool VideoFramePoolClientRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kVideoFramePoolClientValidationInfo);
 }
 
+bool VideoFramePoolClientResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::arc::mojom::VideoFramePoolClient::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kVideoFramePoolClientValidationInfo);
+}
 
 
 }  // arc::mojom
@@ -808,10 +1082,14 @@ namespace arc::mojom {
 
 
 void VideoFramePoolInterceptorForTesting::Initialize(::mojo::PendingAssociatedRemote<VideoFramePoolClient> client) {
-  GetForwardingInterface()->Initialize(std::move(client));
+  GetForwardingInterface()->Initialize(
+    std::move(client)
+    );
 }
 void VideoFramePoolInterceptorForTesting::AddVideoFrame(VideoFramePtr video_frame, AddVideoFrameCallback callback) {
-  GetForwardingInterface()->AddVideoFrame(std::move(video_frame), std::move(callback));
+  GetForwardingInterface()->AddVideoFrame(
+    std::move(video_frame)
+    , std::move(callback));
 }
 VideoFramePoolAsyncWaiter::VideoFramePoolAsyncWaiter(
     VideoFramePool* proxy) : proxy_(proxy) {}
@@ -844,13 +1122,46 @@ bool VideoFramePoolAsyncWaiter::AddVideoFrame(
 
 
 
-void VideoFramePoolClientInterceptorForTesting::RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) {
-  GetForwardingInterface()->RequestVideoFrames(std::move(format), std::move(coded_size), std::move(visible_rect), std::move(num_frames));
+void VideoFramePoolClientInterceptorForTesting::DEPRECATED_RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) {
+  GetForwardingInterface()->DEPRECATED_RequestVideoFrames(
+    std::move(format)
+    , 
+    std::move(coded_size)
+    , 
+    std::move(visible_rect)
+    , 
+    std::move(num_frames)
+    );
+}
+void VideoFramePoolClientInterceptorForTesting::RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames, RequestVideoFramesCallback callback) {
+  GetForwardingInterface()->RequestVideoFrames(
+    std::move(format)
+    , 
+    std::move(coded_size)
+    , 
+    std::move(visible_rect)
+    , 
+    std::move(num_frames)
+    , std::move(callback));
 }
 VideoFramePoolClientAsyncWaiter::VideoFramePoolClientAsyncWaiter(
     VideoFramePoolClient* proxy) : proxy_(proxy) {}
 
 VideoFramePoolClientAsyncWaiter::~VideoFramePoolClientAsyncWaiter() = default;
+
+void VideoFramePoolClientAsyncWaiter::RequestVideoFrames(
+    ::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) {
+  base::RunLoop loop;
+  proxy_->RequestVideoFrames(std::move(format),std::move(coded_size),std::move(visible_rect),std::move(num_frames),
+      base::BindOnce(
+          [](base::RunLoop* loop) {
+            loop->Quit();
+          },
+          &loop));
+  loop.Run();
+}
+
+
 
 
 

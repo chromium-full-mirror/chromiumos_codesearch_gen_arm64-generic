@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_MPRIS() (0)
 
 #endif  // COMPONENTS_SYSTEM_MEDIA_CONTROLS_LINUX_BUILDFLAGS_BUILDFLAGS_H_

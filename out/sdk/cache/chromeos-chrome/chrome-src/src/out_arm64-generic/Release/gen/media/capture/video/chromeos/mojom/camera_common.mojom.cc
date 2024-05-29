@@ -3762,10 +3762,18 @@ namespace cros::mojom {
 
 
 void CameraModuleCallbacksInterceptorForTesting::CameraDeviceStatusChange(int32_t camera_id, CameraDeviceStatus new_status) {
-  GetForwardingInterface()->CameraDeviceStatusChange(std::move(camera_id), std::move(new_status));
+  GetForwardingInterface()->CameraDeviceStatusChange(
+    std::move(camera_id)
+    , 
+    std::move(new_status)
+    );
 }
 void CameraModuleCallbacksInterceptorForTesting::TorchModeStatusChange(int32_t camera_id, TorchModeStatus new_status) {
-  GetForwardingInterface()->TorchModeStatusChange(std::move(camera_id), std::move(new_status));
+  GetForwardingInterface()->TorchModeStatusChange(
+    std::move(camera_id)
+    , 
+    std::move(new_status)
+    );
 }
 CameraModuleCallbacksAsyncWaiter::CameraModuleCallbacksAsyncWaiter(
     CameraModuleCallbacks* proxy) : proxy_(proxy) {}
@@ -3782,13 +3790,19 @@ void VendorTagOpsInterceptorForTesting::GetAllTags(GetAllTagsCallback callback) 
   GetForwardingInterface()->GetAllTags(std::move(callback));
 }
 void VendorTagOpsInterceptorForTesting::GetSectionName(uint32_t tag, GetSectionNameCallback callback) {
-  GetForwardingInterface()->GetSectionName(std::move(tag), std::move(callback));
+  GetForwardingInterface()->GetSectionName(
+    std::move(tag)
+    , std::move(callback));
 }
 void VendorTagOpsInterceptorForTesting::GetTagName(uint32_t tag, GetTagNameCallback callback) {
-  GetForwardingInterface()->GetTagName(std::move(tag), std::move(callback));
+  GetForwardingInterface()->GetTagName(
+    std::move(tag)
+    , std::move(callback));
 }
 void VendorTagOpsInterceptorForTesting::GetTagType(uint32_t tag, GetTagTypeCallback callback) {
-  GetForwardingInterface()->GetTagType(std::move(tag), std::move(callback));
+  GetForwardingInterface()->GetTagType(
+    std::move(tag)
+    , std::move(callback));
 }
 VendorTagOpsAsyncWaiter::VendorTagOpsAsyncWaiter(
     VendorTagOps* proxy) : proxy_(proxy) {}
@@ -3914,28 +3928,44 @@ int32_t VendorTagOpsAsyncWaiter::GetTagType(
 
 
 void CameraModuleInterceptorForTesting::OpenDevice(int32_t camera_id, ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> device_ops_receiver, OpenDeviceCallback callback) {
-  GetForwardingInterface()->OpenDevice(std::move(camera_id), std::move(device_ops_receiver), std::move(callback));
+  GetForwardingInterface()->OpenDevice(
+    std::move(camera_id)
+    , 
+    std::move(device_ops_receiver)
+    , std::move(callback));
 }
 void CameraModuleInterceptorForTesting::GetNumberOfCameras(GetNumberOfCamerasCallback callback) {
   GetForwardingInterface()->GetNumberOfCameras(std::move(callback));
 }
 void CameraModuleInterceptorForTesting::GetCameraInfo(int32_t camera_id, GetCameraInfoCallback callback) {
-  GetForwardingInterface()->GetCameraInfo(std::move(camera_id), std::move(callback));
+  GetForwardingInterface()->GetCameraInfo(
+    std::move(camera_id)
+    , std::move(callback));
 }
 void CameraModuleInterceptorForTesting::SetCallbacks(::mojo::PendingRemote<CameraModuleCallbacks> callbacks, SetCallbacksCallback callback) {
-  GetForwardingInterface()->SetCallbacks(std::move(callbacks), std::move(callback));
+  GetForwardingInterface()->SetCallbacks(
+    std::move(callbacks)
+    , std::move(callback));
 }
 void CameraModuleInterceptorForTesting::SetTorchMode(int32_t camera_id, bool enabled, SetTorchModeCallback callback) {
-  GetForwardingInterface()->SetTorchMode(std::move(camera_id), std::move(enabled), std::move(callback));
+  GetForwardingInterface()->SetTorchMode(
+    std::move(camera_id)
+    , 
+    std::move(enabled)
+    , std::move(callback));
 }
 void CameraModuleInterceptorForTesting::Init(InitCallback callback) {
   GetForwardingInterface()->Init(std::move(callback));
 }
 void CameraModuleInterceptorForTesting::GetVendorTagOps(::mojo::PendingReceiver<VendorTagOps> vendor_tag_ops_receiver, GetVendorTagOpsCallback callback) {
-  GetForwardingInterface()->GetVendorTagOps(std::move(vendor_tag_ops_receiver), std::move(callback));
+  GetForwardingInterface()->GetVendorTagOps(
+    std::move(vendor_tag_ops_receiver)
+    , std::move(callback));
 }
 void CameraModuleInterceptorForTesting::SetCallbacksAssociated(::mojo::PendingAssociatedRemote<CameraModuleCallbacks> callbacks, SetCallbacksAssociatedCallback callback) {
-  GetForwardingInterface()->SetCallbacksAssociated(std::move(callbacks), std::move(callback));
+  GetForwardingInterface()->SetCallbacksAssociated(
+    std::move(callbacks)
+    , std::move(callback));
 }
 CameraModuleAsyncWaiter::CameraModuleAsyncWaiter(
     CameraModule* proxy) : proxy_(proxy) {}

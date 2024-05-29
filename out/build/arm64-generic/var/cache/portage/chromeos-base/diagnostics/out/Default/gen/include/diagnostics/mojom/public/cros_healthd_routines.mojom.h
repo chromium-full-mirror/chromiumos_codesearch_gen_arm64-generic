@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "diagnostics/mojom/public/cros_healthd_routines.mojom-features.h"
-#include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared.h"
-#include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-features.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-shared.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_routines.mojom-forward.h"  // IWYU pragma: export
 #include "diagnostics/mojom/external/time.mojom.h"
 #include "diagnostics/mojom/external/uuid.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_exception.mojom-forward.h"
@@ -1933,6 +1933,142 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  CameraFrameAnalysisRoutineArgument {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CameraFrameAnalysisRoutineArgument, T>::value>;
+  using DataView = CameraFrameAnalysisRoutineArgumentDataView;
+  using Data_ = internal::CameraFrameAnalysisRoutineArgument_Data;
+
+  template <typename... Args>
+  static CameraFrameAnalysisRoutineArgumentPtr New(Args&&... args) {
+    return CameraFrameAnalysisRoutineArgumentPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CameraFrameAnalysisRoutineArgumentPtr From(const U& u) {
+    return mojo::TypeConverter<CameraFrameAnalysisRoutineArgumentPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CameraFrameAnalysisRoutineArgument>::Convert(*this);
+  }
+
+
+  CameraFrameAnalysisRoutineArgument();
+
+
+  ~CameraFrameAnalysisRoutineArgument();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CameraFrameAnalysisRoutineArgumentPtr>
+  CameraFrameAnalysisRoutineArgumentPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CameraFrameAnalysisRoutineArgument::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CameraFrameAnalysisRoutineArgument::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CameraFrameAnalysisRoutineArgument_UnserializedMessageContext<
+            UserType, CameraFrameAnalysisRoutineArgument::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CameraFrameAnalysisRoutineArgument::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CameraFrameAnalysisRoutineArgument::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CameraFrameAnalysisRoutineArgument_UnserializedMessageContext<
+            UserType, CameraFrameAnalysisRoutineArgument::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CameraFrameAnalysisRoutineArgument::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  RoutineStateInitialized {
  public:
@@ -3375,6 +3511,154 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  CameraFrameAnalysisRoutineDetail {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CameraFrameAnalysisRoutineDetail, T>::value>;
+  using DataView = CameraFrameAnalysisRoutineDetailDataView;
+  using Data_ = internal::CameraFrameAnalysisRoutineDetail_Data;
+  using Issue = CameraFrameAnalysisRoutineDetail_Issue;
+
+  template <typename... Args>
+  static CameraFrameAnalysisRoutineDetailPtr New(Args&&... args) {
+    return CameraFrameAnalysisRoutineDetailPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CameraFrameAnalysisRoutineDetailPtr From(const U& u) {
+    return mojo::TypeConverter<CameraFrameAnalysisRoutineDetailPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CameraFrameAnalysisRoutineDetail>::Convert(*this);
+  }
+
+
+  CameraFrameAnalysisRoutineDetail();
+
+  CameraFrameAnalysisRoutineDetail(
+      CameraFrameAnalysisRoutineDetail::Issue issue,
+      CameraSubtestResult privacy_shutter_open_test,
+      CameraSubtestResult lens_not_dirty_test);
+
+
+  ~CameraFrameAnalysisRoutineDetail();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CameraFrameAnalysisRoutineDetailPtr>
+  CameraFrameAnalysisRoutineDetailPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CameraFrameAnalysisRoutineDetail::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CameraFrameAnalysisRoutineDetail::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CameraFrameAnalysisRoutineDetail_UnserializedMessageContext<
+            UserType, CameraFrameAnalysisRoutineDetail::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CameraFrameAnalysisRoutineDetail::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CameraFrameAnalysisRoutineDetail::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CameraFrameAnalysisRoutineDetail_UnserializedMessageContext<
+            UserType, CameraFrameAnalysisRoutineDetail::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CameraFrameAnalysisRoutineDetail::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  CameraFrameAnalysisRoutineDetail::Issue issue;
+  
+  CameraSubtestResult privacy_shutter_open_test;
+  
+  CameraSubtestResult lens_not_dirty_test;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  RoutineArgument {
  public:
   using DataView = RoutineArgumentDataView;
@@ -3549,6 +3833,14 @@ class  RoutineArgument {
       SensitiveSensorRoutineArgumentPtr value) {
     auto result = RoutineArgumentPtr(std::in_place);
     result->set_sensitive_sensor(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |camera_frame_analysis|.
+  static RoutineArgumentPtr
+  NewCameraFrameAnalysis(
+      CameraFrameAnalysisRoutineArgumentPtr value) {
+    auto result = RoutineArgumentPtr(std::in_place);
+    result->set_camera_frame_analysis(std::move(value));
     return result;
   }
 
@@ -3833,6 +4125,18 @@ class  RoutineArgument {
   
   void set_sensitive_sensor(
       SensitiveSensorRoutineArgumentPtr sensitive_sensor);
+  
+  bool is_camera_frame_analysis() const { return tag_ == Tag::kCameraFrameAnalysis; }
+
+  
+  CameraFrameAnalysisRoutineArgumentPtr& get_camera_frame_analysis() const {
+    CHECK(tag_ == Tag::kCameraFrameAnalysis);
+    return *(data_.camera_frame_analysis);
+  }
+
+  
+  void set_camera_frame_analysis(
+      CameraFrameAnalysisRoutineArgumentPtr camera_frame_analysis);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3871,6 +4175,7 @@ class  RoutineArgument {
     UrandomRoutineArgumentPtr* urandom;
     NetworkBandwidthRoutineArgumentPtr* network_bandwidth;
     SensitiveSensorRoutineArgumentPtr* sensitive_sensor;
+    CameraFrameAnalysisRoutineArgumentPtr* camera_frame_analysis;
   };
 
   static bool Validate(const void* data,
@@ -4712,6 +5017,14 @@ class  RoutineDetail {
     result->set_sensitive_sensor(std::move(value));
     return result;
   }
+  // Construct an instance holding |camera_frame_analysis|.
+  static RoutineDetailPtr
+  NewCameraFrameAnalysis(
+      CameraFrameAnalysisRoutineDetailPtr value) {
+    auto result = RoutineDetailPtr(std::in_place);
+    result->set_camera_frame_analysis(std::move(value));
+    return result;
+  }
 
   template <typename U>
   static RoutineDetailPtr From(const U& u) {
@@ -4898,6 +5211,18 @@ class  RoutineDetail {
   
   void set_sensitive_sensor(
       SensitiveSensorRoutineDetailPtr sensitive_sensor);
+  
+  bool is_camera_frame_analysis() const { return tag_ == Tag::kCameraFrameAnalysis; }
+
+  
+  CameraFrameAnalysisRoutineDetailPtr& get_camera_frame_analysis() const {
+    CHECK(tag_ == Tag::kCameraFrameAnalysis);
+    return *(data_.camera_frame_analysis);
+  }
+
+  
+  void set_camera_frame_analysis(
+      CameraFrameAnalysisRoutineDetailPtr camera_frame_analysis);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -4928,6 +5253,7 @@ class  RoutineDetail {
     CameraAvailabilityRoutineDetailPtr* camera_availability;
     NetworkBandwidthRoutineDetailPtr* network_bandwidth;
     SensitiveSensorRoutineDetailPtr* sensitive_sensor;
+    CameraFrameAnalysisRoutineDetailPtr* camera_frame_analysis;
   };
 
   static bool Validate(const void* data,
@@ -6076,6 +6402,7 @@ template <typename T, UrandomRoutineArgument::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -8455,6 +8782,7 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
@@ -8518,6 +8846,9 @@ RoutineArgumentPtr RoutineArgument::Clone() const {
     case Tag::kSensitiveSensor:
       return NewSensitiveSensor(
           mojo::Clone(*data_.sensitive_sensor));
+    case Tag::kCameraFrameAnalysis:
+      return NewCameraFrameAnalysis(
+          mojo::Clone(*data_.camera_frame_analysis));
   }
   return nullptr;
 }
@@ -8570,6 +8901,8 @@ bool RoutineArgument::Equals(const T& other) const {
       return mojo::Equals(*(data_.network_bandwidth), *(other.data_.network_bandwidth));
     case Tag::kSensitiveSensor:
       return mojo::Equals(*(data_.sensitive_sensor), *(other.data_.sensitive_sensor));
+    case Tag::kCameraFrameAnalysis:
+      return mojo::Equals(*(data_.camera_frame_analysis), *(other.data_.camera_frame_analysis));
   }
 
   return false;
@@ -8773,6 +9106,9 @@ RoutineDetailPtr RoutineDetail::Clone() const {
     case Tag::kSensitiveSensor:
       return NewSensitiveSensor(
           mojo::Clone(*data_.sensitive_sensor));
+    case Tag::kCameraFrameAnalysis:
+      return NewCameraFrameAnalysis(
+          mojo::Clone(*data_.camera_frame_analysis));
   }
   return nullptr;
 }
@@ -8809,6 +9145,8 @@ bool RoutineDetail::Equals(const T& other) const {
       return mojo::Equals(*(data_.network_bandwidth), *(other.data_.network_bandwidth));
     case Tag::kSensitiveSensor:
       return mojo::Equals(*(data_.sensitive_sensor), *(other.data_.sensitive_sensor));
+    case Tag::kCameraFrameAnalysis:
+      return mojo::Equals(*(data_.camera_frame_analysis), *(other.data_.camera_frame_analysis));
   }
 
   return false;
@@ -9214,6 +9552,21 @@ bool SensitiveSensorRoutineArgument::Equals(const T& other_struct) const {
 }
 
 template <typename T, SensitiveSensorRoutineArgument::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  return false;
+}
+template <typename StructPtrType>
+CameraFrameAnalysisRoutineArgumentPtr CameraFrameAnalysisRoutineArgument::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>*>
+bool CameraFrameAnalysisRoutineArgument::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, CameraFrameAnalysisRoutineArgument::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
@@ -10041,6 +10394,42 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+CameraFrameAnalysisRoutineDetailPtr CameraFrameAnalysisRoutineDetail::Clone() const {
+  return New(
+      mojo::Clone(issue),
+      mojo::Clone(privacy_shutter_open_test),
+      mojo::Clone(lens_not_dirty_test)
+  );
+}
+
+template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>*>
+bool CameraFrameAnalysisRoutineDetail::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->issue, other_struct.issue))
+    return false;
+  if (!mojo::Equals(this->privacy_shutter_open_test, other_struct.privacy_shutter_open_test))
+    return false;
+  if (!mojo::Equals(this->lens_not_dirty_test, other_struct.lens_not_dirty_test))
+    return false;
+  return true;
+}
+
+template <typename T, CameraFrameAnalysisRoutineDetail::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.issue < rhs.issue)
+    return true;
+  if (rhs.issue < lhs.issue)
+    return false;
+  if (lhs.privacy_shutter_open_test < rhs.privacy_shutter_open_test)
+    return true;
+  if (rhs.privacy_shutter_open_test < lhs.privacy_shutter_open_test)
+    return false;
+  if (lhs.lens_not_dirty_test < rhs.lens_not_dirty_test)
+    return true;
+  if (rhs.lens_not_dirty_test < lhs.lens_not_dirty_test)
+    return false;
+  return false;
+}
 
 
 }  // ash::cros_healthd::mojom
@@ -10320,6 +10709,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgument:
   static void SetToNull(::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr* output) { output->reset(); }
 
   static bool Read(::ash::cros_healthd::mojom::SensitiveSensorRoutineArgument::DataView input, ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::DataView,
+                                         ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr* output) { output->reset(); }
+
+  static bool Read(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::DataView input, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr* output);
 };
 
 
@@ -10894,6 +11293,31 @@ struct  StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetail::D
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::DataView,
+                                         ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::issue) issue(
+      const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr& input) {
+    return input->issue;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::privacy_shutter_open_test) privacy_shutter_open_test(
+      const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr& input) {
+    return input->privacy_shutter_open_test;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::lens_not_dirty_test) lens_not_dirty_test(
+      const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr& input) {
+    return input->lens_not_dirty_test;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::DataView input, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
                                         ::ash::cros_healthd::mojom::RoutineArgumentPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) { return !input; }
@@ -10981,6 +11405,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static const ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr& sensitive_sensor(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->get_sensitive_sensor();
+  }
+
+  static const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr& camera_frame_analysis(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_camera_frame_analysis();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineArgument::DataView input, ::ash::cros_healthd::mojom::RoutineArgumentPtr* output);
@@ -11165,6 +11593,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView,
 
   static const ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailPtr& sensitive_sensor(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
     return input->get_sensitive_sensor();
+  }
+
+  static const ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr& camera_frame_analysis(const ::ash::cros_healthd::mojom::RoutineDetailPtr& input) {
+    return input->get_camera_frame_analysis();
   }
 
   static bool Read(::ash::cros_healthd::mojom::RoutineDetail::DataView input, ::ash::cros_healthd::mojom::RoutineDetailPtr* output);

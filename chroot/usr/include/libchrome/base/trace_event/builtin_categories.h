@@ -37,6 +37,7 @@
   /* The rest of the list is in alphabetical order */                    \
   X("accessibility")                                                     \
   X("AccountFetcherService")                                             \
+  X("android.adpf")                                                      \
   X("android.ui.jank")                                                   \
   X("android_webview")                                                   \
   X("android_webview.timeline")                                          \
@@ -392,6 +393,7 @@
   X("v8," TRACE_DISABLED_BY_DEFAULT("v8.compile"))                            \
   X("v8,devtools.timeline")                                                   \
   X("v8,devtools.timeline," TRACE_DISABLED_BY_DEFAULT("v8.compile"))          \
+  X("viz,android.adpf")                                                       \
   X("viz,benchmark")                                                          \
   X("viz,benchmark,graphics.pipeline")                                        \
   X("wakeup.flow,toplevel.flow")                                              \
@@ -408,7 +410,6 @@
 
 #define INTERNAL_TRACE_INIT_CATEGORY(name) {0, 0, name},
 
-#if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 PERFETTO_DEFINE_TEST_CATEGORY_PREFIXES("cat",
                                        "foo",
                                        "test",
@@ -434,7 +435,6 @@ PERFETTO_USE_CATEGORIES_FROM_NAMESPACE(base);
 
 #undef INTERNAL_CATEGORY
 #undef INTERNAL_CATEGORY_GROUP
-#endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 
 namespace base {
 namespace trace_event {

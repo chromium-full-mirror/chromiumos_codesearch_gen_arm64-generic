@@ -1053,10 +1053,50 @@ void JpegEncodeAcceleratorInterceptorForTesting::Initialize(InitializeCallback c
   GetForwardingInterface()->Initialize(std::move(callback));
 }
 void JpegEncodeAcceleratorInterceptorForTesting::EncodeWithFD(int32_t task_id, ::mojo::ScopedHandle input_fd, uint32_t input_buffer_size, int32_t coded_size_width, int32_t coded_size_height, ::mojo::ScopedHandle exif_fd, uint32_t exif_buffer_size, ::mojo::ScopedHandle output_fd, uint32_t output_buffer_size, EncodeWithFDCallback callback) {
-  GetForwardingInterface()->EncodeWithFD(std::move(task_id), std::move(input_fd), std::move(input_buffer_size), std::move(coded_size_width), std::move(coded_size_height), std::move(exif_fd), std::move(exif_buffer_size), std::move(output_fd), std::move(output_buffer_size), std::move(callback));
+  GetForwardingInterface()->EncodeWithFD(
+    std::move(task_id)
+    , 
+    std::move(input_fd)
+    , 
+    std::move(input_buffer_size)
+    , 
+    std::move(coded_size_width)
+    , 
+    std::move(coded_size_height)
+    , 
+    std::move(exif_fd)
+    , 
+    std::move(exif_buffer_size)
+    , 
+    std::move(output_fd)
+    , 
+    std::move(output_buffer_size)
+    , std::move(callback));
 }
 void JpegEncodeAcceleratorInterceptorForTesting::EncodeWithDmaBuf(int32_t task_id, uint32_t input_format, std::vector<::cros::mojom::DmaBufPlanePtr> input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, bool has_input_modifier, uint64_t input_modifier, EncodeWithDmaBufCallback callback) {
-  GetForwardingInterface()->EncodeWithDmaBuf(std::move(task_id), std::move(input_format), std::move(input_planes), std::move(output_planes), std::move(exif_handle), std::move(exif_buffer_size), std::move(coded_size_width), std::move(coded_size_height), std::move(quality), std::move(has_input_modifier), std::move(input_modifier), std::move(callback));
+  GetForwardingInterface()->EncodeWithDmaBuf(
+    std::move(task_id)
+    , 
+    std::move(input_format)
+    , 
+    std::move(input_planes)
+    , 
+    std::move(output_planes)
+    , 
+    std::move(exif_handle)
+    , 
+    std::move(exif_buffer_size)
+    , 
+    std::move(coded_size_width)
+    , 
+    std::move(coded_size_height)
+    , 
+    std::move(quality)
+    , 
+    std::move(has_input_modifier)
+    , 
+    std::move(input_modifier)
+    , std::move(callback));
 }
 JpegEncodeAcceleratorAsyncWaiter::JpegEncodeAcceleratorAsyncWaiter(
     JpegEncodeAccelerator* proxy) : proxy_(proxy) {}

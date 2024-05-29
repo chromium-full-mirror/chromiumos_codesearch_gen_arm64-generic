@@ -864,10 +864,16 @@ namespace chromeos::machine_learning::mojom {
 
 
 void ModelInterceptorForTesting::REMOVED_0(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver, REMOVED_0Callback callback) {
-  GetForwardingInterface()->REMOVED_0(std::move(receiver), std::move(callback));
+  GetForwardingInterface()->REMOVED_0(
+    std::move(receiver)
+    , std::move(callback));
 }
 void ModelInterceptorForTesting::CreateGraphExecutor(GraphExecutorOptionsPtr options, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver, CreateGraphExecutorCallback callback) {
-  GetForwardingInterface()->CreateGraphExecutor(std::move(options), std::move(receiver), std::move(callback));
+  GetForwardingInterface()->CreateGraphExecutor(
+    std::move(options)
+    , 
+    std::move(receiver)
+    , std::move(callback));
 }
 ModelAsyncWaiter::ModelAsyncWaiter(
     Model* proxy) : proxy_(proxy) {}

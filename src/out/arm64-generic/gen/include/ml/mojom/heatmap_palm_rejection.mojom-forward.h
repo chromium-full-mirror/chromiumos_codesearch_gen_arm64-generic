@@ -26,6 +26,8 @@ class HeatmapPalmRejectionConfigDataView;
 
 class HeatmapProcessedEventDataView;
 
+class CropHeatmapDataView;
+
 
 enum class LoadHeatmapPalmRejectionResult : int32_t;
 class HeatmapPalmRejectionConfig;
@@ -33,6 +35,9 @@ using HeatmapPalmRejectionConfigPtr = mojo::StructPtr<HeatmapPalmRejectionConfig
 
 class HeatmapProcessedEvent;
 using HeatmapProcessedEventPtr = mojo::StructPtr<HeatmapProcessedEvent>;
+
+class CropHeatmap;
+using CropHeatmapPtr = mojo::InlinedStructPtr<CropHeatmap>;
 
 class HeatmapPalmRejectionClient;
 

@@ -79,8 +79,6 @@ NOINLINE static const char* CameraIssueToStringHelper(CameraIssue value) {
   switch(value) {
     case CameraIssue::kNone:
       return "kNone";
-    case CameraIssue::kManufacturerIssue:
-      return "kManufacturerIssue";
     case CameraIssue::kPrivacyShutterOn:
       return "kPrivacyShutterOn";
     case CameraIssue::kDirtyLens:
@@ -111,8 +109,8 @@ NOINLINE static const char* ClientTypeToStringHelper(ClientType value) {
       return "kUnknown";
     case ClientType::kHealthd:
       return "kHealthd";
-    case ClientType::kCca:
-      return "kCca";
+    case ClientType::kTest:
+      return "kTest";
     default:
       return nullptr;
   }
@@ -133,12 +131,8 @@ std::ostream& operator<<(std::ostream& os, ClientType value) {
 NOINLINE static const char* DataSourceToStringHelper(DataSource value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case DataSource::kChrome:
-      return "kChrome";
     case DataSource::kCameraService:
       return "kCameraService";
-    case DataSource::kClientApp:
-      return "kClientApp";
     case DataSource::kCameraDiagnostics:
       return "kCameraDiagnostics";
     default:
@@ -165,12 +159,8 @@ NOINLINE static const char* ErrorCodeToStringHelper(ErrorCode value) {
       return "kUnknown";
     case ErrorCode::kCameraClosed:
       return "kCameraClosed";
-    case ErrorCode::kMultipleOpenCameras:
-      return "kMultipleOpenCameras";
     case ErrorCode::kAlreadyRunningAnalysis:
       return "kAlreadyRunningAnalysis";
-    case ErrorCode::kNotEnoughFrames:
-      return "kNotEnoughFrames";
     case ErrorCode::kInvalidDuration:
       return "kInvalidDuration";
     case ErrorCode::kCrosCameraControllerNotRegistered:

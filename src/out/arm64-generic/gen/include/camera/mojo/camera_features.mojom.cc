@@ -127,7 +127,7 @@ size_t Camera3StreamEffect::Hash(size_t seed) const {
     case Tag::kPortraitModeConfig:
       return mojo::internal::Hash(seed, data_.portrait_mode_config);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }

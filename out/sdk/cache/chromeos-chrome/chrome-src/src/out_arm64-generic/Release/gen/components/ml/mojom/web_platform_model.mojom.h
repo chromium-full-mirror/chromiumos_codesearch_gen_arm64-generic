@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "components/ml/mojom/web_platform_model.mojom-features.h"
-#include "components/ml/mojom/web_platform_model.mojom-shared.h"
-#include "components/ml/mojom/web_platform_model.mojom-forward.h"
+#include "components/ml/mojom/web_platform_model.mojom-features.h"  // IWYU pragma: export
+#include "components/ml/mojom/web_platform_model.mojom-shared.h"  // IWYU pragma: export
+#include "components/ml/mojom/web_platform_model.mojom-forward.h"  // IWYU pragma: export
 #include "mojo/public/mojom/base/big_buffer.mojom.h"
 #include <string>
 #include <vector>

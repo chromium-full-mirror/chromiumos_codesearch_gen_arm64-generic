@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(827233605053062635), UINT64_C(524369188505453537), UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(13615523565054809415), UINT64_C(4785189117830128085), UINT64_C(11294265225635075664), UINT64_C(4905803635010729907), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(15648706341345157436), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(827233605053062635), UINT64_C(524369188505453537), UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(13615523565054809415), UINT64_C(4785189117830128085), UINT64_C(11294265225635075664), UINT64_C(4905803635010729907), UINT64_C(2498789778295443083), UINT64_C(16881314472396226433), UINT64_C(10860358748803291132), UINT64_C(5876808001962504629), UINT64_C(15648706341345157436), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(17319042894491683836), UINT64_C(2748984776450521969), UINT64_C(6962789877417678651), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -621,9 +621,9 @@ class BRILLO_EXPORT CrashReporterStart final : public ::metrics::structured::Eve
   CrashReporterStart& SetCollector(const int64_t value);
   int64_t GetCollectorForTest() const;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashReporterStart& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashReporterStart& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
 };
 
@@ -646,9 +646,9 @@ class BRILLO_EXPORT CrashReporterStatus final : public ::metrics::structured::Ev
   CrashReporterStatus& SetCollector(const int64_t value);
   int64_t GetCollectorForTest() const;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashReporterStatus& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashReporterStatus& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
 };
 
@@ -701,9 +701,9 @@ class BRILLO_EXPORT CrashSenderStart final : public ::metrics::structured::Event
   static constexpr StructuredEventProto_EventType kEventType =
     StructuredEventProto_EventType_REGULAR;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashSenderStart& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashSenderStart& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
 };
 
@@ -722,9 +722,9 @@ class BRILLO_EXPORT CrashSenderStartPerCollector final : public ::metrics::struc
   CrashSenderStartPerCollector& SetCollector(const int64_t value);
   int64_t GetCollectorForTest() const;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashSenderStartPerCollector& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashSenderStartPerCollector& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
 };
 
@@ -747,9 +747,9 @@ class BRILLO_EXPORT CrashSenderRemovalReason final : public ::metrics::structure
   CrashSenderRemovalReason& SetReason(const int64_t value);
   int64_t GetReasonForTest() const;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashSenderRemovalReason& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashSenderRemovalReason& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
 };
 
@@ -772,9 +772,9 @@ class BRILLO_EXPORT CrashSenderComplete final : public ::metrics::structured::Ev
   CrashSenderComplete& SetRemoved(const int64_t value);
   int64_t GetRemovedForTest() const;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashSenderComplete& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashSenderComplete& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
 };
 
@@ -793,9 +793,9 @@ class BRILLO_EXPORT CrashSenderOrphanFileRemoved final : public ::metrics::struc
   CrashSenderOrphanFileRemoved& SetRemoved(const int64_t value);
   int64_t GetRemovedForTest() const;
 
-  static constexpr uint64_t kIsCrashLoopNameHash = UINT64_C(1930484523447744031);
-  CrashSenderOrphanFileRemoved& SetIsCrashLoop(const int64_t value);
-  int64_t GetIsCrashLoopForTest() const;
+  static constexpr uint64_t kCrashSendingModeNameHash = UINT64_C(9194832091806358911);
+  CrashSenderOrphanFileRemoved& SetCrashSendingMode(const int64_t value);
+  int64_t GetCrashSendingModeForTest() const;
 
   static constexpr uint64_t kSeemingCrashFileNameHash = UINT64_C(6278724688900276512);
   CrashSenderOrphanFileRemoved& SetSeemingCrashFile(const int64_t value);
@@ -1659,6 +1659,163 @@ class BRILLO_EXPORT UsbSessionEvent final : public ::metrics::structured::EventB
 };
 
 }  // namespace usb_session
+
+namespace usb_quality {
+
+class BRILLO_EXPORT UsbBusConnect final : public ::metrics::structured::EventBase {
+ public:
+  UsbBusConnect();
+  ~UsbBusConnect() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(6754346624079447888);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(2748984776450521969);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  UsbBusConnect& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kConnectionIdNameHash = UINT64_C(6109376703956436897);
+  UsbBusConnect& SetConnectionId(const std::string& value);
+  std::string GetConnectionIdForTest() const;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbBusConnect& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbBusConnect& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kLockScreenNameHash = UINT64_C(8745920413755665146);
+  UsbBusConnect& SetLockScreen(const int64_t value);
+  int64_t GetLockScreenForTest() const;
+
+  static constexpr uint64_t kSpeedNameHash = UINT64_C(4938052313977274277);
+  UsbBusConnect& SetSpeed(const int64_t value);
+  int64_t GetSpeedForTest() const;
+
+  static constexpr uint64_t kDeviceClassNameHash = UINT64_C(4411699667986879574);
+  UsbBusConnect& SetDeviceClass(const int64_t value);
+  int64_t GetDeviceClassForTest() const;
+
+  static constexpr uint64_t kInterfaceClassNameHash = UINT64_C(12001184715823272983);
+  UsbBusConnect& SetInterfaceClass(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetInterfaceClassForTest() const;
+
+  static constexpr uint64_t kInterfaceSubClassNameHash = UINT64_C(7882272162484367948);
+  UsbBusConnect& SetInterfaceSubClass(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetInterfaceSubClassForTest() const;
+
+  static constexpr uint64_t kInterfaceProtocolNameHash = UINT64_C(16077457297723759692);
+  UsbBusConnect& SetInterfaceProtocol(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetInterfaceProtocolForTest() const;
+
+  static constexpr uint64_t kInterfaceDriverNameHash = UINT64_C(1480426742597494634);
+  UsbBusConnect& SetInterfaceDriver(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetInterfaceDriverForTest() const;
+
+  static constexpr uint64_t kEndpointNameHash = UINT64_C(3056720590588772262);
+  UsbBusConnect& SetEndpoint(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetEndpointForTest() const;
+
+  static constexpr size_t GetInterfaceClassMaxLength() { return 20; }
+  static constexpr size_t GetInterfaceSubClassMaxLength() { return 20; }
+  static constexpr size_t GetInterfaceProtocolMaxLength() { return 20; }
+  static constexpr size_t GetInterfaceDriverMaxLength() { return 20; }
+  static constexpr size_t GetEndpointMaxLength() { return 20; }
+};
+
+class BRILLO_EXPORT UsbBusDisconnect final : public ::metrics::structured::EventBase {
+ public:
+  UsbBusDisconnect();
+  ~UsbBusDisconnect() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(11282951339081797222);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(2748984776450521969);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  UsbBusDisconnect& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kConnectionIdNameHash = UINT64_C(6109376703956436897);
+  UsbBusDisconnect& SetConnectionId(const std::string& value);
+  std::string GetConnectionIdForTest() const;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbBusDisconnect& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbBusDisconnect& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kDeviceErrorNameHash = UINT64_C(13701408410410190427);
+  UsbBusDisconnect& SetDeviceError(const std::vector<int64_t>& value);
+  std::vector<int64_t> GetDeviceErrorForTest() const;
+
+  static constexpr size_t GetDeviceErrorMaxLength() { return 10; }
+};
+
+class BRILLO_EXPORT UsbPdConnect final : public ::metrics::structured::EventBase {
+ public:
+  UsbPdConnect();
+  ~UsbPdConnect() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(13951431312431943371);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(2748984776450521969);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  UsbPdConnect& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kUsb2ConnectionIdNameHash = UINT64_C(3649808155760970582);
+  UsbPdConnect& SetUsb2ConnectionId(const std::string& value);
+  std::string GetUsb2ConnectionIdForTest() const;
+
+  static constexpr uint64_t kUsb3ConnectionIdNameHash = UINT64_C(2092018339839441790);
+  UsbPdConnect& SetUsb3ConnectionId(const std::string& value);
+  std::string GetUsb3ConnectionIdForTest() const;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbPdConnect& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbPdConnect& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kPartnerTypeNameHash = UINT64_C(780731158379036192);
+  UsbPdConnect& SetPartnerType(const int64_t value);
+  int64_t GetPartnerTypeForTest() const;
+
+  static constexpr uint64_t kCableTypeNameHash = UINT64_C(3818777324628264817);
+  UsbPdConnect& SetCableType(const int64_t value);
+  int64_t GetCableTypeForTest() const;
+
+  static constexpr uint64_t kMaxChargingRateNameHash = UINT64_C(15124487021527526911);
+  UsbPdConnect& SetMaxChargingRate(const int64_t value);
+  int64_t GetMaxChargingRateForTest() const;
+
+  static constexpr uint64_t kRealizedChargingRateNameHash = UINT64_C(3653783188672973062);
+  UsbPdConnect& SetRealizedChargingRate(const int64_t value);
+  int64_t GetRealizedChargingRateForTest() const;
+
+  static constexpr uint64_t kModeEntryResultNameHash = UINT64_C(16115893919749735081);
+  UsbPdConnect& SetModeEntryResult(const int64_t value);
+  int64_t GetModeEntryResultForTest() const;
+
+};
+
+}  // namespace usb_quality
 
 namespace usb_error {
 
@@ -2527,6 +2684,27 @@ class BRILLO_EXPORT TestEventFour final : public ::metrics::structured::EventBas
 };
 
 }  // namespace test_project_three
+
+namespace test_project__with__name__not__legal_cpp {
+
+class BRILLO_EXPORT TestEvent_With_Name_Not_Legal_CPP final : public ::metrics::structured::EventBase {
+ public:
+  TestEvent_With_Name_Not_Legal_CPP();
+  ~TestEvent_With_Name_Not_Legal_CPP() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(11137845753037239364);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(14556526249204758336);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_RAW_STRING;
+
+  static constexpr uint64_t kTestMetric_With_Name_Not_Legal_CPPNameHash = UINT64_C(5316180784485823184);
+  TestEvent_With_Name_Not_Legal_CPP& SetTestMetric_With_Name_Not_Legal_CPP(const std::string& value);
+  std::string GetTestMetric_With_Name_Not_Legal_CPPForTest() const;
+
+};
+
+}  // namespace test_project__with__name__not__legal_cpp
 
 
 

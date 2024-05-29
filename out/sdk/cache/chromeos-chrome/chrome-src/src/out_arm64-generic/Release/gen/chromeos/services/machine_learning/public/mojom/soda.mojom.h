@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "chromeos/services/machine_learning/public/mojom/soda.mojom-features.h"
-#include "chromeos/services/machine_learning/public/mojom/soda.mojom-shared.h"
-#include "chromeos/services/machine_learning/public/mojom/soda.mojom-forward.h"
+#include "chromeos/services/machine_learning/public/mojom/soda.mojom-features.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/soda.mojom-shared.h"  // IWYU pragma: export
+#include "chromeos/services/machine_learning/public/mojom/soda.mojom-forward.h"  // IWYU pragma: export
 #include "mojo/public/mojom/base/time.mojom.h"
 #include <string>
 #include <vector>

@@ -1362,13 +1362,23 @@ namespace chromeos::network_health::mojom {
 
 
 void NetworkEventsObserverInterceptorForTesting::OnConnectionStateChanged(const std::string& guid, ::chromeos::network_health::mojom::NetworkState state) {
-  GetForwardingInterface()->OnConnectionStateChanged(std::move(guid), std::move(state));
+  GetForwardingInterface()->OnConnectionStateChanged(
+    std::move(guid)
+    , 
+    std::move(state)
+    );
 }
 void NetworkEventsObserverInterceptorForTesting::OnSignalStrengthChanged(const std::string& guid, ::chromeos::network_health::mojom::UInt32ValuePtr signal_strength) {
-  GetForwardingInterface()->OnSignalStrengthChanged(std::move(guid), std::move(signal_strength));
+  GetForwardingInterface()->OnSignalStrengthChanged(
+    std::move(guid)
+    , 
+    std::move(signal_strength)
+    );
 }
 void NetworkEventsObserverInterceptorForTesting::OnNetworkListChanged(std::vector<::chromeos::network_health::mojom::NetworkPtr> networks) {
-  GetForwardingInterface()->OnNetworkListChanged(std::move(networks));
+  GetForwardingInterface()->OnNetworkListChanged(
+    std::move(networks)
+    );
 }
 NetworkEventsObserverAsyncWaiter::NetworkEventsObserverAsyncWaiter(
     NetworkEventsObserver* proxy) : proxy_(proxy) {}
@@ -1379,7 +1389,9 @@ NetworkEventsObserverAsyncWaiter::~NetworkEventsObserverAsyncWaiter() = default;
 
 
 void NetworkHealthServiceInterceptorForTesting::AddObserver(::mojo::PendingRemote<NetworkEventsObserver> observer) {
-  GetForwardingInterface()->AddObserver(std::move(observer));
+  GetForwardingInterface()->AddObserver(
+    std::move(observer)
+    );
 }
 void NetworkHealthServiceInterceptorForTesting::GetNetworkList(GetNetworkListCallback callback) {
   GetForwardingInterface()->GetNetworkList(std::move(callback));

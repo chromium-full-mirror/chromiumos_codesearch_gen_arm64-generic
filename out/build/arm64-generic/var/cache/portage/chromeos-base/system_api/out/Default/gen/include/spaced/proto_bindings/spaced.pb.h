@@ -29,6 +29,9 @@
 #include "google/protobuf/message_lite.h"
 #include "google/protobuf/repeated_field.h"  // IWYU pragma: export
 #include "google/protobuf/extension_set.h"  // IWYU pragma: export
+#include "google/protobuf/map.h"  // IWYU pragma: export
+#include "google/protobuf/map_entry_lite.h"
+#include "google/protobuf/map_field_lite.h"
 #include "google/protobuf/generated_enum_util.h"
 // @@protoc_insertion_point(includes)
 
@@ -48,6 +51,21 @@ struct TableStruct_spaced_2eproto {
   static const ::uint32_t offsets[];
 };
 namespace spaced {
+class GetQuotaCurrentSpacesForIdsReply;
+struct GetQuotaCurrentSpacesForIdsReplyDefaultTypeInternal;
+extern GetQuotaCurrentSpacesForIdsReplyDefaultTypeInternal _GetQuotaCurrentSpacesForIdsReply_default_instance_;
+class GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse;
+struct GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUseDefaultTypeInternal;
+extern GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUseDefaultTypeInternal _GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse_default_instance_;
+class GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse;
+struct GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUseDefaultTypeInternal;
+extern GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUseDefaultTypeInternal _GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse_default_instance_;
+class GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse;
+struct GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUseDefaultTypeInternal;
+extern GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUseDefaultTypeInternal _GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse_default_instance_;
+class GetQuotaCurrentSpacesForIdsRequest;
+struct GetQuotaCurrentSpacesForIdsRequestDefaultTypeInternal;
+extern GetQuotaCurrentSpacesForIdsRequestDefaultTypeInternal _GetQuotaCurrentSpacesForIdsRequest_default_instance_;
 class SetProjectIdReply;
 struct SetProjectIdReplyDefaultTypeInternal;
 extern SetProjectIdReplyDefaultTypeInternal _SetProjectIdReply_default_instance_;
@@ -59,6 +77,16 @@ struct StatefulDiskSpaceUpdateDefaultTypeInternal;
 extern StatefulDiskSpaceUpdateDefaultTypeInternal _StatefulDiskSpaceUpdate_default_instance_;
 }  // namespace spaced
 PROTOBUF_NAMESPACE_OPEN
+template <>
+::spaced::GetQuotaCurrentSpacesForIdsReply* Arena::CreateMaybeMessage<::spaced::GetQuotaCurrentSpacesForIdsReply>(Arena*);
+template <>
+::spaced::GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse* Arena::CreateMaybeMessage<::spaced::GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse>(Arena*);
+template <>
+::spaced::GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse* Arena::CreateMaybeMessage<::spaced::GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse>(Arena*);
+template <>
+::spaced::GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse* Arena::CreateMaybeMessage<::spaced::GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse>(Arena*);
+template <>
+::spaced::GetQuotaCurrentSpacesForIdsRequest* Arena::CreateMaybeMessage<::spaced::GetQuotaCurrentSpacesForIdsRequest>(Arena*);
 template <>
 ::spaced::SetProjectIdReply* Arena::CreateMaybeMessage<::spaced::SetProjectIdReply>(Arena*);
 template <>
@@ -544,6 +572,483 @@ class StatefulDiskSpaceUpdate final :
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_spaced_2eproto;
+};// -------------------------------------------------------------------
+
+class GetQuotaCurrentSpacesForIdsRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:spaced.GetQuotaCurrentSpacesForIdsRequest) */ {
+ public:
+  inline GetQuotaCurrentSpacesForIdsRequest() : GetQuotaCurrentSpacesForIdsRequest(nullptr) {}
+  ~GetQuotaCurrentSpacesForIdsRequest() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR GetQuotaCurrentSpacesForIdsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetQuotaCurrentSpacesForIdsRequest(const GetQuotaCurrentSpacesForIdsRequest& from);
+  GetQuotaCurrentSpacesForIdsRequest(GetQuotaCurrentSpacesForIdsRequest&& from) noexcept
+    : GetQuotaCurrentSpacesForIdsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetQuotaCurrentSpacesForIdsRequest& operator=(const GetQuotaCurrentSpacesForIdsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetQuotaCurrentSpacesForIdsRequest& operator=(GetQuotaCurrentSpacesForIdsRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const GetQuotaCurrentSpacesForIdsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetQuotaCurrentSpacesForIdsRequest* internal_default_instance() {
+    return reinterpret_cast<const GetQuotaCurrentSpacesForIdsRequest*>(
+               &_GetQuotaCurrentSpacesForIdsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(GetQuotaCurrentSpacesForIdsRequest& a, GetQuotaCurrentSpacesForIdsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetQuotaCurrentSpacesForIdsRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetQuotaCurrentSpacesForIdsRequest* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetQuotaCurrentSpacesForIdsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetQuotaCurrentSpacesForIdsRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetQuotaCurrentSpacesForIdsRequest& from);
+  void MergeFrom(const GetQuotaCurrentSpacesForIdsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetQuotaCurrentSpacesForIdsRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "spaced.GetQuotaCurrentSpacesForIdsRequest";
+  }
+  protected:
+  explicit GetQuotaCurrentSpacesForIdsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUidsFieldNumber = 2,
+    kGidsFieldNumber = 3,
+    kProjectIdsFieldNumber = 4,
+    kPathFieldNumber = 1,
+  };
+  // repeated uint32 uids = 2 [packed = true];
+  int uids_size() const;
+  private:
+  int _internal_uids_size() const;
+
+  public:
+  void clear_uids() ;
+  ::uint32_t uids(int index) const;
+  void set_uids(int index, ::uint32_t value);
+  void add_uids(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& uids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* mutable_uids();
+
+  private:
+  ::uint32_t _internal_uids(int index) const;
+  void _internal_add_uids(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& _internal_uids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* _internal_mutable_uids();
+
+  public:
+  // repeated uint32 gids = 3 [packed = true];
+  int gids_size() const;
+  private:
+  int _internal_gids_size() const;
+
+  public:
+  void clear_gids() ;
+  ::uint32_t gids(int index) const;
+  void set_gids(int index, ::uint32_t value);
+  void add_gids(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& gids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* mutable_gids();
+
+  private:
+  ::uint32_t _internal_gids(int index) const;
+  void _internal_add_gids(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& _internal_gids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* _internal_mutable_gids();
+
+  public:
+  // repeated uint32 project_ids = 4 [packed = true];
+  int project_ids_size() const;
+  private:
+  int _internal_project_ids_size() const;
+
+  public:
+  void clear_project_ids() ;
+  ::uint32_t project_ids(int index) const;
+  void set_project_ids(int index, ::uint32_t value);
+  void add_project_ids(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& project_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* mutable_project_ids();
+
+  private:
+  ::uint32_t _internal_project_ids(int index) const;
+  void _internal_add_project_ids(::uint32_t value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& _internal_project_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* _internal_mutable_project_ids();
+
+  public:
+  // string path = 1;
+  void clear_path() ;
+  const std::string& path() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_path(Arg_&& arg, Args_... args);
+  std::string* mutable_path();
+  PROTOBUF_NODISCARD std::string* release_path();
+  void set_allocated_path(std::string* ptr);
+
+  private:
+  const std::string& _internal_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_path(
+      const std::string& value);
+  std::string* _internal_mutable_path();
+
+  public:
+  // @@protoc_insertion_point(class_scope:spaced.GetQuotaCurrentSpacesForIdsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t> uids_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _uids_cached_byte_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t> gids_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _gids_cached_byte_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t> project_ids_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _project_ids_cached_byte_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_spaced_2eproto;
+};// -------------------------------------------------------------------
+
+class GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse, 
+    ::uint32_t, ::int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse, 
+    ::uint32_t, ::int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> SuperType;
+  GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse();
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse& other);
+  static const GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse*>(&_GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  friend struct ::TableStruct_spaced_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse, 
+    ::uint32_t, ::int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse, 
+    ::uint32_t, ::int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> SuperType;
+  GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse();
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse& other);
+  static const GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse*>(&_GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  friend struct ::TableStruct_spaced_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse final : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse, 
+    ::uint32_t, ::int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse, 
+    ::uint32_t, ::int64_t,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> SuperType;
+  GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse();
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse& other);
+  static const GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse*>(&_GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  friend struct ::TableStruct_spaced_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetQuotaCurrentSpacesForIdsReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:spaced.GetQuotaCurrentSpacesForIdsReply) */ {
+ public:
+  inline GetQuotaCurrentSpacesForIdsReply() : GetQuotaCurrentSpacesForIdsReply(nullptr) {}
+  ~GetQuotaCurrentSpacesForIdsReply() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR GetQuotaCurrentSpacesForIdsReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetQuotaCurrentSpacesForIdsReply(const GetQuotaCurrentSpacesForIdsReply& from);
+  GetQuotaCurrentSpacesForIdsReply(GetQuotaCurrentSpacesForIdsReply&& from) noexcept
+    : GetQuotaCurrentSpacesForIdsReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetQuotaCurrentSpacesForIdsReply& operator=(const GetQuotaCurrentSpacesForIdsReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetQuotaCurrentSpacesForIdsReply& operator=(GetQuotaCurrentSpacesForIdsReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const GetQuotaCurrentSpacesForIdsReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetQuotaCurrentSpacesForIdsReply* internal_default_instance() {
+    return reinterpret_cast<const GetQuotaCurrentSpacesForIdsReply*>(
+               &_GetQuotaCurrentSpacesForIdsReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(GetQuotaCurrentSpacesForIdsReply& a, GetQuotaCurrentSpacesForIdsReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetQuotaCurrentSpacesForIdsReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetQuotaCurrentSpacesForIdsReply* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetQuotaCurrentSpacesForIdsReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetQuotaCurrentSpacesForIdsReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetQuotaCurrentSpacesForIdsReply& from);
+  void MergeFrom(const GetQuotaCurrentSpacesForIdsReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetQuotaCurrentSpacesForIdsReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "spaced.GetQuotaCurrentSpacesForIdsReply";
+  }
+  protected:
+  explicit GetQuotaCurrentSpacesForIdsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCurspacesForUidsFieldNumber = 1,
+    kCurspacesForGidsFieldNumber = 2,
+    kCurspacesForProjectIdsFieldNumber = 3,
+  };
+  // map<uint32, int64> curspaces_for_uids = 1;
+  int curspaces_for_uids_size() const;
+  private:
+  int _internal_curspaces_for_uids_size() const;
+
+  public:
+  void clear_curspaces_for_uids() ;
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+      _internal_curspaces_for_uids() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+      _internal_mutable_curspaces_for_uids();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+      curspaces_for_uids() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+      mutable_curspaces_for_uids();
+  // map<uint32, int64> curspaces_for_gids = 2;
+  int curspaces_for_gids_size() const;
+  private:
+  int _internal_curspaces_for_gids_size() const;
+
+  public:
+  void clear_curspaces_for_gids() ;
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+      _internal_curspaces_for_gids() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+      _internal_mutable_curspaces_for_gids();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+      curspaces_for_gids() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+      mutable_curspaces_for_gids();
+  // map<uint32, int64> curspaces_for_project_ids = 3;
+  int curspaces_for_project_ids_size() const;
+  private:
+  int _internal_curspaces_for_project_ids_size() const;
+
+  public:
+  void clear_curspaces_for_project_ids() ;
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+      _internal_curspaces_for_project_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+      _internal_mutable_curspaces_for_project_ids();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+      curspaces_for_project_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+      mutable_curspaces_for_project_ids();
+  // @@protoc_insertion_point(class_scope:spaced.GetQuotaCurrentSpacesForIdsReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+        GetQuotaCurrentSpacesForIdsReply_CurspacesForUidsEntry_DoNotUse,
+        ::uint32_t, ::int64_t,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> curspaces_for_uids_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+        GetQuotaCurrentSpacesForIdsReply_CurspacesForGidsEntry_DoNotUse,
+        ::uint32_t, ::int64_t,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> curspaces_for_gids_;
+    ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+        GetQuotaCurrentSpacesForIdsReply_CurspacesForProjectIdsEntry_DoNotUse,
+        ::uint32_t, ::int64_t,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT64> curspaces_for_project_ids_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_spaced_2eproto;
 };
 
 // ===================================================================
@@ -688,6 +1193,286 @@ inline ::int64_t StatefulDiskSpaceUpdate::_internal_free_space_bytes() const {
 inline void StatefulDiskSpaceUpdate::_internal_set_free_space_bytes(::int64_t value) {
   ;
   _impl_.free_space_bytes_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// GetQuotaCurrentSpacesForIdsRequest
+
+// string path = 1;
+inline void GetQuotaCurrentSpacesForIdsRequest::clear_path() {
+  _impl_.path_.ClearToEmpty();
+}
+inline const std::string& GetQuotaCurrentSpacesForIdsRequest::path() const {
+  // @@protoc_insertion_point(field_get:spaced.GetQuotaCurrentSpacesForIdsRequest.path)
+  return _internal_path();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void GetQuotaCurrentSpacesForIdsRequest::set_path(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.path_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:spaced.GetQuotaCurrentSpacesForIdsRequest.path)
+}
+inline std::string* GetQuotaCurrentSpacesForIdsRequest::mutable_path() {
+  std::string* _s = _internal_mutable_path();
+  // @@protoc_insertion_point(field_mutable:spaced.GetQuotaCurrentSpacesForIdsRequest.path)
+  return _s;
+}
+inline const std::string& GetQuotaCurrentSpacesForIdsRequest::_internal_path() const {
+  return _impl_.path_.Get();
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::_internal_set_path(const std::string& value) {
+  ;
+
+
+  _impl_.path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetQuotaCurrentSpacesForIdsRequest::_internal_mutable_path() {
+  ;
+  return _impl_.path_.Mutable( GetArenaForAllocation());
+}
+inline std::string* GetQuotaCurrentSpacesForIdsRequest::release_path() {
+  // @@protoc_insertion_point(field_release:spaced.GetQuotaCurrentSpacesForIdsRequest.path)
+  return _impl_.path_.Release();
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::set_allocated_path(std::string* value) {
+  _impl_.path_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.path_.IsDefault()) {
+          _impl_.path_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:spaced.GetQuotaCurrentSpacesForIdsRequest.path)
+}
+
+// repeated uint32 uids = 2 [packed = true];
+inline int GetQuotaCurrentSpacesForIdsRequest::_internal_uids_size() const {
+  return _impl_.uids_.size();
+}
+inline int GetQuotaCurrentSpacesForIdsRequest::uids_size() const {
+  return _internal_uids_size();
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::clear_uids() {
+  _internal_mutable_uids()->Clear();
+}
+inline ::uint32_t GetQuotaCurrentSpacesForIdsRequest::uids(int index) const {
+  // @@protoc_insertion_point(field_get:spaced.GetQuotaCurrentSpacesForIdsRequest.uids)
+  return _internal_uids(index);
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::set_uids(int index, ::uint32_t value) {
+  _internal_mutable_uids()->Set(index, value);
+  // @@protoc_insertion_point(field_set:spaced.GetQuotaCurrentSpacesForIdsRequest.uids)
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::add_uids(::uint32_t value) {
+  _internal_add_uids(value);
+  // @@protoc_insertion_point(field_add:spaced.GetQuotaCurrentSpacesForIdsRequest.uids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& GetQuotaCurrentSpacesForIdsRequest::uids() const {
+  // @@protoc_insertion_point(field_list:spaced.GetQuotaCurrentSpacesForIdsRequest.uids)
+  return _internal_uids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* GetQuotaCurrentSpacesForIdsRequest::mutable_uids() {
+  // @@protoc_insertion_point(field_mutable_list:spaced.GetQuotaCurrentSpacesForIdsRequest.uids)
+  return _internal_mutable_uids();
+}
+
+inline ::uint32_t GetQuotaCurrentSpacesForIdsRequest::_internal_uids(int index) const {
+  return _internal_uids().Get(index);
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::_internal_add_uids(::uint32_t value) {
+  _internal_mutable_uids()->Add(value);
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& GetQuotaCurrentSpacesForIdsRequest::_internal_uids() const {
+  return _impl_.uids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* GetQuotaCurrentSpacesForIdsRequest::_internal_mutable_uids() {
+  return &_impl_.uids_;
+}
+
+// repeated uint32 gids = 3 [packed = true];
+inline int GetQuotaCurrentSpacesForIdsRequest::_internal_gids_size() const {
+  return _impl_.gids_.size();
+}
+inline int GetQuotaCurrentSpacesForIdsRequest::gids_size() const {
+  return _internal_gids_size();
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::clear_gids() {
+  _internal_mutable_gids()->Clear();
+}
+inline ::uint32_t GetQuotaCurrentSpacesForIdsRequest::gids(int index) const {
+  // @@protoc_insertion_point(field_get:spaced.GetQuotaCurrentSpacesForIdsRequest.gids)
+  return _internal_gids(index);
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::set_gids(int index, ::uint32_t value) {
+  _internal_mutable_gids()->Set(index, value);
+  // @@protoc_insertion_point(field_set:spaced.GetQuotaCurrentSpacesForIdsRequest.gids)
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::add_gids(::uint32_t value) {
+  _internal_add_gids(value);
+  // @@protoc_insertion_point(field_add:spaced.GetQuotaCurrentSpacesForIdsRequest.gids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& GetQuotaCurrentSpacesForIdsRequest::gids() const {
+  // @@protoc_insertion_point(field_list:spaced.GetQuotaCurrentSpacesForIdsRequest.gids)
+  return _internal_gids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* GetQuotaCurrentSpacesForIdsRequest::mutable_gids() {
+  // @@protoc_insertion_point(field_mutable_list:spaced.GetQuotaCurrentSpacesForIdsRequest.gids)
+  return _internal_mutable_gids();
+}
+
+inline ::uint32_t GetQuotaCurrentSpacesForIdsRequest::_internal_gids(int index) const {
+  return _internal_gids().Get(index);
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::_internal_add_gids(::uint32_t value) {
+  _internal_mutable_gids()->Add(value);
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& GetQuotaCurrentSpacesForIdsRequest::_internal_gids() const {
+  return _impl_.gids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* GetQuotaCurrentSpacesForIdsRequest::_internal_mutable_gids() {
+  return &_impl_.gids_;
+}
+
+// repeated uint32 project_ids = 4 [packed = true];
+inline int GetQuotaCurrentSpacesForIdsRequest::_internal_project_ids_size() const {
+  return _impl_.project_ids_.size();
+}
+inline int GetQuotaCurrentSpacesForIdsRequest::project_ids_size() const {
+  return _internal_project_ids_size();
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::clear_project_ids() {
+  _internal_mutable_project_ids()->Clear();
+}
+inline ::uint32_t GetQuotaCurrentSpacesForIdsRequest::project_ids(int index) const {
+  // @@protoc_insertion_point(field_get:spaced.GetQuotaCurrentSpacesForIdsRequest.project_ids)
+  return _internal_project_ids(index);
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::set_project_ids(int index, ::uint32_t value) {
+  _internal_mutable_project_ids()->Set(index, value);
+  // @@protoc_insertion_point(field_set:spaced.GetQuotaCurrentSpacesForIdsRequest.project_ids)
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::add_project_ids(::uint32_t value) {
+  _internal_add_project_ids(value);
+  // @@protoc_insertion_point(field_add:spaced.GetQuotaCurrentSpacesForIdsRequest.project_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& GetQuotaCurrentSpacesForIdsRequest::project_ids() const {
+  // @@protoc_insertion_point(field_list:spaced.GetQuotaCurrentSpacesForIdsRequest.project_ids)
+  return _internal_project_ids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* GetQuotaCurrentSpacesForIdsRequest::mutable_project_ids() {
+  // @@protoc_insertion_point(field_mutable_list:spaced.GetQuotaCurrentSpacesForIdsRequest.project_ids)
+  return _internal_mutable_project_ids();
+}
+
+inline ::uint32_t GetQuotaCurrentSpacesForIdsRequest::_internal_project_ids(int index) const {
+  return _internal_project_ids().Get(index);
+}
+inline void GetQuotaCurrentSpacesForIdsRequest::_internal_add_project_ids(::uint32_t value) {
+  _internal_mutable_project_ids()->Add(value);
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>& GetQuotaCurrentSpacesForIdsRequest::_internal_project_ids() const {
+  return _impl_.project_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<::uint32_t>* GetQuotaCurrentSpacesForIdsRequest::_internal_mutable_project_ids() {
+  return &_impl_.project_ids_;
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// GetQuotaCurrentSpacesForIdsReply
+
+// map<uint32, int64> curspaces_for_uids = 1;
+inline int GetQuotaCurrentSpacesForIdsReply::_internal_curspaces_for_uids_size() const {
+  return _impl_.curspaces_for_uids_.size();
+}
+inline int GetQuotaCurrentSpacesForIdsReply::curspaces_for_uids_size() const {
+  return _internal_curspaces_for_uids_size();
+}
+inline void GetQuotaCurrentSpacesForIdsReply::clear_curspaces_for_uids() {
+  _impl_.curspaces_for_uids_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+GetQuotaCurrentSpacesForIdsReply::_internal_curspaces_for_uids() const {
+  return _impl_.curspaces_for_uids_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+GetQuotaCurrentSpacesForIdsReply::curspaces_for_uids() const {
+  // @@protoc_insertion_point(field_map:spaced.GetQuotaCurrentSpacesForIdsReply.curspaces_for_uids)
+  return _internal_curspaces_for_uids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+GetQuotaCurrentSpacesForIdsReply::_internal_mutable_curspaces_for_uids() {
+  return _impl_.curspaces_for_uids_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+GetQuotaCurrentSpacesForIdsReply::mutable_curspaces_for_uids() {
+  // @@protoc_insertion_point(field_mutable_map:spaced.GetQuotaCurrentSpacesForIdsReply.curspaces_for_uids)
+  return _internal_mutable_curspaces_for_uids();
+}
+
+// map<uint32, int64> curspaces_for_gids = 2;
+inline int GetQuotaCurrentSpacesForIdsReply::_internal_curspaces_for_gids_size() const {
+  return _impl_.curspaces_for_gids_.size();
+}
+inline int GetQuotaCurrentSpacesForIdsReply::curspaces_for_gids_size() const {
+  return _internal_curspaces_for_gids_size();
+}
+inline void GetQuotaCurrentSpacesForIdsReply::clear_curspaces_for_gids() {
+  _impl_.curspaces_for_gids_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+GetQuotaCurrentSpacesForIdsReply::_internal_curspaces_for_gids() const {
+  return _impl_.curspaces_for_gids_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+GetQuotaCurrentSpacesForIdsReply::curspaces_for_gids() const {
+  // @@protoc_insertion_point(field_map:spaced.GetQuotaCurrentSpacesForIdsReply.curspaces_for_gids)
+  return _internal_curspaces_for_gids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+GetQuotaCurrentSpacesForIdsReply::_internal_mutable_curspaces_for_gids() {
+  return _impl_.curspaces_for_gids_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+GetQuotaCurrentSpacesForIdsReply::mutable_curspaces_for_gids() {
+  // @@protoc_insertion_point(field_mutable_map:spaced.GetQuotaCurrentSpacesForIdsReply.curspaces_for_gids)
+  return _internal_mutable_curspaces_for_gids();
+}
+
+// map<uint32, int64> curspaces_for_project_ids = 3;
+inline int GetQuotaCurrentSpacesForIdsReply::_internal_curspaces_for_project_ids_size() const {
+  return _impl_.curspaces_for_project_ids_.size();
+}
+inline int GetQuotaCurrentSpacesForIdsReply::curspaces_for_project_ids_size() const {
+  return _internal_curspaces_for_project_ids_size();
+}
+inline void GetQuotaCurrentSpacesForIdsReply::clear_curspaces_for_project_ids() {
+  _impl_.curspaces_for_project_ids_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+GetQuotaCurrentSpacesForIdsReply::_internal_curspaces_for_project_ids() const {
+  return _impl_.curspaces_for_project_ids_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >&
+GetQuotaCurrentSpacesForIdsReply::curspaces_for_project_ids() const {
+  // @@protoc_insertion_point(field_map:spaced.GetQuotaCurrentSpacesForIdsReply.curspaces_for_project_ids)
+  return _internal_curspaces_for_project_ids();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+GetQuotaCurrentSpacesForIdsReply::_internal_mutable_curspaces_for_project_ids() {
+  return _impl_.curspaces_for_project_ids_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::uint32_t, ::int64_t >*
+GetQuotaCurrentSpacesForIdsReply::mutable_curspaces_for_project_ids() {
+  // @@protoc_insertion_point(field_mutable_map:spaced.GetQuotaCurrentSpacesForIdsReply.curspaces_for_project_ids)
+  return _internal_mutable_curspaces_for_project_ids();
 }
 
 #ifdef __GNUC__

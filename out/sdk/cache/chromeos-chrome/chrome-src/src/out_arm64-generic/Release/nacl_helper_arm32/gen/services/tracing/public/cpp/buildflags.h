@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_LOADER_LOCK_SAMPLING() (0)
 
 #endif  // SERVICES_TRACING_PUBLIC_CPP_BUILDFLAGS_H_

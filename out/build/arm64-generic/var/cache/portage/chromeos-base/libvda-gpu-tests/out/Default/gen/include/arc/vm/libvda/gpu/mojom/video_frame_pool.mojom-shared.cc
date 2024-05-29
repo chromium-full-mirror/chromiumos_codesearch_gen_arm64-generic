@@ -165,6 +165,48 @@ VideoFramePool_AddVideoFrame_ResponseParams_Data::VideoFramePool_AddVideoFrame_R
 
 
 // static
+bool VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data* object =
+      static_cast<const VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data*>(data);
+
+
+  if (!::arc::mojom::internal::VideoPixelFormat_Data
+        ::Validate(object->format, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->coded_size, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->coded_size, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->visible_rect, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->visible_rect, validation_context))
+    return false;
+
+  return true;
+}
+
+VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data::VideoFramePoolClient_DEPRECATED_RequestVideoFrames_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool VideoFramePoolClient_RequestVideoFrames_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -203,6 +245,29 @@ bool VideoFramePoolClient_RequestVideoFrames_Params_Data::Validate(
 }
 
 VideoFramePoolClient_RequestVideoFrames_Params_Data::VideoFramePoolClient_RequestVideoFrames_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data* object =
+      static_cast<const VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data::VideoFramePoolClient_RequestVideoFrames_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

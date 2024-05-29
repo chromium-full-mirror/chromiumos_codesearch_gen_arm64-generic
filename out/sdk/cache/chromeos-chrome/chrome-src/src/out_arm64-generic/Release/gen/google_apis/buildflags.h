@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_SUPPORT_EXTERNAL_GOOGLE_API_KEY() (0)
 
 #endif  // GOOGLE_APIS_BUILDFLAGS_H_

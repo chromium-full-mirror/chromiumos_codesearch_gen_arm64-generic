@@ -423,7 +423,11 @@ namespace chromeos::machine_learning::mojom {
 
 
 void GraphExecutorInterceptorForTesting::Execute(base::flat_map<std::string, ::chromeos::machine_learning::mojom::TensorPtr> inputs, const std::vector<std::string>& output_names, ExecuteCallback callback) {
-  GetForwardingInterface()->Execute(std::move(inputs), std::move(output_names), std::move(callback));
+  GetForwardingInterface()->Execute(
+    std::move(inputs)
+    , 
+    std::move(output_names)
+    , std::move(callback));
 }
 GraphExecutorAsyncWaiter::GraphExecutorAsyncWaiter(
     GraphExecutor* proxy) : proxy_(proxy) {}

@@ -2120,19 +2120,39 @@ namespace arc::mojom {
 
 
 void VideoDecodeAcceleratorInterceptorForTesting::Initialize(VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(config), std::move(client), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(config)
+    , 
+    std::move(client)
+    , std::move(callback));
 }
 void VideoDecodeAcceleratorInterceptorForTesting::Decode(BitstreamBufferPtr bitstream_buffer) {
-  GetForwardingInterface()->Decode(std::move(bitstream_buffer));
+  GetForwardingInterface()->Decode(
+    std::move(bitstream_buffer)
+    );
 }
 void VideoDecodeAcceleratorInterceptorForTesting::AssignPictureBuffers(uint32_t count) {
-  GetForwardingInterface()->AssignPictureBuffers(std::move(count));
+  GetForwardingInterface()->AssignPictureBuffers(
+    std::move(count)
+    );
 }
 void VideoDecodeAcceleratorInterceptorForTesting::ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<::arc::mojom::VideoFramePlanePtr> planes, BufferModifierPtr modifier) {
-  GetForwardingInterface()->ImportBufferForPicture(std::move(picture_buffer_id), std::move(format), std::move(handle_fd), std::move(planes), std::move(modifier));
+  GetForwardingInterface()->ImportBufferForPicture(
+    std::move(picture_buffer_id)
+    , 
+    std::move(format)
+    , 
+    std::move(handle_fd)
+    , 
+    std::move(planes)
+    , 
+    std::move(modifier)
+    );
 }
 void VideoDecodeAcceleratorInterceptorForTesting::ReusePictureBuffer(int32_t picture_buffer_id) {
-  GetForwardingInterface()->ReusePictureBuffer(std::move(picture_buffer_id));
+  GetForwardingInterface()->ReusePictureBuffer(
+    std::move(picture_buffer_id)
+    );
 }
 void VideoDecodeAcceleratorInterceptorForTesting::Reset(ResetCallback callback) {
   GetForwardingInterface()->Reset(std::move(callback));
@@ -2218,16 +2238,26 @@ VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Flush(
 
 
 void VideoDecodeClientInterceptorForTesting::PictureReady(PicturePtr picture) {
-  GetForwardingInterface()->PictureReady(std::move(picture));
+  GetForwardingInterface()->PictureReady(
+    std::move(picture)
+    );
 }
 void VideoDecodeClientInterceptorForTesting::NotifyEndOfBitstreamBuffer(int32_t bitstream_id) {
-  GetForwardingInterface()->NotifyEndOfBitstreamBuffer(std::move(bitstream_id));
+  GetForwardingInterface()->NotifyEndOfBitstreamBuffer(
+    std::move(bitstream_id)
+    );
 }
 void VideoDecodeClientInterceptorForTesting::NotifyError(VideoDecodeAccelerator::Result error) {
-  GetForwardingInterface()->NotifyError(std::move(error));
+  GetForwardingInterface()->NotifyError(
+    std::move(error)
+    );
 }
 void VideoDecodeClientInterceptorForTesting::ProvidePictureBuffers(PictureBufferFormatPtr format, ::arc::mojom::RectPtr visible_rect) {
-  GetForwardingInterface()->ProvidePictureBuffers(std::move(format), std::move(visible_rect));
+  GetForwardingInterface()->ProvidePictureBuffers(
+    std::move(format)
+    , 
+    std::move(visible_rect)
+    );
 }
 VideoDecodeClientAsyncWaiter::VideoDecodeClientAsyncWaiter(
     VideoDecodeClient* proxy) : proxy_(proxy) {}

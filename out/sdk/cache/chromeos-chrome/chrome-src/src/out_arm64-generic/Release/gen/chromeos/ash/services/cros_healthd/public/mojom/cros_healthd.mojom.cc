@@ -14110,10 +14110,18 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::GetAvailableRoutines(Ge
   GetForwardingInterface()->GetAvailableRoutines(std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::GetRoutineUpdate(int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, GetRoutineUpdateCallback callback) {
-  GetForwardingInterface()->GetRoutineUpdate(std::move(id), std::move(command), std::move(include_output), std::move(callback));
+  GetForwardingInterface()->GetRoutineUpdate(
+    std::move(id)
+    , 
+    std::move(command)
+    , 
+    std::move(include_output)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunUrandomRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunUrandomRoutineCallback callback) {
-  GetForwardingInterface()->RunUrandomRoutine(std::move(length_seconds), std::move(callback));
+  GetForwardingInterface()->RunUrandomRoutine(
+    std::move(length_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryCapacityRoutine(RunBatteryCapacityRoutineCallback callback) {
   GetForwardingInterface()->RunBatteryCapacityRoutine(std::move(callback));
@@ -14122,43 +14130,79 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryHealthRoutine
   GetForwardingInterface()->RunBatteryHealthRoutine(std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
-  GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(percentage_used_threshold), std::move(callback));
+  GetForwardingInterface()->RunSmartctlCheckRoutine(
+    std::move(percentage_used_threshold)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const std::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
-  GetForwardingInterface()->RunAcPowerRoutine(std::move(expected_status), std::move(expected_power_type), std::move(callback));
+  GetForwardingInterface()->RunAcPowerRoutine(
+    std::move(expected_status)
+    , 
+    std::move(expected_power_type)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) {
-  GetForwardingInterface()->RunCpuCacheRoutine(std::move(length_seconds), std::move(callback));
+  GetForwardingInterface()->RunCpuCacheRoutine(
+    std::move(length_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) {
-  GetForwardingInterface()->RunCpuStressRoutine(std::move(length_seconds), std::move(callback));
+  GetForwardingInterface()->RunCpuStressRoutine(
+    std::move(length_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) {
-  GetForwardingInterface()->RunFloatingPointAccuracyRoutine(std::move(length_seconds), std::move(callback));
+  GetForwardingInterface()->RunFloatingPointAccuracyRoutine(
+    std::move(length_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunNvmeWearLevelRoutineWithThreshold(uint32_t wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineWithThresholdCallback callback) {
-  GetForwardingInterface()->DEPRECATED_RunNvmeWearLevelRoutineWithThreshold(std::move(wear_level_threshold), std::move(callback));
+  GetForwardingInterface()->DEPRECATED_RunNvmeWearLevelRoutineWithThreshold(
+    std::move(wear_level_threshold)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) {
-  GetForwardingInterface()->DEPRECATED_RunNvmeWearLevelRoutine(std::move(wear_level_threshold), std::move(callback));
+  GetForwardingInterface()->DEPRECATED_RunNvmeWearLevelRoutine(
+    std::move(wear_level_threshold)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) {
-  GetForwardingInterface()->RunNvmeSelfTestRoutine(std::move(nvme_self_test_type), std::move(callback));
+  GetForwardingInterface()->RunNvmeSelfTestRoutine(
+    std::move(nvme_self_test_type)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunDiskReadRoutine(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, RunDiskReadRoutineCallback callback) {
-  GetForwardingInterface()->RunDiskReadRoutine(std::move(type), std::move(length_seconds), std::move(file_size_mb), std::move(callback));
+  GetForwardingInterface()->RunDiskReadRoutine(
+    std::move(type)
+    , 
+    std::move(length_seconds)
+    , 
+    std::move(file_size_mb)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) {
-  GetForwardingInterface()->RunPrimeSearchRoutine(std::move(length_seconds), std::move(callback));
+  GetForwardingInterface()->RunPrimeSearchRoutine(
+    std::move(length_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) {
-  GetForwardingInterface()->RunBatteryDischargeRoutine(std::move(length_seconds), std::move(maximum_discharge_percent_allowed), std::move(callback));
+  GetForwardingInterface()->RunBatteryDischargeRoutine(
+    std::move(length_seconds)
+    , 
+    std::move(maximum_discharge_percent_allowed)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) {
-  GetForwardingInterface()->RunBatteryChargeRoutine(std::move(length_seconds), std::move(minimum_charge_percent_required), std::move(callback));
+  GetForwardingInterface()->RunBatteryChargeRoutine(
+    std::move(length_seconds)
+    , 
+    std::move(minimum_charge_percent_required)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunMemoryRoutine(std::optional<uint32_t> max_testing_mem_kib, RunMemoryRoutineCallback callback) {
-  GetForwardingInterface()->RunMemoryRoutine(std::move(max_testing_mem_kib), std::move(callback));
+  GetForwardingInterface()->RunMemoryRoutine(
+    std::move(max_testing_mem_kib)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunLanConnectivityRoutine(RunLanConnectivityRoutineCallback callback) {
   GetForwardingInterface()->RunLanConnectivityRoutine(std::move(callback));
@@ -14194,7 +14238,9 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunHttpsLatencyRoutine(
   GetForwardingInterface()->RunHttpsLatencyRoutine(std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunVideoConferencingRoutine(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingRoutineCallback callback) {
-  GetForwardingInterface()->RunVideoConferencingRoutine(std::move(stun_server_hostname), std::move(callback));
+  GetForwardingInterface()->RunVideoConferencingRoutine(
+    std::move(stun_server_hostname)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunArcHttpRoutine(RunArcHttpRoutineCallback callback) {
   GetForwardingInterface()->RunArcHttpRoutine(std::move(callback));
@@ -14215,19 +14261,39 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFingerprintAliveRout
   GetForwardingInterface()->RunFingerprintAliveRoutine(std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) {
-  GetForwardingInterface()->RunPrivacyScreenRoutine(std::move(target_state), std::move(callback));
+  GetForwardingInterface()->RunPrivacyScreenRoutine(
+    std::move(target_state)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunLedLitUpRoutine(::ash::cros_healthd::mojom::DEPRECATED_LedName name, ::ash::cros_healthd::mojom::DEPRECATED_LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::DEPRECATED_LedLitUpRoutineReplier> replier, DEPRECATED_RunLedLitUpRoutineCallback callback) {
-  GetForwardingInterface()->DEPRECATED_RunLedLitUpRoutine(std::move(name), std::move(color), std::move(replier), std::move(callback));
+  GetForwardingInterface()->DEPRECATED_RunLedLitUpRoutine(
+    std::move(name)
+    , 
+    std::move(color)
+    , 
+    std::move(replier)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) {
   GetForwardingInterface()->RunEmmcLifetimeRoutine(std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, DEPRECATED_RunAudioSetVolumeRoutineCallback callback) {
-  GetForwardingInterface()->DEPRECATED_RunAudioSetVolumeRoutine(std::move(node_id), std::move(volume), std::move(mute_on), std::move(callback));
+  GetForwardingInterface()->DEPRECATED_RunAudioSetVolumeRoutine(
+    std::move(node_id)
+    , 
+    std::move(volume)
+    , 
+    std::move(mute_on)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) {
-  GetForwardingInterface()->DEPRECATED_RunAudioSetGainRoutine(std::move(node_id), std::move(gain), std::move(mute_on), std::move(callback));
+  GetForwardingInterface()->DEPRECATED_RunAudioSetGainRoutine(
+    std::move(node_id)
+    , 
+    std::move(gain)
+    , 
+    std::move(mute_on)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) {
   GetForwardingInterface()->RunBluetoothPowerRoutine(std::move(callback));
@@ -14236,13 +14302,19 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothDiscoveryRo
   GetForwardingInterface()->RunBluetoothDiscoveryRoutine(std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) {
-  GetForwardingInterface()->RunBluetoothScanningRoutine(std::move(length_seconds), std::move(callback));
+  GetForwardingInterface()->RunBluetoothScanningRoutine(
+    std::move(length_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) {
-  GetForwardingInterface()->RunBluetoothPairingRoutine(std::move(peripheral_id), std::move(callback));
+  GetForwardingInterface()->RunBluetoothPairingRoutine(
+    std::move(peripheral_id)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPowerButtonRoutine(uint32_t timeout_seconds, RunPowerButtonRoutineCallback callback) {
-  GetForwardingInterface()->RunPowerButtonRoutine(std::move(timeout_seconds), std::move(callback));
+  GetForwardingInterface()->RunPowerButtonRoutine(
+    std::move(timeout_seconds)
+    , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAudioDriverRoutine(RunAudioDriverRoutineCallback callback) {
   GetForwardingInterface()->RunAudioDriverRoutine(std::move(callback));
@@ -15389,31 +15461,51 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFanRoutine(
 
 
 void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) {
-  GetForwardingInterface()->DEPRECATED_AddBluetoothObserver(std::move(observer));
+  GetForwardingInterface()->DEPRECATED_AddBluetoothObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) {
-  GetForwardingInterface()->DEPRECATED_AddLidObserver(std::move(observer));
+  GetForwardingInterface()->DEPRECATED_AddLidObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) {
-  GetForwardingInterface()->DEPRECATED_AddPowerObserver(std::move(observer));
+  GetForwardingInterface()->DEPRECATED_AddPowerObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::AddNetworkObserver(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> observer) {
-  GetForwardingInterface()->AddNetworkObserver(std::move(observer));
+  GetForwardingInterface()->AddNetworkObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) {
-  GetForwardingInterface()->DEPRECATED_AddAudioObserver(std::move(observer));
+  GetForwardingInterface()->DEPRECATED_AddAudioObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) {
-  GetForwardingInterface()->DEPRECATED_AddThunderboltObserver(std::move(observer));
+  GetForwardingInterface()->DEPRECATED_AddThunderboltObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) {
-  GetForwardingInterface()->DEPRECATED_AddUsbObserver(std::move(observer));
+  GetForwardingInterface()->DEPRECATED_AddUsbObserver(
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) {
-  GetForwardingInterface()->AddEventObserver(std::move(category), std::move(observer));
+  GetForwardingInterface()->AddEventObserver(
+    std::move(category)
+    , 
+    std::move(observer)
+    );
 }
 void CrosHealthdEventServiceInterceptorForTesting::IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category, IsEventSupportedCallback callback) {
-  GetForwardingInterface()->IsEventSupported(std::move(category), std::move(callback));
+  GetForwardingInterface()->IsEventSupported(
+    std::move(category)
+    , std::move(callback));
 }
 CrosHealthdEventServiceAsyncWaiter::CrosHealthdEventServiceAsyncWaiter(
     CrosHealthdEventService* proxy) : proxy_(proxy) {}
@@ -15447,13 +15539,21 @@ void CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
 
 
 void CrosHealthdProbeServiceInterceptorForTesting::ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) {
-  GetForwardingInterface()->ProbeProcessInfo(std::move(process_id), std::move(callback));
+  GetForwardingInterface()->ProbeProcessInfo(
+    std::move(process_id)
+    , std::move(callback));
 }
 void CrosHealthdProbeServiceInterceptorForTesting::ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) {
-  GetForwardingInterface()->ProbeTelemetryInfo(std::move(categories), std::move(callback));
+  GetForwardingInterface()->ProbeTelemetryInfo(
+    std::move(categories)
+    , std::move(callback));
 }
 void CrosHealthdProbeServiceInterceptorForTesting::ProbeMultipleProcessInfo(const std::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
-  GetForwardingInterface()->ProbeMultipleProcessInfo(std::move(process_ids), std::move(ignore_single_process_error), std::move(callback));
+  GetForwardingInterface()->ProbeMultipleProcessInfo(
+    std::move(process_ids)
+    , 
+    std::move(ignore_single_process_error)
+    , std::move(callback));
 }
 CrosHealthdProbeServiceAsyncWaiter::CrosHealthdProbeServiceAsyncWaiter(
     CrosHealthdProbeService* proxy) : proxy_(proxy) {}

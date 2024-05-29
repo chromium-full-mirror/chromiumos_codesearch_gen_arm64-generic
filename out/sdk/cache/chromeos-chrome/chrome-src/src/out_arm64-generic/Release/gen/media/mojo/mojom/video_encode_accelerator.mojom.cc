@@ -2053,11 +2053,11 @@ uint32_t VideoEncodeAccelerator::Flush_Sym::IPCStableHash() {
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 bool VideoEncodeAccelerator::Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, bool* out_result) {
-  NOTREACHED();
+  NOTREACHED_IN_MIGRATION();
   return false;
 }
 bool VideoEncodeAccelerator::IsFlushSupported(bool* out_result) {
-  NOTREACHED();
+  NOTREACHED_IN_MIGRATION();
   return false;
 }
 class VideoEncodeAccelerator_Initialize_HandleSyncResponse
@@ -4494,7 +4494,9 @@ namespace media::mojom {
 
 
 void VideoEncodeAcceleratorProviderInterceptorForTesting::CreateVideoEncodeAccelerator(::mojo::PendingReceiver<VideoEncodeAccelerator> receiver) {
-  GetForwardingInterface()->CreateVideoEncodeAccelerator(std::move(receiver));
+  GetForwardingInterface()->CreateVideoEncodeAccelerator(
+    std::move(receiver)
+    );
 }
 void VideoEncodeAcceleratorProviderInterceptorForTesting::GetVideoEncodeAcceleratorSupportedProfiles(GetVideoEncodeAcceleratorSupportedProfilesCallback callback) {
   GetForwardingInterface()->GetVideoEncodeAcceleratorSupportedProfiles(std::move(callback));
@@ -4531,7 +4533,9 @@ std::vector<::media::VideoEncodeAccelerator::SupportedProfile> VideoEncodeAccele
 
 
 void VideoEncodeAcceleratorProviderFactoryInterceptorForTesting::CreateVideoEncodeAcceleratorProvider(::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> receiver) {
-  GetForwardingInterface()->CreateVideoEncodeAcceleratorProvider(std::move(receiver));
+  GetForwardingInterface()->CreateVideoEncodeAcceleratorProvider(
+    std::move(receiver)
+    );
 }
 VideoEncodeAcceleratorProviderFactoryAsyncWaiter::VideoEncodeAcceleratorProviderFactoryAsyncWaiter(
     VideoEncodeAcceleratorProviderFactory* proxy) : proxy_(proxy) {}
@@ -4542,19 +4546,45 @@ VideoEncodeAcceleratorProviderFactoryAsyncWaiter::~VideoEncodeAcceleratorProvide
 
 
 void VideoEncodeAcceleratorInterceptorForTesting::Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(config), std::move(client), std::move(media_log), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(config)
+    , 
+    std::move(client)
+    , 
+    std::move(media_log)
+    , std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::Encode(const ::scoped_refptr<::media::VideoFrame>& frame, const ::media::VideoEncoder::EncodeOptions& options, EncodeCallback callback) {
-  GetForwardingInterface()->Encode(std::move(frame), std::move(options), std::move(callback));
+  GetForwardingInterface()->Encode(
+    std::move(frame)
+    , 
+    std::move(options)
+    , std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::UseOutputBitstreamBuffer(int32_t bitstream_buffer_id, ::base::UnsafeSharedMemoryRegion region) {
-  GetForwardingInterface()->UseOutputBitstreamBuffer(std::move(bitstream_buffer_id), std::move(region));
+  GetForwardingInterface()->UseOutputBitstreamBuffer(
+    std::move(bitstream_buffer_id)
+    , 
+    std::move(region)
+    );
 }
 void VideoEncodeAcceleratorInterceptorForTesting::RequestEncodingParametersChangeWithLayers(const ::media::VideoBitrateAllocation& bitrate_allocation, uint32_t framerate, const std::optional<::gfx::Size>& size) {
-  GetForwardingInterface()->RequestEncodingParametersChangeWithLayers(std::move(bitrate_allocation), std::move(framerate), std::move(size));
+  GetForwardingInterface()->RequestEncodingParametersChangeWithLayers(
+    std::move(bitrate_allocation)
+    , 
+    std::move(framerate)
+    , 
+    std::move(size)
+    );
 }
 void VideoEncodeAcceleratorInterceptorForTesting::RequestEncodingParametersChangeWithBitrate(const ::media::Bitrate& bitrate, uint32_t framerate, const std::optional<::gfx::Size>& size) {
-  GetForwardingInterface()->RequestEncodingParametersChangeWithBitrate(std::move(bitrate), std::move(framerate), std::move(size));
+  GetForwardingInterface()->RequestEncodingParametersChangeWithBitrate(
+    std::move(bitrate)
+    , 
+    std::move(framerate)
+    , 
+    std::move(size)
+    );
 }
 void VideoEncodeAcceleratorInterceptorForTesting::IsFlushSupported(IsFlushSupportedCallback callback) {
   GetForwardingInterface()->IsFlushSupported(std::move(callback));
@@ -4654,16 +4684,30 @@ bool VideoEncodeAcceleratorAsyncWaiter::Flush(
 
 
 void VideoEncodeAcceleratorClientInterceptorForTesting::RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) {
-  GetForwardingInterface()->RequireBitstreamBuffers(std::move(input_count), std::move(input_coded_size), std::move(output_buffer_size));
+  GetForwardingInterface()->RequireBitstreamBuffers(
+    std::move(input_count)
+    , 
+    std::move(input_coded_size)
+    , 
+    std::move(output_buffer_size)
+    );
 }
 void VideoEncodeAcceleratorClientInterceptorForTesting::BitstreamBufferReady(int32_t bitstream_buffer_id, const ::media::BitstreamBufferMetadata& metadata) {
-  GetForwardingInterface()->BitstreamBufferReady(std::move(bitstream_buffer_id), std::move(metadata));
+  GetForwardingInterface()->BitstreamBufferReady(
+    std::move(bitstream_buffer_id)
+    , 
+    std::move(metadata)
+    );
 }
 void VideoEncodeAcceleratorClientInterceptorForTesting::NotifyErrorStatus(const ::media::EncoderStatus& status) {
-  GetForwardingInterface()->NotifyErrorStatus(std::move(status));
+  GetForwardingInterface()->NotifyErrorStatus(
+    std::move(status)
+    );
 }
 void VideoEncodeAcceleratorClientInterceptorForTesting::NotifyEncoderInfoChange(const ::media::VideoEncoderInfo& info) {
-  GetForwardingInterface()->NotifyEncoderInfoChange(std::move(info));
+  GetForwardingInterface()->NotifyEncoderInfoChange(
+    std::move(info)
+    );
 }
 VideoEncodeAcceleratorClientAsyncWaiter::VideoEncodeAcceleratorClientAsyncWaiter(
     VideoEncodeAcceleratorClient* proxy) : proxy_(proxy) {}

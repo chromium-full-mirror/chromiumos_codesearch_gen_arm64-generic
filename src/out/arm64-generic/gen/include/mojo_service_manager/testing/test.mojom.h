@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "mojo_service_manager/testing/test.mojom-features.h"
-#include "mojo_service_manager/testing/test.mojom-shared.h"
-#include "mojo_service_manager/testing/test.mojom-forward.h"
+#include "mojo_service_manager/testing/test.mojom-features.h"  // IWYU pragma: export
+#include "mojo_service_manager/testing/test.mojom-shared.h"  // IWYU pragma: export
+#include "mojo_service_manager/testing/test.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

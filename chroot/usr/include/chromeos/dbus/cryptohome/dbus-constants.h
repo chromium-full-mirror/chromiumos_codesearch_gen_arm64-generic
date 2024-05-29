@@ -58,7 +58,6 @@ inline constexpr char kListAuthFactors[] = "ListAuthFactors";
 inline constexpr char kGetAuthFactorExtendedInfo[] =
     "GetAuthFactorExtendedInfo";
 inline constexpr char kGetAuthSessionStatus[] = "GetAuthSessionStatus";
-inline constexpr char kGetRecoveryRequest[] = "GetRecoveryRequest";
 inline constexpr char kLockFactorUntilReboot[] = "LockFactorUntilReboot";
 inline constexpr char kModifyAuthFactorIntents[] = "ModifyAuthFactorIntents";
 inline constexpr char kCreateVaultkeyset[] = "CreateVaultKeyset";
@@ -179,14 +178,6 @@ enum DircryptoMigrationStatus {
   // TODO(kinaba,dspaid): Add state codes as needed.
   DIRCRYPTO_MIGRATION_INITIALIZING = 1,
   DIRCRYPTO_MIGRATION_IN_PROGRESS = 2,
-};
-
-// Type of paths that are allowed for SetProjectId().
-enum SetProjectIdAllowedPathType {
-  // /home/user/<obfuscated_username>/MyFiles/Downloads/
-  PATH_DOWNLOADS = 0,
-  // /home/root/<obfuscated_username>/android-data/
-  PATH_ANDROID_DATA = 1,
 };
 
 // Interface for key delegate service to be used by the cryptohome daemon.

@@ -273,7 +273,7 @@ size_t RoutineUpdateUnion::Hash(size_t seed) const {
     case Tag::kNoninteractiveUpdate:
       return mojo::internal::Hash(seed, data_.noninteractive_update);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }

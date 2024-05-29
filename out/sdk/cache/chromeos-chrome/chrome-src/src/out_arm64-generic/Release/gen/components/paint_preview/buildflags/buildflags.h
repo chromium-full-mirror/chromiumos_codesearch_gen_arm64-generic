@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_PAINT_PREVIEW() (1)
 
 #endif  // COMPONENTS_PAINT_PREVIEW_BUILDFLAGS_BUILDFLAGS_H_

@@ -79,7 +79,9 @@ PROTOBUF_CONSTEXPR DeviceMessage::DeviceMessage(
 
   , /*decltype(_impl_.teardown_)*/ false
 
-  , /*decltype(_impl_.force_local_next_hop_)*/ false
+  , /*decltype(_impl_.multicast_)*/ false
+
+  , /*decltype(_impl_.broadcast_)*/ false
 } {}
 struct DeviceMessageDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceMessageDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1427,8 +1429,11 @@ class DeviceMessage::_Internal {
   static void set_has_teardown(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static void set_has_force_local_next_hop(HasBits* has_bits) {
+  static void set_has_multicast(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
+  }
+  static void set_has_broadcast(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
@@ -1452,7 +1457,9 @@ DeviceMessage::DeviceMessage(const DeviceMessage& from)
 
     , decltype(_impl_.teardown_) {}
 
-    , decltype(_impl_.force_local_next_hop_) {}
+    , decltype(_impl_.multicast_) {}
+
+    , decltype(_impl_.broadcast_) {}
   };
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1471,8 +1478,8 @@ DeviceMessage::DeviceMessage(const DeviceMessage& from)
     _this->_impl_.br_ifname_.Set(from._internal_br_ifname(), _this->GetArenaForAllocation());
   }
   ::memcpy(&_impl_.teardown_, &from._impl_.teardown_,
-    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
-    reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.force_local_next_hop_));
+    static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.broadcast_) -
+    reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.broadcast_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.DeviceMessage)
 }
 
@@ -1487,7 +1494,9 @@ inline void DeviceMessage::SharedCtor(::_pb::Arena* arena) {
 
     , decltype(_impl_.teardown_) { false }
 
-    , decltype(_impl_.force_local_next_hop_) { false }
+    , decltype(_impl_.multicast_) { false }
+
+    , decltype(_impl_.broadcast_) { false }
 
   };
   _impl_.dev_ifname_.InitDefault();
@@ -1535,8 +1544,8 @@ void DeviceMessage::Clear() {
     }
   }
   ::memset(&_impl_.teardown_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
-      reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.force_local_next_hop_));
+      reinterpret_cast<char*>(&_impl_.broadcast_) -
+      reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.broadcast_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1578,11 +1587,21 @@ const char* DeviceMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           goto handle_unusual;
         }
         continue;
-      // optional bool force_local_next_hop = 4;
+      // optional bool multicast = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
-          _Internal::set_has_force_local_next_hop(&has_bits);
-          _impl_.force_local_next_hop_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _Internal::set_has_multicast(&has_bits);
+          _impl_.multicast_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional bool broadcast = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 40)) {
+          _Internal::set_has_broadcast(&has_bits);
+          _impl_.broadcast_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -1638,11 +1657,18 @@ failure:
         3, this->_internal_teardown(), target);
   }
 
-  // optional bool force_local_next_hop = 4;
+  // optional bool multicast = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(
-        4, this->_internal_force_local_next_hop(), target);
+        4, this->_internal_multicast(), target);
+  }
+
+  // optional bool broadcast = 5;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        5, this->_internal_broadcast(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1667,7 +1693,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000eu) {
+  if (cached_has_bits & 0x0000001eu) {
     // optional string br_ifname = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1679,8 +1705,13 @@ failure:
       total_size += 2;
     }
 
-    // optional bool force_local_next_hop = 4;
+    // optional bool multicast = 4;
     if (cached_has_bits & 0x00000008u) {
+      total_size += 2;
+    }
+
+    // optional bool broadcast = 5;
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2;
     }
 
@@ -1707,7 +1738,7 @@ void DeviceMessage::MergeFrom(const DeviceMessage& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_set_dev_ifname(from._internal_dev_ifname());
     }
@@ -1718,7 +1749,10 @@ void DeviceMessage::MergeFrom(const DeviceMessage& from) {
       _this->_impl_.teardown_ = from._impl_.teardown_;
     }
     if (cached_has_bits & 0x00000008u) {
-      _this->_impl_.force_local_next_hop_ = from._impl_.force_local_next_hop_;
+      _this->_impl_.multicast_ = from._impl_.multicast_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _this->_impl_.broadcast_ = from._impl_.broadcast_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -1748,8 +1782,8 @@ void DeviceMessage::InternalSwap(DeviceMessage* other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.br_ifname_, lhs_arena,
                                        &other->_impl_.br_ifname_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_.force_local_next_hop_)
-      + sizeof(DeviceMessage::_impl_.force_local_next_hop_)
+      PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_.broadcast_)
+      + sizeof(DeviceMessage::_impl_.broadcast_)
       - PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_.teardown_)>(
           reinterpret_cast<char*>(&_impl_.teardown_),
           reinterpret_cast<char*>(&other->_impl_.teardown_));

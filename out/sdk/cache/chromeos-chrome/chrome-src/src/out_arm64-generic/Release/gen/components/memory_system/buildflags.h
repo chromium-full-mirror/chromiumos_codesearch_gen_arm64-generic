@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_TREAT_DYNAMIC_INCLUSION_OF_ALLOCATION_RECORDER_AS_FORCED_INCLUSION() (0)
 
 #endif  // COMPONENTS_MEMORY_SYSTEM_BUILDFLAGS_H_

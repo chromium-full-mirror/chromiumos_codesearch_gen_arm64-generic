@@ -19,9 +19,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "services/network/public/mojom/network_types.mojom-features.h"
-#include "services/network/public/mojom/network_types.mojom-shared.h"
-#include "services/network/public/mojom/network_types.mojom-forward.h"
+#include "services/network/public/mojom/network_types.mojom-features.h"  // IWYU pragma: export
+#include "services/network/public/mojom/network_types.mojom-shared.h"  // IWYU pragma: export
+#include "services/network/public/mojom/network_types.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

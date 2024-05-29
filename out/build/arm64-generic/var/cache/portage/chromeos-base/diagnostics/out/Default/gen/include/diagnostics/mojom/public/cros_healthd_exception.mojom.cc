@@ -257,7 +257,7 @@ size_t UnsupportedReason::Hash(size_t seed) const {
     case Tag::kUnmappedUnionField:
       return mojo::internal::Hash(seed, data_.unmapped_union_field);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }

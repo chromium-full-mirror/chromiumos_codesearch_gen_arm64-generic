@@ -1106,7 +1106,9 @@ namespace chromeos::machine_learning::mojom {
 
 
 void HandwritingRecognizerInterceptorForTesting::Recognize(HandwritingRecognitionQueryPtr query, RecognizeCallback callback) {
-  GetForwardingInterface()->Recognize(std::move(query), std::move(callback));
+  GetForwardingInterface()->Recognize(
+    std::move(query)
+    , std::move(callback));
 }
 HandwritingRecognizerAsyncWaiter::HandwritingRecognizerAsyncWaiter(
     HandwritingRecognizer* proxy) : proxy_(proxy) {}

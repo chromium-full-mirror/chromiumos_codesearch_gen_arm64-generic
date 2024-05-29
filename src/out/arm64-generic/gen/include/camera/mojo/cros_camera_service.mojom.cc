@@ -2476,7 +2476,13 @@ namespace cros::mojom {
 
 
 void CameraHalDispatcherInterceptorForTesting::RegisterClientWithToken(::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token, RegisterClientWithTokenCallback callback) {
-  GetForwardingInterface()->RegisterClientWithToken(std::move(client), std::move(type), std::move(auth_token), std::move(callback));
+  GetForwardingInterface()->RegisterClientWithToken(
+    std::move(client)
+    , 
+    std::move(type)
+    , 
+    std::move(auth_token)
+    , std::move(callback));
 }
 CameraHalDispatcherAsyncWaiter::CameraHalDispatcherAsyncWaiter(
     CameraHalDispatcher* proxy) : proxy_(proxy) {}
@@ -2510,7 +2516,9 @@ int32_t CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
 
 
 void CameraHalClientInterceptorForTesting::SetUpChannel(::mojo::PendingRemote<::cros::mojom::CameraModule> camera_module) {
-  GetForwardingInterface()->SetUpChannel(std::move(camera_module));
+  GetForwardingInterface()->SetUpChannel(
+    std::move(camera_module)
+    );
 }
 CameraHalClientAsyncWaiter::CameraHalClientAsyncWaiter(
     CameraHalClient* proxy) : proxy_(proxy) {}
@@ -2521,16 +2529,30 @@ CameraHalClientAsyncWaiter::~CameraHalClientAsyncWaiter() = default;
 
 
 void CrosCameraServiceObserverInterceptorForTesting::CameraDeviceActivityChange(int32_t camera_id, bool opened, CameraClientType type) {
-  GetForwardingInterface()->CameraDeviceActivityChange(std::move(camera_id), std::move(opened), std::move(type));
+  GetForwardingInterface()->CameraDeviceActivityChange(
+    std::move(camera_id)
+    , 
+    std::move(opened)
+    , 
+    std::move(type)
+    );
 }
 void CrosCameraServiceObserverInterceptorForTesting::CameraPrivacySwitchStateChange(CameraPrivacySwitchState state, int32_t camera_id) {
-  GetForwardingInterface()->CameraPrivacySwitchStateChange(std::move(state), std::move(camera_id));
+  GetForwardingInterface()->CameraPrivacySwitchStateChange(
+    std::move(state)
+    , 
+    std::move(camera_id)
+    );
 }
 void CrosCameraServiceObserverInterceptorForTesting::CameraSWPrivacySwitchStateChange(CameraPrivacySwitchState state) {
-  GetForwardingInterface()->CameraSWPrivacySwitchStateChange(std::move(state));
+  GetForwardingInterface()->CameraSWPrivacySwitchStateChange(
+    std::move(state)
+    );
 }
 void CrosCameraServiceObserverInterceptorForTesting::CameraEffectChange(::cros::mojom::EffectsConfigPtr config) {
-  GetForwardingInterface()->CameraEffectChange(std::move(config));
+  GetForwardingInterface()->CameraEffectChange(
+    std::move(config)
+    );
 }
 CrosCameraServiceObserverAsyncWaiter::CrosCameraServiceObserverAsyncWaiter(
     CrosCameraServiceObserver* proxy) : proxy_(proxy) {}
@@ -2541,28 +2563,40 @@ CrosCameraServiceObserverAsyncWaiter::~CrosCameraServiceObserverAsyncWaiter() = 
 
 
 void CrosCameraServiceInterceptorForTesting::GetCameraModule(CameraClientType type, GetCameraModuleCallback callback) {
-  GetForwardingInterface()->GetCameraModule(std::move(type), std::move(callback));
+  GetForwardingInterface()->GetCameraModule(
+    std::move(type)
+    , std::move(callback));
 }
 void CrosCameraServiceInterceptorForTesting::SetTracingEnabled(bool enabled) {
-  GetForwardingInterface()->SetTracingEnabled(std::move(enabled));
+  GetForwardingInterface()->SetTracingEnabled(
+    std::move(enabled)
+    );
 }
 void CrosCameraServiceInterceptorForTesting::SetAutoFramingState(CameraAutoFramingState state) {
-  GetForwardingInterface()->SetAutoFramingState(std::move(state));
+  GetForwardingInterface()->SetAutoFramingState(
+    std::move(state)
+    );
 }
 void CrosCameraServiceInterceptorForTesting::GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) {
   GetForwardingInterface()->GetCameraSWPrivacySwitchState(std::move(callback));
 }
 void CrosCameraServiceInterceptorForTesting::SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) {
-  GetForwardingInterface()->SetCameraSWPrivacySwitchState(std::move(state));
+  GetForwardingInterface()->SetCameraSWPrivacySwitchState(
+    std::move(state)
+    );
 }
 void CrosCameraServiceInterceptorForTesting::GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) {
   GetForwardingInterface()->GetAutoFramingSupported(std::move(callback));
 }
 void CrosCameraServiceInterceptorForTesting::SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) {
-  GetForwardingInterface()->SetCameraEffect(std::move(config), std::move(callback));
+  GetForwardingInterface()->SetCameraEffect(
+    std::move(config)
+    , std::move(callback));
 }
 void CrosCameraServiceInterceptorForTesting::AddCrosCameraServiceObserver(::mojo::PendingRemote<CrosCameraServiceObserver> observer) {
-  GetForwardingInterface()->AddCrosCameraServiceObserver(std::move(observer));
+  GetForwardingInterface()->AddCrosCameraServiceObserver(
+    std::move(observer)
+    );
 }
 CrosCameraServiceAsyncWaiter::CrosCameraServiceAsyncWaiter(
     CrosCameraService* proxy) : proxy_(proxy) {}

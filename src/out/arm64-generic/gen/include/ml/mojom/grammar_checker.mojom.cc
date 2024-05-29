@@ -657,7 +657,9 @@ namespace chromeos::machine_learning::mojom {
 
 
 void GrammarCheckerInterceptorForTesting::Check(GrammarCheckerQueryPtr query, CheckCallback callback) {
-  GetForwardingInterface()->Check(std::move(query), std::move(callback));
+  GetForwardingInterface()->Check(
+    std::move(query)
+    , std::move(callback));
 }
 GrammarCheckerAsyncWaiter::GrammarCheckerAsyncWaiter(
     GrammarChecker* proxy) : proxy_(proxy) {}

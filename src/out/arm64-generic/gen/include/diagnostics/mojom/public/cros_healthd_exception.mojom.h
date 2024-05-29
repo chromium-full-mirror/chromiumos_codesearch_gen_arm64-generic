@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "diagnostics/mojom/public/cros_healthd_exception.mojom-features.h"
-#include "diagnostics/mojom/public/cros_healthd_exception.mojom-shared.h"
-#include "diagnostics/mojom/public/cros_healthd_exception.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom-features.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom-shared.h"  // IWYU pragma: export
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

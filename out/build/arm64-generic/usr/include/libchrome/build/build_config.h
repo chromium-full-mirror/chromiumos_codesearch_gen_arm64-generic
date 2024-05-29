@@ -56,6 +56,11 @@
 
 #include "build/buildflag.h"  // IWYU pragma: export
 
+// Clangd does not detect BUILDFLAG_INTERNAL_* indirect usage, so mark the
+// header as "always_keep" to avoid "unused include" warning.
+//
+// IWYU pragma: always_keep
+
 // A brief primer on #defines:
 //
 // - __ANDROID__ is automatically defined by the Android toolchain (see

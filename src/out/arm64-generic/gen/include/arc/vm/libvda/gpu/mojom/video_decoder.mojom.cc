@@ -1476,16 +1476,26 @@ namespace arc::mojom {
 
 
 void VideoDecoderInterceptorForTesting::Initialize(VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(config), std::move(client), std::move(video_frame_pool), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(config)
+    , 
+    std::move(client)
+    , 
+    std::move(video_frame_pool)
+    , std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::Decode(DecoderBufferPtr buffer, DecodeCallback callback) {
-  GetForwardingInterface()->Decode(std::move(buffer), std::move(callback));
+  GetForwardingInterface()->Decode(
+    std::move(buffer)
+    , std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::Reset(ResetCallback callback) {
   GetForwardingInterface()->Reset(std::move(callback));
 }
 void VideoDecoderInterceptorForTesting::ReleaseVideoFrame(int32_t video_frame_id) {
-  GetForwardingInterface()->ReleaseVideoFrame(std::move(video_frame_id));
+  GetForwardingInterface()->ReleaseVideoFrame(
+    std::move(video_frame_id)
+    );
 }
 VideoDecoderAsyncWaiter::VideoDecoderAsyncWaiter(
     VideoDecoder* proxy) : proxy_(proxy) {}
@@ -1556,10 +1566,18 @@ void VideoDecoderAsyncWaiter::Reset(
 
 
 void VideoDecoderClientInterceptorForTesting::OnVideoFrameDecoded(int32_t video_frame_id, ::arc::mojom::RectPtr visible_rect, int64_t timestamp) {
-  GetForwardingInterface()->OnVideoFrameDecoded(std::move(video_frame_id), std::move(visible_rect), std::move(timestamp));
+  GetForwardingInterface()->OnVideoFrameDecoded(
+    std::move(video_frame_id)
+    , 
+    std::move(visible_rect)
+    , 
+    std::move(timestamp)
+    );
 }
 void VideoDecoderClientInterceptorForTesting::OnError(DecoderStatus status) {
-  GetForwardingInterface()->OnError(std::move(status));
+  GetForwardingInterface()->OnError(
+    std::move(status)
+    );
 }
 VideoDecoderClientAsyncWaiter::VideoDecoderClientAsyncWaiter(
     VideoDecoderClient* proxy) : proxy_(proxy) {}

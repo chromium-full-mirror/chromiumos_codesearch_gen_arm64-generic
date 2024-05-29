@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_ACCESSIBILITY_SERVICE() (0)
 #define BUILDFLAG_INTERNAL_SUPPORTS_OS_ACCESSIBILITY_SERVICE() (1)
 

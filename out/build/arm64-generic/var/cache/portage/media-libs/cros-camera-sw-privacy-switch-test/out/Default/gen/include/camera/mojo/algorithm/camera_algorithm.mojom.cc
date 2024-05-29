@@ -1361,19 +1361,37 @@ namespace cros::mojom {
 
 
 void CameraAlgorithmOpsInterceptorForTesting::Initialize(::mojo::PendingRemote<CameraAlgorithmCallbackOps> callbacks, InitializeCallback callback) {
-  GetForwardingInterface()->Initialize(std::move(callbacks), std::move(callback));
+  GetForwardingInterface()->Initialize(
+    std::move(callbacks)
+    , std::move(callback));
 }
 void CameraAlgorithmOpsInterceptorForTesting::RegisterBuffer(::mojo::ScopedHandle buffer_fd, RegisterBufferCallback callback) {
-  GetForwardingInterface()->RegisterBuffer(std::move(buffer_fd), std::move(callback));
+  GetForwardingInterface()->RegisterBuffer(
+    std::move(buffer_fd)
+    , std::move(callback));
 }
 void CameraAlgorithmOpsInterceptorForTesting::Request(uint32_t req_id, const std::vector<uint8_t>& req_header, int32_t buffer_handle) {
-  GetForwardingInterface()->Request(std::move(req_id), std::move(req_header), std::move(buffer_handle));
+  GetForwardingInterface()->Request(
+    std::move(req_id)
+    , 
+    std::move(req_header)
+    , 
+    std::move(buffer_handle)
+    );
 }
 void CameraAlgorithmOpsInterceptorForTesting::DeregisterBuffers(const std::vector<int32_t>& buffer_handles) {
-  GetForwardingInterface()->DeregisterBuffers(std::move(buffer_handles));
+  GetForwardingInterface()->DeregisterBuffers(
+    std::move(buffer_handles)
+    );
 }
 void CameraAlgorithmOpsInterceptorForTesting::UpdateReturn(uint32_t upd_id, uint32_t status, ::mojo::ScopedHandle buffer_fd) {
-  GetForwardingInterface()->UpdateReturn(std::move(upd_id), std::move(status), std::move(buffer_fd));
+  GetForwardingInterface()->UpdateReturn(
+    std::move(upd_id)
+    , 
+    std::move(status)
+    , 
+    std::move(buffer_fd)
+    );
 }
 void CameraAlgorithmOpsInterceptorForTesting::Deinitialize() {
   GetForwardingInterface()->Deinitialize();
@@ -1433,10 +1451,22 @@ int32_t CameraAlgorithmOpsAsyncWaiter::RegisterBuffer(
 
 
 void CameraAlgorithmCallbackOpsInterceptorForTesting::Return(uint32_t req_id, uint32_t status, int32_t buffer_handle) {
-  GetForwardingInterface()->Return(std::move(req_id), std::move(status), std::move(buffer_handle));
+  GetForwardingInterface()->Return(
+    std::move(req_id)
+    , 
+    std::move(status)
+    , 
+    std::move(buffer_handle)
+    );
 }
 void CameraAlgorithmCallbackOpsInterceptorForTesting::Update(uint32_t upd_id, const std::vector<uint8_t>& upd_header, ::mojo::ScopedHandle buffer_fd) {
-  GetForwardingInterface()->Update(std::move(upd_id), std::move(upd_header), std::move(buffer_fd));
+  GetForwardingInterface()->Update(
+    std::move(upd_id)
+    , 
+    std::move(upd_header)
+    , 
+    std::move(buffer_fd)
+    );
 }
 CameraAlgorithmCallbackOpsAsyncWaiter::CameraAlgorithmCallbackOpsAsyncWaiter(
     CameraAlgorithmCallbackOps* proxy) : proxy_(proxy) {}

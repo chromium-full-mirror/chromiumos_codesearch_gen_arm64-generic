@@ -492,7 +492,7 @@ size_t StartStreamingResult::Hash(size_t seed) const {
     case Tag::kStream:
       return mojo::internal::Hash(seed, data_.stream);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -1726,7 +1726,9 @@ namespace cros::camera_diag::mojom {
 
 
 void CameraDiagnosticsInterceptorForTesting::RunFrameAnalysis(FrameAnalysisConfigPtr config, RunFrameAnalysisCallback callback) {
-  GetForwardingInterface()->RunFrameAnalysis(std::move(config), std::move(callback));
+  GetForwardingInterface()->RunFrameAnalysis(
+    std::move(config)
+    , std::move(callback));
 }
 CameraDiagnosticsAsyncWaiter::CameraDiagnosticsAsyncWaiter(
     CameraDiagnostics* proxy) : proxy_(proxy) {}
@@ -1760,7 +1762,9 @@ FrameAnalysisResultPtr CameraDiagnosticsAsyncWaiter::RunFrameAnalysis(
 
 
 void CrosCameraDiagnosticsServiceInterceptorForTesting::SendFrame(CameraFramePtr frame) {
-  GetForwardingInterface()->SendFrame(std::move(frame));
+  GetForwardingInterface()->SendFrame(
+    std::move(frame)
+    );
 }
 CrosCameraDiagnosticsServiceAsyncWaiter::CrosCameraDiagnosticsServiceAsyncWaiter(
     CrosCameraDiagnosticsService* proxy) : proxy_(proxy) {}
@@ -1771,13 +1775,17 @@ CrosCameraDiagnosticsServiceAsyncWaiter::~CrosCameraDiagnosticsServiceAsyncWaite
 
 
 void CrosCameraControllerInterceptorForTesting::StartStreaming(StreamingConfigPtr config, StartStreamingCallback callback) {
-  GetForwardingInterface()->StartStreaming(std::move(config), std::move(callback));
+  GetForwardingInterface()->StartStreaming(
+    std::move(config)
+    , std::move(callback));
 }
 void CrosCameraControllerInterceptorForTesting::StopStreaming() {
   GetForwardingInterface()->StopStreaming();
 }
 void CrosCameraControllerInterceptorForTesting::RequestFrame(CameraFramePtr frame) {
-  GetForwardingInterface()->RequestFrame(std::move(frame));
+  GetForwardingInterface()->RequestFrame(
+    std::move(frame)
+    );
 }
 CrosCameraControllerAsyncWaiter::CrosCameraControllerAsyncWaiter(
     CrosCameraController* proxy) : proxy_(proxy) {}

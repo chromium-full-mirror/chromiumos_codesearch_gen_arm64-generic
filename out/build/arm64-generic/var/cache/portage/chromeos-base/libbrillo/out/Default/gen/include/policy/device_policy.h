@@ -10,7 +10,6 @@
 #include <optional>
 #include <set>
 #include <string>
-#include <utility>
 #include <vector>
 
 #include <base/time/time.h>
@@ -109,11 +108,11 @@ class DevicePolicy {
   // (defaulting to true), or std::nullopt if not enrolled.
   virtual std::optional<bool> GetEnrolledHwDataUsageEnabled() const = 0;
 
-  // Writes the value of the EphemeralUsersEnabled policy and the values from
-  // DeviceLocalAccountInfoProto EphemeralMode to |ephemeral_settings|.
-  // Returns true if either of the policies are present.
-  virtual bool GetEphemeralSettings(
-      EphemeralSettings* ephemeral_settings) const = 0;
+  // Returns the value of the EphemeralUsersEnabled policy and the values from
+  // DeviceLocalAccountInfoProto EphemeralMode.
+  // Return std::nullopt on failed read, and if ephemeral users are disabled and
+  // there are no device local accounts.
+  virtual std::optional<EphemeralSettings> GetEphemeralSettings() const = 0;
 
   // Returns value of the `DeviceExtendedAutoUpdateEnabled` policy/device owner
   // setting or `std::nullopt` if unset.
@@ -183,22 +182,16 @@ class DevicePolicy {
   virtual bool GetAllowKioskAppControlChromeVersion(
       bool* allow_kiosk_app_control_chrome_version) const = 0;
 
-  // Writes the value of the UsbDetachableWhitelist policy in |usb_whitelist|.
-  // Returns true on success.
-  virtual bool GetUsbDetachableWhitelist(
-      std::vector<UsbDeviceId>* usb_whitelist) const = 0;
+  // Returns the value of the UsbDetachableAllowlist (or Whitelist for older
+  // policy) or std::nullopt on failure.
+  virtual std::optional<std::vector<UsbDeviceId>> GetUsbDetachableAllowlist()
+      const = 0;
 
-  // Returns true if the policy data indicates that the device is enterprise
-  // managed. Note that this potentially could be faked by an exploit, therefore
-  // InstallAttributesReader must be used when tamper-proof evidence of the
-  // management state is required.
-  virtual bool IsEnterpriseManaged() const = 0;
-
-  // Writes the value of the DeviceSecondFactorAuthentication policy in
-  // |mode_out|. |mode_out| is one of the values from
+  // Returns value of the DeviceSecondFactorAuthentication policy.
+  // Return value is is one of the values from
   // DeviceSecondFactorAuthenticationProto's U2fMode enum (e.g. DISABLED,
-  // U2F or U2F_EXTENDED). Returns true on success.
-  virtual bool GetSecondFactorAuthenticationMode(int* mode_out) const = 0;
+  // U2F or U2F_EXTENDED). Returns std::nullopt on failure.
+  virtual std::optional<int> GetSecondFactorAuthenticationMode() const = 0;
 
   // Returns the value of the DeviceRunAutomaticCleanupOnLogin policy. On
   // error or if the policy is not set, returns an empty value.
@@ -232,8 +225,7 @@ class DevicePolicy {
   // Writes the value of the Directory API ID to |directory_api_id_out|.
   // Returns true on success, false if the ID is not available (eg if the device
   // is not enrolled).
-  virtual bool GetDeviceDirectoryApiId(
-      std::string* directory_api_id_out) const = 0;
+  virtual std::optional<std::string> GetDeviceDirectoryApiId() const = 0;
 
   // Writes the value of the Customer ID to |customer_id_out|.
   // Returns true on success, false if the ID is not available (eg if the device

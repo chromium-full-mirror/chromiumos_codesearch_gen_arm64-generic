@@ -837,7 +837,8 @@ class DeviceMessage final :
     kDevIfnameFieldNumber = 1,
     kBrIfnameFieldNumber = 2,
     kTeardownFieldNumber = 3,
-    kForceLocalNextHopFieldNumber = 4,
+    kMulticastFieldNumber = 4,
+    kBroadcastFieldNumber = 5,
   };
   // required string dev_ifname = 1;
   bool has_dev_ifname() const;
@@ -892,15 +893,26 @@ class DeviceMessage final :
   void _internal_set_teardown(bool value);
 
   public:
-  // optional bool force_local_next_hop = 4;
-  bool has_force_local_next_hop() const;
-  void clear_force_local_next_hop() ;
-  bool force_local_next_hop() const;
-  void set_force_local_next_hop(bool value);
+  // optional bool multicast = 4;
+  bool has_multicast() const;
+  void clear_multicast() ;
+  bool multicast() const;
+  void set_multicast(bool value);
 
   private:
-  bool _internal_force_local_next_hop() const;
-  void _internal_set_force_local_next_hop(bool value);
+  bool _internal_multicast() const;
+  void _internal_set_multicast(bool value);
+
+  public:
+  // optional bool broadcast = 5;
+  bool has_broadcast() const;
+  void clear_broadcast() ;
+  bool broadcast() const;
+  void set_broadcast(bool value);
+
+  private:
+  bool _internal_broadcast() const;
+  void _internal_set_broadcast(bool value);
 
   public:
   // @@protoc_insertion_point(class_scope:patchpanel.DeviceMessage)
@@ -916,7 +928,8 @@ class DeviceMessage final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dev_ifname_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr br_ifname_;
     bool teardown_;
-    bool force_local_next_hop_;
+    bool multicast_;
+    bool broadcast_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_ipc_2eproto;
@@ -2514,29 +2527,54 @@ inline void DeviceMessage::_internal_set_teardown(bool value) {
   _impl_.teardown_ = value;
 }
 
-// optional bool force_local_next_hop = 4;
-inline bool DeviceMessage::has_force_local_next_hop() const {
+// optional bool multicast = 4;
+inline bool DeviceMessage::has_multicast() const {
   bool value = (_impl_._has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline void DeviceMessage::clear_force_local_next_hop() {
-  _impl_.force_local_next_hop_ = false;
+inline void DeviceMessage::clear_multicast() {
+  _impl_.multicast_ = false;
   _impl_._has_bits_[0] &= ~0x00000008u;
 }
-inline bool DeviceMessage::force_local_next_hop() const {
-  // @@protoc_insertion_point(field_get:patchpanel.DeviceMessage.force_local_next_hop)
-  return _internal_force_local_next_hop();
+inline bool DeviceMessage::multicast() const {
+  // @@protoc_insertion_point(field_get:patchpanel.DeviceMessage.multicast)
+  return _internal_multicast();
 }
-inline void DeviceMessage::set_force_local_next_hop(bool value) {
-  _internal_set_force_local_next_hop(value);
-  // @@protoc_insertion_point(field_set:patchpanel.DeviceMessage.force_local_next_hop)
+inline void DeviceMessage::set_multicast(bool value) {
+  _internal_set_multicast(value);
+  // @@protoc_insertion_point(field_set:patchpanel.DeviceMessage.multicast)
 }
-inline bool DeviceMessage::_internal_force_local_next_hop() const {
-  return _impl_.force_local_next_hop_;
+inline bool DeviceMessage::_internal_multicast() const {
+  return _impl_.multicast_;
 }
-inline void DeviceMessage::_internal_set_force_local_next_hop(bool value) {
+inline void DeviceMessage::_internal_set_multicast(bool value) {
   _impl_._has_bits_[0] |= 0x00000008u;
-  _impl_.force_local_next_hop_ = value;
+  _impl_.multicast_ = value;
+}
+
+// optional bool broadcast = 5;
+inline bool DeviceMessage::has_broadcast() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline void DeviceMessage::clear_broadcast() {
+  _impl_.broadcast_ = false;
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline bool DeviceMessage::broadcast() const {
+  // @@protoc_insertion_point(field_get:patchpanel.DeviceMessage.broadcast)
+  return _internal_broadcast();
+}
+inline void DeviceMessage::set_broadcast(bool value) {
+  _internal_set_broadcast(value);
+  // @@protoc_insertion_point(field_set:patchpanel.DeviceMessage.broadcast)
+}
+inline bool DeviceMessage::_internal_broadcast() const {
+  return _impl_.broadcast_;
+}
+inline void DeviceMessage::_internal_set_broadcast(bool value) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.broadcast_ = value;
 }
 
 // -------------------------------------------------------------------

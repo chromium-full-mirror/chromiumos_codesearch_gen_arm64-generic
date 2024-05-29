@@ -18,36 +18,92 @@
 namespace perfetto {
 namespace protos {
 namespace pbzero {
+class ActiveProcesses;
 class AndroidActivity;
+class AndroidIPC;
+class AndroidToolbar;
 class AndroidView;
+class AndroidViewDump;
+class AnimationFrameScriptTimingInfo;
+class AnimationFrameTimingInfo;
+class BackForwardCacheCanStoreDocumentResult;
 class BeginFrameArgsV2;
 class BeginFrameObserverStateV2;
 class BeginFrameSourceStateV2;
 class BeginImplFrameArgsV2;
 class BeginImplFrameArgsV2_TimestampsInUs;
 class BlinkExecutionContext;
+class BlinkHighEntropyAPI;
 class BlinkHighEntropyAPI_CalledJsApi;
 class BlinkHighEntropyAPI_FontLookup;
 class BlinkHighEntropyAPI_JSFunctionArgument;
 class BlinkSourceLocation;
+class BlinkTaskScope;
 class BrowsingContextState;
+class ChildProcessLauncherPriority;
 class ChromeBrowserContext;
+class ChromeCompositorSchedulerStateV2;
 class ChromeCompositorStateMachineV2;
 class ChromeCompositorStateMachineV2_MajorStateV2;
 class ChromeCompositorStateMachineV2_MinorStateV2;
+class ChromeExtensionId;
+class ChromeGraphicsPipeline;
+class ChromeHashedPerformanceMark;
+class ChromeMemoryPressureNotification;
+class ChromeMessagePumpForUI;
+class ChromeProfileDestroyer;
+class ChromeRasterTask;
+class ChromeSamplingProfilerSampleCollected;
+class ChromeSqlDiagnostics;
+class ChromeTaskAnnotator;
+class ChromeTaskPostedToDisabledQueue;
+class ChromeThreadPoolTask;
 class ChromeUnguessableToken;
+class ChromeWebAppBadNavigate;
 class CompositorTimingHistoryV2;
+class CrasUnified;
+class EventForwarder;
+class EventLatency;
 class FrameSinkId;
 class FrameTreeNodeInfo;
 class GlobalRenderFrameHostId;
+class LibunwindstackUnwinder;
+class LinuxAlsaOutput;
+class LinuxPulseOutput;
 class LocalSurfaceId;
+class MacAUHALStream;
+class NavigationHandle;
+class PageLoad;
+class ParkableStringCompressInBackground;
+class ParkableStringUnpark;
+class ProcessSingleton;
 class RenderFrameHost;
+class RenderFrameImplDeletion;
+class RenderFrameProxyHost;
 class RenderProcessHost;
+class RenderProcessHostCleanup;
+class RenderProcessHostListener;
+class RenderViewHost;
+class RendererMainThreadTaskExecution;
+class ResourceBundle;
+class ScrollDeltas;
+class ScrollPredictorMetrics;
 class ScrollPredictorMetrics_EventFrameValue;
+class SendBeginMainFrameToCommitBreakdown;
+class SequenceManagerTask;
+class ShouldSwapBrowsingInstancesResult;
 class SiteInstance;
 class SiteInstanceGroup;
+class StartUp;
+class TabSwitchMeasurement;
+class TouchDispositionGestureFilter;
+class UkmPageLoadTimingUpdate;
 class V8StackFrame;
 class V8StackFrame_ScriptLocation;
+class ViewClassName;
+class WebContentInteraction;
+class WebViewStartup;
+class WinRenderAudioFromSource;
 namespace perfetto_pbzero_enum_AndroidToolbar {
 enum AllowCaptureReason : int32_t;
 }  // namespace perfetto_pbzero_enum_AndroidToolbar
@@ -60,6 +116,10 @@ namespace perfetto_pbzero_enum_AndroidToolbar {
 enum SnapshotDifference : int32_t;
 }  // namespace perfetto_pbzero_enum_AndroidToolbar
 using AndroidToolbar_SnapshotDifference = perfetto_pbzero_enum_AndroidToolbar::SnapshotDifference;
+namespace perfetto_pbzero_enum_AnimationFrameScriptTimingInfo {
+enum InvokerType : int32_t;
+}  // namespace perfetto_pbzero_enum_AnimationFrameScriptTimingInfo
+using AnimationFrameScriptTimingInfo_InvokerType = perfetto_pbzero_enum_AnimationFrameScriptTimingInfo::InvokerType;
 namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult {
 enum BackForwardCacheNotRestoredReason : int32_t;
 }  // namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult
@@ -506,6 +566,51 @@ const char* ChromeCompositorSchedulerActionV2_Name(::perfetto::protos::pbzero::C
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+namespace perfetto_pbzero_enum_AnimationFrameScriptTimingInfo {
+enum InvokerType : int32_t {
+  UNDEFINED = 0,
+  CLASSIC_SCRIPT = 1,
+  MODULE_SCRIPT = 2,
+  USER_CALLBACK = 3,
+  EVENT_HANDLER = 4,
+  PROMISE_RESOLVE = 5,
+  PROMISE_REJECT = 6,
+};
+} // namespace perfetto_pbzero_enum_AnimationFrameScriptTimingInfo
+using AnimationFrameScriptTimingInfo_InvokerType = perfetto_pbzero_enum_AnimationFrameScriptTimingInfo::InvokerType;
+
+
+constexpr AnimationFrameScriptTimingInfo_InvokerType AnimationFrameScriptTimingInfo_InvokerType_MIN = AnimationFrameScriptTimingInfo_InvokerType::UNDEFINED;
+constexpr AnimationFrameScriptTimingInfo_InvokerType AnimationFrameScriptTimingInfo_InvokerType_MAX = AnimationFrameScriptTimingInfo_InvokerType::PROMISE_REJECT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* AnimationFrameScriptTimingInfo_InvokerType_Name(::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::UNDEFINED:
+    return "UNDEFINED";
+
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::CLASSIC_SCRIPT:
+    return "CLASSIC_SCRIPT";
+
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::MODULE_SCRIPT:
+    return "MODULE_SCRIPT";
+
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::USER_CALLBACK:
+    return "USER_CALLBACK";
+
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::EVENT_HANDLER:
+    return "EVENT_HANDLER";
+
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::PROMISE_RESOLVE:
+    return "PROMISE_RESOLVE";
+
+  case ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType::PROMISE_REJECT:
+    return "PROMISE_REJECT";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
 namespace perfetto_pbzero_enum_WebViewStartup {
 enum CallSite : int32_t {
   GET_AW_TRACING_CONTROLLER = 0,
@@ -835,13 +940,14 @@ enum BeginImplFrameDeadlineMode : int32_t {
   DEADLINE_MODE_REGULAR = 3,
   DEADLINE_MODE_LATE = 4,
   DEADLINE_MODE_BLOCKED = 5,
+  DEADLINE_MODE_WAIT_FOR_SCROLL = 6,
 };
 } // namespace perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2
 using ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode = perfetto_pbzero_enum_ChromeCompositorSchedulerStateV2::BeginImplFrameDeadlineMode;
 
 
 constexpr ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_MIN = ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_UNSPECIFIED;
-constexpr ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_MAX = ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED;
+constexpr ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_MAX = ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_WAIT_FOR_SCROLL;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -864,6 +970,9 @@ const char* ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode_Name(::p
 
   case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED:
     return "DEADLINE_MODE_BLOCKED";
+
+  case ::perfetto::protos::pbzero::ChromeCompositorSchedulerStateV2_BeginImplFrameDeadlineMode::DEADLINE_MODE_WAIT_FOR_SCROLL:
+    return "DEADLINE_MODE_WAIT_FOR_SCROLL";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3147,6 +3256,326 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+class AnimationFrameScriptTimingInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  AnimationFrameScriptTimingInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit AnimationFrameScriptTimingInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit AnimationFrameScriptTimingInfo_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_style_duration_ms() const { return at<1>().valid(); }
+  int64_t style_duration_ms() const { return at<1>().as_int64(); }
+  bool has_layout_duration_ms() const { return at<2>().valid(); }
+  int64_t layout_duration_ms() const { return at<2>().as_int64(); }
+  bool has_pause_duration_ms() const { return at<3>().valid(); }
+  int64_t pause_duration_ms() const { return at<3>().as_int64(); }
+  bool has_class_like_name() const { return at<4>().valid(); }
+  ::protozero::ConstChars class_like_name() const { return at<4>().as_string(); }
+  bool has_property_like_name() const { return at<5>().valid(); }
+  ::protozero::ConstChars property_like_name() const { return at<5>().as_string(); }
+  bool has_source_location_url() const { return at<6>().valid(); }
+  ::protozero::ConstChars source_location_url() const { return at<6>().as_string(); }
+  bool has_source_location_function_name() const { return at<7>().valid(); }
+  ::protozero::ConstChars source_location_function_name() const { return at<7>().as_string(); }
+  bool has_source_location_char_position() const { return at<8>().valid(); }
+  int64_t source_location_char_position() const { return at<8>().as_int64(); }
+  bool has_invoker_type() const { return at<9>().valid(); }
+  int32_t invoker_type() const { return at<9>().as_int32(); }
+};
+
+class AnimationFrameScriptTimingInfo : public ::protozero::Message {
+ public:
+  using Decoder = AnimationFrameScriptTimingInfo_Decoder;
+  enum : int32_t {
+    kStyleDurationMsFieldNumber = 1,
+    kLayoutDurationMsFieldNumber = 2,
+    kPauseDurationMsFieldNumber = 3,
+    kClassLikeNameFieldNumber = 4,
+    kPropertyLikeNameFieldNumber = 5,
+    kSourceLocationUrlFieldNumber = 6,
+    kSourceLocationFunctionNameFieldNumber = 7,
+    kSourceLocationCharPositionFieldNumber = 8,
+    kInvokerTypeFieldNumber = 9,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.AnimationFrameScriptTimingInfo"; }
+
+
+  using InvokerType = ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType;
+  static inline const char* InvokerType_Name(InvokerType value) {
+    return ::perfetto::protos::pbzero::AnimationFrameScriptTimingInfo_InvokerType_Name(value);
+  }
+  static inline const InvokerType UNDEFINED = InvokerType::UNDEFINED;
+  static inline const InvokerType CLASSIC_SCRIPT = InvokerType::CLASSIC_SCRIPT;
+  static inline const InvokerType MODULE_SCRIPT = InvokerType::MODULE_SCRIPT;
+  static inline const InvokerType USER_CALLBACK = InvokerType::USER_CALLBACK;
+  static inline const InvokerType EVENT_HANDLER = InvokerType::EVENT_HANDLER;
+  static inline const InvokerType PROMISE_RESOLVE = InvokerType::PROMISE_RESOLVE;
+  static inline const InvokerType PROMISE_REJECT = InvokerType::PROMISE_REJECT;
+
+  using FieldMetadata_StyleDurationMs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_StyleDurationMs kStyleDurationMs{};
+  void set_style_duration_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StyleDurationMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LayoutDurationMs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_LayoutDurationMs kLayoutDurationMs{};
+  void set_layout_duration_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LayoutDurationMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PauseDurationMs =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_PauseDurationMs kPauseDurationMs{};
+  void set_pause_duration_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PauseDurationMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ClassLikeName =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_ClassLikeName kClassLikeName{};
+  void set_class_like_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_ClassLikeName::kFieldId, data, size);
+  }
+  void set_class_like_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_ClassLikeName::kFieldId, chars.data, chars.size);
+  }
+  void set_class_like_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_ClassLikeName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PropertyLikeName =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_PropertyLikeName kPropertyLikeName{};
+  void set_property_like_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_PropertyLikeName::kFieldId, data, size);
+  }
+  void set_property_like_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_PropertyLikeName::kFieldId, chars.data, chars.size);
+  }
+  void set_property_like_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_PropertyLikeName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceLocationUrl =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_SourceLocationUrl kSourceLocationUrl{};
+  void set_source_location_url(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_SourceLocationUrl::kFieldId, data, size);
+  }
+  void set_source_location_url(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_SourceLocationUrl::kFieldId, chars.data, chars.size);
+  }
+  void set_source_location_url(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceLocationUrl::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceLocationFunctionName =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_SourceLocationFunctionName kSourceLocationFunctionName{};
+  void set_source_location_function_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_SourceLocationFunctionName::kFieldId, data, size);
+  }
+  void set_source_location_function_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_SourceLocationFunctionName::kFieldId, chars.data, chars.size);
+  }
+  void set_source_location_function_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceLocationFunctionName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SourceLocationCharPosition =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_SourceLocationCharPosition kSourceLocationCharPosition{};
+  void set_source_location_char_position(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceLocationCharPosition::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InvokerType =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      AnimationFrameScriptTimingInfo_InvokerType,
+      AnimationFrameScriptTimingInfo>;
+
+  static constexpr FieldMetadata_InvokerType kInvokerType{};
+  void set_invoker_type(AnimationFrameScriptTimingInfo_InvokerType value) {
+    static constexpr uint32_t field_id = FieldMetadata_InvokerType::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class AnimationFrameTimingInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  AnimationFrameTimingInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit AnimationFrameTimingInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit AnimationFrameTimingInfo_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_blocking_duration_ms() const { return at<1>().valid(); }
+  int64_t blocking_duration_ms() const { return at<1>().as_int64(); }
+  bool has_duration_ms() const { return at<2>().valid(); }
+  int64_t duration_ms() const { return at<2>().as_int64(); }
+  bool has_num_scripts() const { return at<3>().valid(); }
+  int64_t num_scripts() const { return at<3>().as_int64(); }
+};
+
+class AnimationFrameTimingInfo : public ::protozero::Message {
+ public:
+  using Decoder = AnimationFrameTimingInfo_Decoder;
+  enum : int32_t {
+    kBlockingDurationMsFieldNumber = 1,
+    kDurationMsFieldNumber = 2,
+    kNumScriptsFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.AnimationFrameTimingInfo"; }
+
+
+  using FieldMetadata_BlockingDurationMs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameTimingInfo>;
+
+  static constexpr FieldMetadata_BlockingDurationMs kBlockingDurationMs{};
+  void set_blocking_duration_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_BlockingDurationMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DurationMs =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameTimingInfo>;
+
+  static constexpr FieldMetadata_DurationMs kDurationMs{};
+  void set_duration_ms(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DurationMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NumScripts =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      AnimationFrameTimingInfo>;
+
+  static constexpr FieldMetadata_NumScripts kNumScripts{};
+  void set_num_scripts(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumScripts::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class WebViewStartup_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   WebViewStartup_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -5349,6 +5778,7 @@ class ChromeCompositorSchedulerStateV2 : public ::protozero::Message {
   static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_REGULAR = BeginImplFrameDeadlineMode::DEADLINE_MODE_REGULAR;
   static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_LATE = BeginImplFrameDeadlineMode::DEADLINE_MODE_LATE;
   static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_BLOCKED = BeginImplFrameDeadlineMode::DEADLINE_MODE_BLOCKED;
+  static inline const BeginImplFrameDeadlineMode DEADLINE_MODE_WAIT_FOR_SCROLL = BeginImplFrameDeadlineMode::DEADLINE_MODE_WAIT_FOR_SCROLL;
 
   using FieldMetadata_StateMachine =
     ::protozero::proto_utils::FieldMetadata<
@@ -14902,6 +15332,102 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
     return BeginNestedMessage<T>(1063);
   }
 
+
+  using FieldMetadata_AnimationFrameTimingInfo =
+    ::protozero::proto_utils::FieldMetadata<
+      1064,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      AnimationFrameTimingInfo,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_AnimationFrameTimingInfo kAnimationFrameTimingInfo{};
+  template <typename T = AnimationFrameTimingInfo> T* set_animation_frame_timing_info() {
+    return BeginNestedMessage<T>(1064);
+  }
+
+
+  using FieldMetadata_AnimationFrameScriptTimingInfo =
+    ::protozero::proto_utils::FieldMetadata<
+      1065,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      AnimationFrameScriptTimingInfo,
+      ChromeTrackEvent>;
+
+  static constexpr FieldMetadata_AnimationFrameScriptTimingInfo kAnimationFrameScriptTimingInfo{};
+  template <typename T = AnimationFrameScriptTimingInfo> T* set_animation_frame_script_timing_info() {
+    return BeginNestedMessage<T>(1065);
+  }
+
+  enum : int32_t {
+    kChromeAppStateFieldNumber = 1000,
+    kChromeMemoryPressureNotificationFieldNumber = 1001,
+    kChromeTaskAnnotatorFieldNumber = 1002,
+    kChromeBrowserContextFieldNumber = 1003,
+    kChromeProfileDestroyerFieldNumber = 1004,
+    kChromeTaskPostedToDisabledQueueFieldNumber = 1005,
+    kChromeRasterTaskFieldNumber = 1006,
+    kChromeMessagePumpForUiFieldNumber = 1007,
+    kRenderFrameImplDeletionFieldNumber = 1008,
+    kShouldSwapBrowsingInstancesResultFieldNumber = 1009,
+    kFrameTreeNodeInfoFieldNumber = 1010,
+    kChromeHashedPerformanceMarkFieldNumber = 1011,
+    kRenderProcessHostFieldNumber = 1012,
+    kRenderProcessHostCleanupFieldNumber = 1013,
+    kRenderProcessHostListenerChangedFieldNumber = 1014,
+    kChildProcessLauncherPriorityFieldNumber = 1015,
+    kResourceBundleFieldNumber = 1016,
+    kChromeWebAppBadNavigateFieldNumber = 1017,
+    kChromeExtensionIdFieldNumber = 1018,
+    kSiteInstanceFieldNumber = 1019,
+    kRenderViewHostFieldNumber = 1020,
+    kRenderFrameProxyHostFieldNumber = 1021,
+    kAndroidViewDumpFieldNumber = 1022,
+    kParkableStringCompressInBackgroundFieldNumber = 1023,
+    kParkableStringUnparkFieldNumber = 1024,
+    kChromeSamplingProfilerSampleCompletedFieldNumber = 1025,
+    kSendBeginMainframeToCommitBreakdownFieldNumber = 1026,
+    kGlobalRenderFrameHostIdFieldNumber = 1027,
+    kRenderFrameHostFieldNumber = 1028,
+    kThreadPoolTaskFieldNumber = 1029,
+    kBackForwardCacheCanStoreDocumentResultFieldNumber = 1030,
+    kRendererMainThreadTaskExecutionFieldNumber = 1031,
+    kEventLatencyFieldNumber = 1032,
+    kProcessSingletonFieldNumber = 1033,
+    kSiteInstanceGroupFieldNumber = 1034,
+    kBrowsingContextStateFieldNumber = 1035,
+    kDeviceThermalStateFieldNumber = 1036,
+    kNavigationFieldNumber = 1037,
+    kAndroidIpcFieldNumber = 1038,
+    kSqlDiagnosticsFieldNumber = 1039,
+    kSequenceManagerTaskFieldNumber = 1040,
+    kAndroidToolbarFieldNumber = 1041,
+    kActiveProcessesFieldNumber = 1042,
+    kBlinkTaskScopeFieldNumber = 1043,
+    kUkmPageLoadTimingUpdateFieldNumber = 1044,
+    kHighEntropyApiFieldNumber = 1045,
+    kTabSwitchMeasurementFieldNumber = 1046,
+    kScrollDeltasFieldNumber = 1047,
+    kWinRenderAudioFromSourceFieldNumber = 1048,
+    kMacAuhalStreamFieldNumber = 1049,
+    kLinuxAlsaOutputFieldNumber = 1050,
+    kLinuxPulseOutputFieldNumber = 1051,
+    kChromeGraphicsPipelineFieldNumber = 1052,
+    kChromeosCrasUnifiedFieldNumber = 1053,
+    kLibunwindstackUnwinderFieldNumber = 1054,
+    kScrollPredictorMetricsFieldNumber = 1055,
+    kPageLoadFieldNumber = 1056,
+    kStartupFieldNumber = 1057,
+    kWebContentInteractionFieldNumber = 1058,
+    kEventForwarderFieldNumber = 1059,
+    kTouchDispositionGestureFilterFieldNumber = 1060,
+    kViewClassNameFieldNumber = 1061,
+    kCcSchedulerStateFieldNumber = 1062,
+    kWebviewStartupFieldNumber = 1063,
+    kAnimationFrameTimingInfoFieldNumber = 1064,
+    kAnimationFrameScriptTimingInfoFieldNumber = 1065,
+  };
 };
 } // Namespace.
 } // Namespace.

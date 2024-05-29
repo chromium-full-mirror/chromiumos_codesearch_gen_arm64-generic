@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_WEBNN_USE_TFLITE() (1)
 #define BUILDFLAG_INTERNAL_WEBNN_ENABLE_TFLITE_PROFILER() (0)
 

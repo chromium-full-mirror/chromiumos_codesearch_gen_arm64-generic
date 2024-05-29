@@ -4325,16 +4325,24 @@ namespace cros::mojom {
 
 
 void SensorServiceInterceptorForTesting::GetDeviceIds(DeviceType type, GetDeviceIdsCallback callback) {
-  GetForwardingInterface()->GetDeviceIds(std::move(type), std::move(callback));
+  GetForwardingInterface()->GetDeviceIds(
+    std::move(type)
+    , std::move(callback));
 }
 void SensorServiceInterceptorForTesting::GetAllDeviceIds(GetAllDeviceIdsCallback callback) {
   GetForwardingInterface()->GetAllDeviceIds(std::move(callback));
 }
 void SensorServiceInterceptorForTesting::GetDevice(int32_t iio_device_id, ::mojo::PendingReceiver<SensorDevice> device_request) {
-  GetForwardingInterface()->GetDevice(std::move(iio_device_id), std::move(device_request));
+  GetForwardingInterface()->GetDevice(
+    std::move(iio_device_id)
+    , 
+    std::move(device_request)
+    );
 }
 void SensorServiceInterceptorForTesting::RegisterNewDevicesObserver(::mojo::PendingRemote<SensorServiceNewDevicesObserver> observer) {
-  GetForwardingInterface()->RegisterNewDevicesObserver(std::move(observer));
+  GetForwardingInterface()->RegisterNewDevicesObserver(
+    std::move(observer)
+    );
 }
 SensorServiceAsyncWaiter::SensorServiceAsyncWaiter(
     SensorService* proxy) : proxy_(proxy) {}
@@ -4391,16 +4399,24 @@ base::flat_map<int32_t, std::vector<DeviceType>> SensorServiceAsyncWaiter::GetAl
 
 
 void SensorDeviceInterceptorForTesting::SetTimeout(uint32_t timeout) {
-  GetForwardingInterface()->SetTimeout(std::move(timeout));
+  GetForwardingInterface()->SetTimeout(
+    std::move(timeout)
+    );
 }
 void SensorDeviceInterceptorForTesting::GetAttributes(const std::vector<std::string>& attr_names, GetAttributesCallback callback) {
-  GetForwardingInterface()->GetAttributes(std::move(attr_names), std::move(callback));
+  GetForwardingInterface()->GetAttributes(
+    std::move(attr_names)
+    , std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::SetFrequency(double frequency, SetFrequencyCallback callback) {
-  GetForwardingInterface()->SetFrequency(std::move(frequency), std::move(callback));
+  GetForwardingInterface()->SetFrequency(
+    std::move(frequency)
+    , std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::StartReadingSamples(::mojo::PendingRemote<SensorDeviceSamplesObserver> observer) {
-  GetForwardingInterface()->StartReadingSamples(std::move(observer));
+  GetForwardingInterface()->StartReadingSamples(
+    std::move(observer)
+    );
 }
 void SensorDeviceInterceptorForTesting::StopReadingSamples() {
   GetForwardingInterface()->StopReadingSamples();
@@ -4409,22 +4425,40 @@ void SensorDeviceInterceptorForTesting::GetAllChannelIds(GetAllChannelIdsCallbac
   GetForwardingInterface()->GetAllChannelIds(std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::SetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices, bool en, SetChannelsEnabledCallback callback) {
-  GetForwardingInterface()->SetChannelsEnabled(std::move(iio_chn_indices), std::move(en), std::move(callback));
+  GetForwardingInterface()->SetChannelsEnabled(
+    std::move(iio_chn_indices)
+    , 
+    std::move(en)
+    , std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::GetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices, GetChannelsEnabledCallback callback) {
-  GetForwardingInterface()->GetChannelsEnabled(std::move(iio_chn_indices), std::move(callback));
+  GetForwardingInterface()->GetChannelsEnabled(
+    std::move(iio_chn_indices)
+    , std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::GetChannelsAttributes(const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, GetChannelsAttributesCallback callback) {
-  GetForwardingInterface()->GetChannelsAttributes(std::move(iio_chn_indices), std::move(attr_name), std::move(callback));
+  GetForwardingInterface()->GetChannelsAttributes(
+    std::move(iio_chn_indices)
+    , 
+    std::move(attr_name)
+    , std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::GetAllEvents(GetAllEventsCallback callback) {
   GetForwardingInterface()->GetAllEvents(std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, GetEventsAttributesCallback callback) {
-  GetForwardingInterface()->GetEventsAttributes(std::move(iio_event_indices), std::move(attr_name), std::move(callback));
+  GetForwardingInterface()->GetEventsAttributes(
+    std::move(iio_event_indices)
+    , 
+    std::move(attr_name)
+    , std::move(callback));
 }
 void SensorDeviceInterceptorForTesting::StartReadingEvents(const std::vector<int32_t>& iio_event_indices, ::mojo::PendingRemote<SensorDeviceEventsObserver> observer) {
-  GetForwardingInterface()->StartReadingEvents(std::move(iio_event_indices), std::move(observer));
+  GetForwardingInterface()->StartReadingEvents(
+    std::move(iio_event_indices)
+    , 
+    std::move(observer)
+    );
 }
 SensorDeviceAsyncWaiter::SensorDeviceAsyncWaiter(
     SensorDevice* proxy) : proxy_(proxy) {}
@@ -4619,10 +4653,14 @@ std::vector<std::optional<std::string>> SensorDeviceAsyncWaiter::GetEventsAttrib
 
 
 void SensorDeviceSamplesObserverInterceptorForTesting::OnSampleUpdated(const base::flat_map<int32_t, int64_t>& sample) {
-  GetForwardingInterface()->OnSampleUpdated(std::move(sample));
+  GetForwardingInterface()->OnSampleUpdated(
+    std::move(sample)
+    );
 }
 void SensorDeviceSamplesObserverInterceptorForTesting::OnErrorOccurred(ObserverErrorType type) {
-  GetForwardingInterface()->OnErrorOccurred(std::move(type));
+  GetForwardingInterface()->OnErrorOccurred(
+    std::move(type)
+    );
 }
 SensorDeviceSamplesObserverAsyncWaiter::SensorDeviceSamplesObserverAsyncWaiter(
     SensorDeviceSamplesObserver* proxy) : proxy_(proxy) {}
@@ -4633,10 +4671,16 @@ SensorDeviceSamplesObserverAsyncWaiter::~SensorDeviceSamplesObserverAsyncWaiter(
 
 
 void SensorServiceNewDevicesObserverInterceptorForTesting::OnNewDeviceAdded(int32_t iio_device_id, const std::vector<DeviceType>& types) {
-  GetForwardingInterface()->OnNewDeviceAdded(std::move(iio_device_id), std::move(types));
+  GetForwardingInterface()->OnNewDeviceAdded(
+    std::move(iio_device_id)
+    , 
+    std::move(types)
+    );
 }
 void SensorServiceNewDevicesObserverInterceptorForTesting::OnDeviceRemoved(int32_t iio_device_id) {
-  GetForwardingInterface()->OnDeviceRemoved(std::move(iio_device_id));
+  GetForwardingInterface()->OnDeviceRemoved(
+    std::move(iio_device_id)
+    );
 }
 SensorServiceNewDevicesObserverAsyncWaiter::SensorServiceNewDevicesObserverAsyncWaiter(
     SensorServiceNewDevicesObserver* proxy) : proxy_(proxy) {}
@@ -4647,10 +4691,14 @@ SensorServiceNewDevicesObserverAsyncWaiter::~SensorServiceNewDevicesObserverAsyn
 
 
 void SensorDeviceEventsObserverInterceptorForTesting::OnEventUpdated(IioEventPtr iio_event) {
-  GetForwardingInterface()->OnEventUpdated(std::move(iio_event));
+  GetForwardingInterface()->OnEventUpdated(
+    std::move(iio_event)
+    );
 }
 void SensorDeviceEventsObserverInterceptorForTesting::OnErrorOccurred(ObserverErrorType type) {
-  GetForwardingInterface()->OnErrorOccurred(std::move(type));
+  GetForwardingInterface()->OnErrorOccurred(
+    std::move(type)
+    );
 }
 SensorDeviceEventsObserverAsyncWaiter::SensorDeviceEventsObserverAsyncWaiter(
     SensorDeviceEventsObserver* proxy) : proxy_(proxy) {}

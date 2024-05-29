@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_REAL_CHROMEOS_SERVICES() (1)
 
 #endif  // CHROMEOS_FEATURES_H_

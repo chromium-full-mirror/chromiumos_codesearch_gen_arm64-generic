@@ -2003,7 +2003,7 @@ size_t RoutineRunningInfo::Hash(size_t seed) const {
     case Tag::kNetworkBandwidth:
       return mojo::internal::Hash(seed, data_.network_bandwidth);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2063,7 +2063,7 @@ size_t RoutineInteraction::Hash(size_t seed) const {
     case Tag::kInquiry:
       return mojo::internal::Hash(seed, data_.inquiry);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2123,7 +2123,7 @@ size_t RoutineInquiry::Hash(size_t seed) const {
     case Tag::kCheckLedLitUpState:
       return mojo::internal::Hash(seed, data_.check_led_lit_up_state);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -2183,7 +2183,7 @@ size_t RoutineInquiryReply::Hash(size_t seed) const {
     case Tag::kCheckLedLitUpState:
       return mojo::internal::Hash(seed, data_.check_led_lit_up_state);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -4605,10 +4605,18 @@ namespace ash::cros_healthd::mojom {
 
 
 void CrosHealthdRoutinesServiceInterceptorForTesting::CreateRoutine(RoutineArgumentPtr routine_argument, ::mojo::PendingReceiver<RoutineControl> routine_receiver, ::mojo::PendingRemote<RoutineObserver> routine_observer) {
-  GetForwardingInterface()->CreateRoutine(std::move(routine_argument), std::move(routine_receiver), std::move(routine_observer));
+  GetForwardingInterface()->CreateRoutine(
+    std::move(routine_argument)
+    , 
+    std::move(routine_receiver)
+    , 
+    std::move(routine_observer)
+    );
 }
 void CrosHealthdRoutinesServiceInterceptorForTesting::IsRoutineArgumentSupported(RoutineArgumentPtr routine_argument, IsRoutineArgumentSupportedCallback callback) {
-  GetForwardingInterface()->IsRoutineArgumentSupported(std::move(routine_argument), std::move(callback));
+  GetForwardingInterface()->IsRoutineArgumentSupported(
+    std::move(routine_argument)
+    , std::move(callback));
 }
 CrosHealthdRoutinesServiceAsyncWaiter::CrosHealthdRoutinesServiceAsyncWaiter(
     CrosHealthdRoutinesService* proxy) : proxy_(proxy) {}
@@ -4648,7 +4656,9 @@ void RoutineControlInterceptorForTesting::Start() {
   GetForwardingInterface()->Start();
 }
 void RoutineControlInterceptorForTesting::ReplyInquiry(RoutineInquiryReplyPtr reply) {
-  GetForwardingInterface()->ReplyInquiry(std::move(reply));
+  GetForwardingInterface()->ReplyInquiry(
+    std::move(reply)
+    );
 }
 RoutineControlAsyncWaiter::RoutineControlAsyncWaiter(
     RoutineControl* proxy) : proxy_(proxy) {}
@@ -4682,7 +4692,9 @@ RoutineStatePtr RoutineControlAsyncWaiter::GetState(
 
 
 void RoutineObserverInterceptorForTesting::OnRoutineStateChange(RoutineStatePtr state) {
-  GetForwardingInterface()->OnRoutineStateChange(std::move(state));
+  GetForwardingInterface()->OnRoutineStateChange(
+    std::move(state)
+    );
 }
 RoutineObserverAsyncWaiter::RoutineObserverAsyncWaiter(
     RoutineObserver* proxy) : proxy_(proxy) {}

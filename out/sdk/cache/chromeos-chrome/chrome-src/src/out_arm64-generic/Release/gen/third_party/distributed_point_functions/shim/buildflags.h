@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_DISTRIBUTED_POINT_FUNCTIONS() (0)
 
 #endif  // THIRD_PARTY_DISTRIBUTED_POINT_FUNCTIONS_SHIM_BUILDFLAGS_H_

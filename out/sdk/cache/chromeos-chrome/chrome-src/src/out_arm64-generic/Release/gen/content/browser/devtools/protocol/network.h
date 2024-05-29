@@ -304,6 +304,7 @@ CONTENT_EXPORT extern const char EnterprisePolicy[];
 CONTENT_EXPORT extern const char StorageAccess[];
 CONTENT_EXPORT extern const char TopLevelStorageAccess[];
 CONTENT_EXPORT extern const char CorsOptIn[];
+CONTENT_EXPORT extern const char Scheme[];
 } // namespace CookieExemptionReasonEnum
 
 namespace InterceptionStageEnum {
@@ -430,6 +431,18 @@ public:
 
     double GetWorkerRespondWithSettled() { return m_workerRespondWithSettled; }
     void SetWorkerRespondWithSettled(double value) { m_workerRespondWithSettled = value; }
+
+    bool HasWorkerRouterEvaluationStart() { return m_workerRouterEvaluationStart.has_value(); }
+    double GetWorkerRouterEvaluationStart(double defaultValue) const {
+       return m_workerRouterEvaluationStart.value_or(defaultValue);
+    }
+    void SetWorkerRouterEvaluationStart(double value) { m_workerRouterEvaluationStart = value; }
+
+    bool HasWorkerCacheLookupStart() { return m_workerCacheLookupStart.has_value(); }
+    double GetWorkerCacheLookupStart(double defaultValue) const {
+       return m_workerCacheLookupStart.value_or(defaultValue);
+    }
+    void SetWorkerCacheLookupStart(double value) { m_workerCacheLookupStart = value; }
 
     double GetSendStart() { return m_sendStart; }
     void SetSendStart(double value) { m_sendStart = value; }
@@ -567,6 +580,18 @@ public:
             return castState<WorkerRespondWithSettledSet>();
         }
 
+        ResourceTimingBuilder<STATE>& SetWorkerRouterEvaluationStart(double value)
+        {
+            m_result->SetWorkerRouterEvaluationStart(value);
+            return *this;
+        }
+
+        ResourceTimingBuilder<STATE>& SetWorkerCacheLookupStart(double value)
+        {
+            m_result->SetWorkerCacheLookupStart(value);
+            return *this;
+        }
+
         ResourceTimingBuilder<STATE | SendStartSet>& SetSendStart(double value)
         {
             static_assert(!(STATE & SendStartSet), "property sendStart should not be set yet");
@@ -671,6 +696,8 @@ private:
     double m_workerReady;
     double m_workerFetchStart;
     double m_workerRespondWithSettled;
+    Maybe<double> m_workerRouterEvaluationStart;
+    Maybe<double> m_workerCacheLookupStart;
     double m_sendStart;
     double m_sendEnd;
     double m_pushStart;
@@ -1504,6 +1531,12 @@ public:
     }
     void SetMatchedSourceType(const String& value) { m_matchedSourceType = value; }
 
+    bool HasActualSourceType() { return m_actualSourceType.has_value(); }
+    String GetActualSourceType(const String& defaultValue) const {
+       return m_actualSourceType.value_or(defaultValue);
+    }
+    void SetActualSourceType(const String& value) { m_actualSourceType = value; }
+
     template<int STATE>
     class ServiceWorkerRouterInfoBuilder {
     public:
@@ -1521,6 +1554,12 @@ public:
         ServiceWorkerRouterInfoBuilder<STATE>& SetMatchedSourceType(const String& value)
         {
             m_result->SetMatchedSourceType(value);
+            return *this;
+        }
+
+        ServiceWorkerRouterInfoBuilder<STATE>& SetActualSourceType(const String& value)
+        {
+            m_result->SetActualSourceType(value);
             return *this;
         }
 
@@ -1556,6 +1595,7 @@ private:
 
     Maybe<int> m_ruleIdMatched;
     Maybe<String> m_matchedSourceType;
+    Maybe<String> m_actualSourceType;
 };
 
 

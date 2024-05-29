@@ -134,6 +134,20 @@ class SpacedProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns the disk spaces currently used by the given IDs.
+  virtual bool GetQuotaCurrentSpacesForIds(
+      const spaced::GetQuotaCurrentSpacesForIdsRequest& in_request,
+      spaced::GetQuotaCurrentSpacesForIdsReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the disk spaces currently used by the given IDs.
+  virtual void GetQuotaCurrentSpacesForIdsAsync(
+      const spaced::GetQuotaCurrentSpacesForIdsRequest& in_request,
+      base::OnceCallback<void(const spaced::GetQuotaCurrentSpacesForIdsReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Sets the project ID to the given file.
   virtual bool SetProjectId(
       const base::ScopedFD& in_fd,
@@ -456,6 +470,39 @@ class SpacedProxy final : public SpacedProxyInterface {
         std::move(error_callback),
         in_path,
         in_project_id);
+  }
+
+  // Returns the disk spaces currently used by the given IDs.
+  bool GetQuotaCurrentSpacesForIds(
+      const spaced::GetQuotaCurrentSpacesForIdsRequest& in_request,
+      spaced::GetQuotaCurrentSpacesForIdsReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpacesForIds",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Returns the disk spaces currently used by the given IDs.
+  void GetQuotaCurrentSpacesForIdsAsync(
+      const spaced::GetQuotaCurrentSpacesForIdsRequest& in_request,
+      base::OnceCallback<void(const spaced::GetQuotaCurrentSpacesForIdsReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "GetQuotaCurrentSpacesForIds",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
   }
 
   // Sets the project ID to the given file.

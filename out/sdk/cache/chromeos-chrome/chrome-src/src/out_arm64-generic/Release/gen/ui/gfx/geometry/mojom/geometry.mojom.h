@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ui/gfx/geometry/mojom/geometry.mojom-features.h"
-#include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
-#include "ui/gfx/geometry/mojom/geometry.mojom-forward.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-features.h"  // IWYU pragma: export
+#include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"  // IWYU pragma: export
+#include "ui/gfx/geometry/mojom/geometry.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

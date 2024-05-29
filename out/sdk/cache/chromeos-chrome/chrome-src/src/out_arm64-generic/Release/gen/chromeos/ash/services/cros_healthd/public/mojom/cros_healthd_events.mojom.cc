@@ -4759,10 +4759,14 @@ CrosHealthdThunderboltObserverAsyncWaiter::~CrosHealthdThunderboltObserverAsyncW
 
 
 void CrosHealthdUsbObserverInterceptorForTesting::OnAdd(UsbEventInfoPtr info) {
-  GetForwardingInterface()->OnAdd(std::move(info));
+  GetForwardingInterface()->OnAdd(
+    std::move(info)
+    );
 }
 void CrosHealthdUsbObserverInterceptorForTesting::OnRemove(UsbEventInfoPtr info) {
-  GetForwardingInterface()->OnRemove(std::move(info));
+  GetForwardingInterface()->OnRemove(
+    std::move(info)
+    );
 }
 CrosHealthdUsbObserverAsyncWaiter::CrosHealthdUsbObserverAsyncWaiter(
     CrosHealthdUsbObserver* proxy) : proxy_(proxy) {}
@@ -4787,7 +4791,9 @@ CrosHealthdSdCardObserverAsyncWaiter::~CrosHealthdSdCardObserverAsyncWaiter() = 
 
 
 void EventObserverInterceptorForTesting::OnEvent(EventInfoPtr info) {
-  GetForwardingInterface()->OnEvent(std::move(info));
+  GetForwardingInterface()->OnEvent(
+    std::move(info)
+    );
 }
 EventObserverAsyncWaiter::EventObserverAsyncWaiter(
     EventObserver* proxy) : proxy_(proxy) {}

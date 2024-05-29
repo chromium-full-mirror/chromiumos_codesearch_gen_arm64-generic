@@ -6167,6 +6167,48 @@ class TouchpadDeviceDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetVendorIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadVendorId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `vendor_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadVendorId` instead "
+    "of `ReadVendorId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->vendor_id.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetProductIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProductId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `product_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadProductId` instead "
+    "of `ReadProductId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->product_id.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::TouchpadDevice_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -12859,6 +12901,22 @@ struct Serializer<::ash::cros_healthd::mojom::TouchpadDeviceDataView, MaybeConst
         fragment->driver_name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null driver_name in TouchpadDevice struct");
+    decltype(Traits::vendor_id(input)) in_vendor_id = Traits::vendor_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->vendor_id)::BaseType> vendor_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_vendor_id, vendor_id_fragment);
+    fragment->vendor_id.Set(
+        vendor_id_fragment.is_null() ? nullptr : vendor_id_fragment.data());
+    decltype(Traits::product_id(input)) in_product_id = Traits::product_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->product_id)::BaseType> product_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_product_id, product_id_fragment);
+    fragment->product_id.Set(
+        product_id_fragment.is_null() ? nullptr : product_id_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchpadDevice_Data* input,
@@ -16599,6 +16657,18 @@ inline void TouchpadDeviceDataView::GetInputDeviceDataView(
 inline void TouchpadDeviceDataView::GetDriverNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->driver_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void TouchpadDeviceDataView::GetVendorIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->vendor_id.Get() : nullptr;
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void TouchpadDeviceDataView::GetProductIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->product_id.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
 }
 

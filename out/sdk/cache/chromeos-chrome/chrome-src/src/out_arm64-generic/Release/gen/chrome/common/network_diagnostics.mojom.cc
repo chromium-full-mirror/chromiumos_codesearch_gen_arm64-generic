@@ -498,7 +498,9 @@ namespace chrome::mojom {
 
 
 void NetworkDiagnosticsInterceptorForTesting::RunNetworkDiagnostics(const ::GURL& failed_url) {
-  GetForwardingInterface()->RunNetworkDiagnostics(std::move(failed_url));
+  GetForwardingInterface()->RunNetworkDiagnostics(
+    std::move(failed_url)
+    );
 }
 NetworkDiagnosticsAsyncWaiter::NetworkDiagnosticsAsyncWaiter(
     NetworkDiagnostics* proxy) : proxy_(proxy) {}
@@ -509,10 +511,14 @@ NetworkDiagnosticsAsyncWaiter::~NetworkDiagnosticsAsyncWaiter() = default;
 
 
 void NetworkDiagnosticsClientInterceptorForTesting::SetCanShowNetworkDiagnosticsDialog(bool can_show) {
-  GetForwardingInterface()->SetCanShowNetworkDiagnosticsDialog(std::move(can_show));
+  GetForwardingInterface()->SetCanShowNetworkDiagnosticsDialog(
+    std::move(can_show)
+    );
 }
 void NetworkDiagnosticsClientInterceptorForTesting::DNSProbeStatus(int32_t status) {
-  GetForwardingInterface()->DNSProbeStatus(std::move(status));
+  GetForwardingInterface()->DNSProbeStatus(
+    std::move(status)
+    );
 }
 NetworkDiagnosticsClientAsyncWaiter::NetworkDiagnosticsClientAsyncWaiter(
     NetworkDiagnosticsClient* proxy) : proxy_(proxy) {}

@@ -438,7 +438,7 @@ size_t GetPrivacyScreenInfoResult::Hash(size_t seed) const {
     case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
-      NOTREACHED();
+      NOTREACHED_IN_MIGRATION();
       return seed;
   }
 }
@@ -13248,10 +13248,14 @@ int32_t ProcessControlAsyncWaiter::GetReturnCode(
 
 
 void AudioJackObserverInterceptorForTesting::OnAdd(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) {
-  GetForwardingInterface()->OnAdd(std::move(device_type));
+  GetForwardingInterface()->OnAdd(
+    std::move(device_type)
+    );
 }
 void AudioJackObserverInterceptorForTesting::OnRemove(::ash::cros_healthd::mojom::AudioJackEventInfo::DeviceType device_type) {
-  GetForwardingInterface()->OnRemove(std::move(device_type));
+  GetForwardingInterface()->OnRemove(
+    std::move(device_type)
+    );
 }
 AudioJackObserverAsyncWaiter::AudioJackObserverAsyncWaiter(
     AudioJackObserver* proxy) : proxy_(proxy) {}
@@ -13262,13 +13266,19 @@ AudioJackObserverAsyncWaiter::~AudioJackObserverAsyncWaiter() = default;
 
 
 void TouchpadObserverInterceptorForTesting::OnButton(::ash::cros_healthd::mojom::TouchpadButtonEventPtr button_event) {
-  GetForwardingInterface()->OnButton(std::move(button_event));
+  GetForwardingInterface()->OnButton(
+    std::move(button_event)
+    );
 }
 void TouchpadObserverInterceptorForTesting::OnTouch(::ash::cros_healthd::mojom::TouchpadTouchEventPtr touch_event) {
-  GetForwardingInterface()->OnTouch(std::move(touch_event));
+  GetForwardingInterface()->OnTouch(
+    std::move(touch_event)
+    );
 }
 void TouchpadObserverInterceptorForTesting::OnConnected(::ash::cros_healthd::mojom::TouchpadConnectedEventPtr connected_event) {
-  GetForwardingInterface()->OnConnected(std::move(connected_event));
+  GetForwardingInterface()->OnConnected(
+    std::move(connected_event)
+    );
 }
 TouchpadObserverAsyncWaiter::TouchpadObserverAsyncWaiter(
     TouchpadObserver* proxy) : proxy_(proxy) {}
@@ -13279,10 +13289,14 @@ TouchpadObserverAsyncWaiter::~TouchpadObserverAsyncWaiter() = default;
 
 
 void TouchscreenObserverInterceptorForTesting::OnTouch(::ash::cros_healthd::mojom::TouchscreenTouchEventPtr touch_event) {
-  GetForwardingInterface()->OnTouch(std::move(touch_event));
+  GetForwardingInterface()->OnTouch(
+    std::move(touch_event)
+    );
 }
 void TouchscreenObserverInterceptorForTesting::OnConnected(::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr connected_event) {
-  GetForwardingInterface()->OnConnected(std::move(connected_event));
+  GetForwardingInterface()->OnConnected(
+    std::move(connected_event)
+    );
 }
 TouchscreenObserverAsyncWaiter::TouchscreenObserverAsyncWaiter(
     TouchscreenObserver* proxy) : proxy_(proxy) {}
@@ -13307,10 +13321,14 @@ StylusGarageObserverAsyncWaiter::~StylusGarageObserverAsyncWaiter() = default;
 
 
 void StylusObserverInterceptorForTesting::OnTouch(::ash::cros_healthd::mojom::StylusTouchEventPtr touch_event) {
-  GetForwardingInterface()->OnTouch(std::move(touch_event));
+  GetForwardingInterface()->OnTouch(
+    std::move(touch_event)
+    );
 }
 void StylusObserverInterceptorForTesting::OnConnected(::ash::cros_healthd::mojom::StylusConnectedEventPtr connected_event) {
-  GetForwardingInterface()->OnConnected(std::move(connected_event));
+  GetForwardingInterface()->OnConnected(
+    std::move(connected_event)
+    );
 }
 StylusObserverAsyncWaiter::StylusObserverAsyncWaiter(
     StylusObserver* proxy) : proxy_(proxy) {}
@@ -13321,7 +13339,11 @@ StylusObserverAsyncWaiter::~StylusObserverAsyncWaiter() = default;
 
 
 void NetworkBandwidthObserverInterceptorForTesting::OnProgress(double speed_kbps, double percentage) {
-  GetForwardingInterface()->OnProgress(std::move(speed_kbps), std::move(percentage));
+  GetForwardingInterface()->OnProgress(
+    std::move(speed_kbps)
+    , 
+    std::move(percentage)
+    );
 }
 NetworkBandwidthObserverAsyncWaiter::NetworkBandwidthObserverAsyncWaiter(
     NetworkBandwidthObserver* proxy) : proxy_(proxy) {}
@@ -13332,7 +13354,9 @@ NetworkBandwidthObserverAsyncWaiter::~NetworkBandwidthObserverAsyncWaiter() = de
 
 
 void PowerButtonObserverInterceptorForTesting::OnEvent(PowerButtonObserver::ButtonState button_state) {
-  GetForwardingInterface()->OnEvent(std::move(button_state));
+  GetForwardingInterface()->OnEvent(
+    std::move(button_state)
+    );
 }
 void PowerButtonObserverInterceptorForTesting::OnConnectedToEventNode() {
   GetForwardingInterface()->OnConnectedToEventNode();
@@ -13346,7 +13370,11 @@ PowerButtonObserverAsyncWaiter::~PowerButtonObserverAsyncWaiter() = default;
 
 
 void VolumeButtonObserverInterceptorForTesting::OnEvent(VolumeButtonObserver::Button button, VolumeButtonObserver::ButtonState button_state) {
-  GetForwardingInterface()->OnEvent(std::move(button), std::move(button_state));
+  GetForwardingInterface()->OnEvent(
+    std::move(button)
+    , 
+    std::move(button_state)
+    );
 }
 VolumeButtonObserverAsyncWaiter::VolumeButtonObserverAsyncWaiter(
     VolumeButtonObserver* proxy) : proxy_(proxy) {}
@@ -13357,79 +13385,147 @@ VolumeButtonObserverAsyncWaiter::~VolumeButtonObserverAsyncWaiter() = default;
 
 
 void ExecutorInterceptorForTesting::ReadFile(Executor::File file_enum, ReadFileCallback callback) {
-  GetForwardingInterface()->ReadFile(std::move(file_enum), std::move(callback));
+  GetForwardingInterface()->ReadFile(
+    std::move(file_enum)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::ReadFilePart(Executor::File file_enum, uint64_t begin, std::optional<uint64_t> size, ReadFilePartCallback callback) {
-  GetForwardingInterface()->ReadFilePart(std::move(file_enum), std::move(begin), std::move(size), std::move(callback));
+  GetForwardingInterface()->ReadFilePart(
+    std::move(file_enum)
+    , 
+    std::move(begin)
+    , 
+    std::move(size)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetFileInfo(Executor::File file_enum, GetFileInfoCallback callback) {
-  GetForwardingInterface()->GetFileInfo(std::move(file_enum), std::move(callback));
+  GetForwardingInterface()->GetFileInfo(
+    std::move(file_enum)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetAllFanSpeed(GetAllFanSpeedCallback callback) {
   GetForwardingInterface()->GetAllFanSpeed(std::move(callback));
 }
 void ExecutorInterceptorForTesting::RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) {
-  GetForwardingInterface()->RunIw(std::move(cmd), std::move(interface_name), std::move(callback));
+  GetForwardingInterface()->RunIw(
+    std::move(cmd)
+    , 
+    std::move(interface_name)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::RunMemtester(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) {
-  GetForwardingInterface()->RunMemtester(std::move(test_mem_kib), std::move(receiver));
+  GetForwardingInterface()->RunMemtester(
+    std::move(test_mem_kib)
+    , 
+    std::move(receiver)
+    );
 }
 void ExecutorInterceptorForTesting::GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) {
-  GetForwardingInterface()->GetProcessIOContents(std::move(pids), std::move(callback));
+  GetForwardingInterface()->GetProcessIOContents(
+    std::move(pids)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) {
-  GetForwardingInterface()->ReadMsr(std::move(msr_reg), std::move(cpu_index), std::move(callback));
+  GetForwardingInterface()->ReadMsr(
+    std::move(msr_reg)
+    , 
+    std::move(cpu_index)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
   GetForwardingInterface()->GetLidAngle(std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) {
-  GetForwardingInterface()->GetFingerprintFrame(std::move(type), std::move(callback));
+  GetForwardingInterface()->GetFingerprintFrame(
+    std::move(type)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetFingerprintInfo(GetFingerprintInfoCallback callback) {
   GetForwardingInterface()->GetFingerprintInfo(std::move(callback));
 }
 void ExecutorInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) {
-  GetForwardingInterface()->SetLedColor(std::move(name), std::move(color), std::move(callback));
+  GetForwardingInterface()->SetLedColor(
+    std::move(name)
+    , 
+    std::move(color)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) {
-  GetForwardingInterface()->ResetLedColor(std::move(name), std::move(callback));
+  GetForwardingInterface()->ResetLedColor(
+    std::move(name)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetHciDeviceConfig(int32_t hci_interface, GetHciDeviceConfigCallback callback) {
-  GetForwardingInterface()->GetHciDeviceConfig(std::move(hci_interface), std::move(callback));
+  GetForwardingInterface()->GetHciDeviceConfig(
+    std::move(hci_interface)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorAudioJack(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorAudioJack(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorTouchpad(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorTouchpad(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::RunStressAppTest(uint32_t test_mem_mib, uint32_t test_seconds, StressAppTestType test_type, ::mojo::PendingReceiver<ProcessControl> receiver) {
-  GetForwardingInterface()->RunStressAppTest(std::move(test_mem_mib), std::move(test_seconds), std::move(test_type), std::move(receiver));
+  GetForwardingInterface()->RunStressAppTest(
+    std::move(test_mem_mib)
+    , 
+    std::move(test_seconds)
+    , 
+    std::move(test_type)
+    , 
+    std::move(receiver)
+    );
 }
 void ExecutorInterceptorForTesting::FetchBootPerformance(FetchBootPerformanceCallback callback) {
   GetForwardingInterface()->FetchBootPerformance(std::move(callback));
 }
 void ExecutorInterceptorForTesting::MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorTouchscreen(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorTouchscreen(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorStylusGarage(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorStylusGarage(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::MonitorStylus(::mojo::PendingRemote<StylusObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorStylus(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorStylus(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::GetPsr(GetPsrCallback callback) {
   GetForwardingInterface()->GetPsr(std::move(callback));
 }
 void ExecutorInterceptorForTesting::RunFio(FioJobArgumentPtr argument, ::mojo::PendingReceiver<ProcessControl> receiver) {
-  GetForwardingInterface()->RunFio(std::move(argument), std::move(receiver));
+  GetForwardingInterface()->RunFio(
+    std::move(argument)
+    , 
+    std::move(receiver)
+    );
 }
 void ExecutorInterceptorForTesting::RemoveFioTestFile(RemoveFioTestFileCallback callback) {
   GetForwardingInterface()->RemoveFioTestFile(std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetConnectedExternalDisplayConnectors(const std::optional<std::vector<uint32_t>>& last_known_connectors, GetConnectedExternalDisplayConnectorsCallback callback) {
-  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(std::move(last_known_connectors), std::move(callback));
+  GetForwardingInterface()->GetConnectedExternalDisplayConnectors(
+    std::move(last_known_connectors)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetPrivacyScreenInfo(GetPrivacyScreenInfoCallback callback) {
   GetForwardingInterface()->GetPrivacyScreenInfo(std::move(callback));
@@ -13441,19 +13537,41 @@ void ExecutorInterceptorForTesting::FetchCrashFromCrashSender(FetchCrashFromCras
   GetForwardingInterface()->FetchCrashFromCrashSender(std::move(callback));
 }
 void ExecutorInterceptorForTesting::MonitorPowerButton(::mojo::PendingRemote<PowerButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorPowerButton(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorPowerButton(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::RunPrimeSearch(base::TimeDelta exec_duration, uint64_t max_num, ::mojo::PendingReceiver<ProcessControl> process_control, RunPrimeSearchCallback callback) {
-  GetForwardingInterface()->RunPrimeSearch(std::move(exec_duration), std::move(max_num), std::move(process_control), std::move(callback));
+  GetForwardingInterface()->RunPrimeSearch(
+    std::move(exec_duration)
+    , 
+    std::move(max_num)
+    , 
+    std::move(process_control)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::MonitorVolumeButton(::mojo::PendingRemote<VolumeButtonObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
-  GetForwardingInterface()->MonitorVolumeButton(std::move(observer), std::move(process_control));
+  GetForwardingInterface()->MonitorVolumeButton(
+    std::move(observer)
+    , 
+    std::move(process_control)
+    );
 }
 void ExecutorInterceptorForTesting::RunFloatingPoint(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunFloatingPointCallback callback) {
-  GetForwardingInterface()->RunFloatingPoint(std::move(exec_duration), std::move(process_control), std::move(callback));
+  GetForwardingInterface()->RunFloatingPoint(
+    std::move(exec_duration)
+    , 
+    std::move(process_control)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::StartBtmon(int32_t hci_interface, ::mojo::PendingReceiver<ProcessControl> receiver) {
-  GetForwardingInterface()->StartBtmon(std::move(hci_interface), std::move(receiver));
+  GetForwardingInterface()->StartBtmon(
+    std::move(hci_interface)
+    , 
+    std::move(receiver)
+    );
 }
 void ExecutorInterceptorForTesting::ReadBtmonLog(ReadBtmonLogCallback callback) {
   GetForwardingInterface()->ReadBtmonLog(std::move(callback));
@@ -13462,7 +13580,9 @@ void ExecutorInterceptorForTesting::RemoveBtmonLog(RemoveBtmonLogCallback callba
   GetForwardingInterface()->RemoveBtmonLog(std::move(callback));
 }
 void ExecutorInterceptorForTesting::SetFanSpeed(const base::flat_map<uint8_t, uint16_t>& fan_id_to_rpm, SetFanSpeedCallback callback) {
-  GetForwardingInterface()->SetFanSpeed(std::move(fan_id_to_rpm), std::move(callback));
+  GetForwardingInterface()->SetFanSpeed(
+    std::move(fan_id_to_rpm)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::SetAllFanAutoControl(SetAllFanAutoControlCallback callback) {
   GetForwardingInterface()->SetAllFanAutoControl(std::move(callback));
@@ -13474,16 +13594,32 @@ void ExecutorInterceptorForTesting::GetTouchpadDevices(GetTouchpadDevicesCallbac
   GetForwardingInterface()->GetTouchpadDevices(std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetSmartBatteryManufactureDate(uint8_t i2c_port, GetSmartBatteryManufactureDateCallback callback) {
-  GetForwardingInterface()->GetSmartBatteryManufactureDate(std::move(i2c_port), std::move(callback));
+  GetForwardingInterface()->GetSmartBatteryManufactureDate(
+    std::move(i2c_port)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetSmartBatteryTemperature(uint8_t i2c_port, GetSmartBatteryTemperatureCallback callback) {
-  GetForwardingInterface()->GetSmartBatteryTemperature(std::move(i2c_port), std::move(callback));
+  GetForwardingInterface()->GetSmartBatteryTemperature(
+    std::move(i2c_port)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::RunUrandom(base::TimeDelta exec_duration, ::mojo::PendingReceiver<ProcessControl> process_control, RunUrandomCallback callback) {
-  GetForwardingInterface()->RunUrandom(std::move(exec_duration), std::move(process_control), std::move(callback));
+  GetForwardingInterface()->RunUrandom(
+    std::move(exec_duration)
+    , 
+    std::move(process_control)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::RunNetworkBandwidthTest(NetworkBandwidthTestType type, const std::string& oem_name, ::mojo::PendingRemote<NetworkBandwidthObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control, RunNetworkBandwidthTestCallback callback) {
-  GetForwardingInterface()->RunNetworkBandwidthTest(std::move(type), std::move(oem_name), std::move(observer), std::move(process_control), std::move(callback));
+  GetForwardingInterface()->RunNetworkBandwidthTest(
+    std::move(type)
+    , 
+    std::move(oem_name)
+    , 
+    std::move(observer)
+    , 
+    std::move(process_control)
+    , std::move(callback));
 }
 void ExecutorInterceptorForTesting::FetchGraphicsInfo(FetchGraphicsInfoCallback callback) {
   GetForwardingInterface()->FetchGraphicsInfo(std::move(callback));

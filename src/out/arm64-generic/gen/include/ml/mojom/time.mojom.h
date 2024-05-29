@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ml/mojom/time.mojom-features.h"
-#include "ml/mojom/time.mojom-shared.h"
-#include "ml/mojom/time.mojom-forward.h"
+#include "ml/mojom/time.mojom-features.h"  // IWYU pragma: export
+#include "ml/mojom/time.mojom-shared.h"  // IWYU pragma: export
+#include "ml/mojom/time.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

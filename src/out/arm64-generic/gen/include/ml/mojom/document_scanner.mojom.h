@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "ml/mojom/document_scanner.mojom-features.h"
-#include "ml/mojom/document_scanner.mojom-shared.h"
-#include "ml/mojom/document_scanner.mojom-forward.h"
+#include "ml/mojom/document_scanner.mojom-features.h"  // IWYU pragma: export
+#include "ml/mojom/document_scanner.mojom-shared.h"  // IWYU pragma: export
+#include "ml/mojom/document_scanner.mojom-forward.h"  // IWYU pragma: export
 #include "ml/mojom/document_scanner_param_types.mojom-forward.h"
 #include "ml/mojom/file_path.mojom.h"
 #include "ml/mojom/geometry.mojom.h"
