@@ -489,6 +489,7 @@ enum VmInfo_VmType : int {
   VmInfo_VmType_PLUGIN_VM = 3,
   VmInfo_VmType_BOREALIS = 4,
   VmInfo_VmType_BRUSCHETTA = 5,
+  VmInfo_VmType_BAGUETTE = 6,
   VmInfo_VmType_VmInfo_VmType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   VmInfo_VmType_VmInfo_VmType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -497,8 +498,8 @@ enum VmInfo_VmType : int {
 
 bool VmInfo_VmType_IsValid(int value);
 constexpr VmInfo_VmType VmInfo_VmType_VmType_MIN = static_cast<VmInfo_VmType>(0);
-constexpr VmInfo_VmType VmInfo_VmType_VmType_MAX = static_cast<VmInfo_VmType>(5);
-constexpr int VmInfo_VmType_VmType_ARRAYSIZE = 5 + 1;
+constexpr VmInfo_VmType VmInfo_VmType_VmType_MAX = static_cast<VmInfo_VmType>(6);
+constexpr int VmInfo_VmType_VmType_ARRAYSIZE = 6 + 1;
 const std::string& VmInfo_VmType_Name(VmInfo_VmType value);
 template <typename T>
 const std::string& VmInfo_VmType_Name(T value) {
@@ -1639,6 +1640,7 @@ class VmInfo final :
   static constexpr VmType PLUGIN_VM = VmInfo_VmType_PLUGIN_VM;
   static constexpr VmType BOREALIS = VmInfo_VmType_BOREALIS;
   static constexpr VmType BRUSCHETTA = VmInfo_VmType_BRUSCHETTA;
+  static constexpr VmType BAGUETTE = VmInfo_VmType_BAGUETTE;
   static inline bool VmType_IsValid(int value) {
     return VmInfo_VmType_IsValid(value);
   }

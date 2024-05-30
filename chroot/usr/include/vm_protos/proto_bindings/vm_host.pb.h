@@ -162,6 +162,7 @@ enum VmKernelLogRequest_VmType : int {
   VmKernelLogRequest_VmType_PLUGIN_VM = 3,
   VmKernelLogRequest_VmType_BOREALIS = 4,
   VmKernelLogRequest_VmType_BRUSCHETTA = 5,
+  VmKernelLogRequest_VmType_BAGUETTE = 6,
   VmKernelLogRequest_VmType_VmKernelLogRequest_VmType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   VmKernelLogRequest_VmType_VmKernelLogRequest_VmType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -170,8 +171,8 @@ enum VmKernelLogRequest_VmType : int {
 
 bool VmKernelLogRequest_VmType_IsValid(int value);
 constexpr VmKernelLogRequest_VmType VmKernelLogRequest_VmType_VmType_MIN = static_cast<VmKernelLogRequest_VmType>(0);
-constexpr VmKernelLogRequest_VmType VmKernelLogRequest_VmType_VmType_MAX = static_cast<VmKernelLogRequest_VmType>(5);
-constexpr int VmKernelLogRequest_VmType_VmType_ARRAYSIZE = 5 + 1;
+constexpr VmKernelLogRequest_VmType VmKernelLogRequest_VmType_VmType_MAX = static_cast<VmKernelLogRequest_VmType>(6);
+constexpr int VmKernelLogRequest_VmType_VmType_ARRAYSIZE = 6 + 1;
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
 VmKernelLogRequest_VmType_descriptor();
 template <typename T>
@@ -184,7 +185,7 @@ const std::string& VmKernelLogRequest_VmType_Name(T value) {
 template <>
 inline const std::string& VmKernelLogRequest_VmType_Name(VmKernelLogRequest_VmType value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfDenseEnum<VmKernelLogRequest_VmType_descriptor,
-                                                 0, 5>(
+                                                 0, 6>(
       static_cast<int>(value));
 }
 inline bool VmKernelLogRequest_VmType_Parse(absl::string_view name, VmKernelLogRequest_VmType* value) {
@@ -1143,6 +1144,7 @@ class VmKernelLogRequest final :
   static constexpr VmType PLUGIN_VM = VmKernelLogRequest_VmType_PLUGIN_VM;
   static constexpr VmType BOREALIS = VmKernelLogRequest_VmType_BOREALIS;
   static constexpr VmType BRUSCHETTA = VmKernelLogRequest_VmType_BRUSCHETTA;
+  static constexpr VmType BAGUETTE = VmKernelLogRequest_VmType_BAGUETTE;
   static inline bool VmType_IsValid(int value) {
     return VmKernelLogRequest_VmType_IsValid(value);
   }
