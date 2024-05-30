@@ -44,7 +44,7 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
-class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/37, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/41, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   InternedData_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit InternedData_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -107,6 +107,14 @@ class InternedData_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> protolog_string_args() const { return GetRepeated<::protozero::ConstBytes>(36); }
   bool has_protolog_stacktrace() const { return at<37>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> protolog_stacktrace() const { return GetRepeated<::protozero::ConstBytes>(37); }
+  bool has_viewcapture_package_name() const { return at<38>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> viewcapture_package_name() const { return GetRepeated<::protozero::ConstBytes>(38); }
+  bool has_viewcapture_window_name() const { return at<39>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> viewcapture_window_name() const { return GetRepeated<::protozero::ConstBytes>(39); }
+  bool has_viewcapture_view_id() const { return at<40>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> viewcapture_view_id() const { return GetRepeated<::protozero::ConstBytes>(40); }
+  bool has_viewcapture_class_name() const { return at<41>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> viewcapture_class_name() const { return GetRepeated<::protozero::ConstBytes>(41); }
 };
 
 class InternedData : public ::protozero::Message {
@@ -142,6 +150,10 @@ class InternedData : public ::protozero::Message {
     kV8IsolateFieldNumber = 35,
     kProtologStringArgsFieldNumber = 36,
     kProtologStacktraceFieldNumber = 37,
+    kViewcapturePackageNameFieldNumber = 38,
+    kViewcaptureWindowNameFieldNumber = 39,
+    kViewcaptureViewIdFieldNumber = 40,
+    kViewcaptureClassNameFieldNumber = 41,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.InternedData"; }
 
@@ -549,6 +561,62 @@ class InternedData : public ::protozero::Message {
   static constexpr FieldMetadata_ProtologStacktrace kProtologStacktrace{};
   template <typename T = InternedString> T* add_protolog_stacktrace() {
     return BeginNestedMessage<T>(37);
+  }
+
+
+  using FieldMetadata_ViewcapturePackageName =
+    ::protozero::proto_utils::FieldMetadata<
+      38,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      InternedString,
+      InternedData>;
+
+  static constexpr FieldMetadata_ViewcapturePackageName kViewcapturePackageName{};
+  template <typename T = InternedString> T* add_viewcapture_package_name() {
+    return BeginNestedMessage<T>(38);
+  }
+
+
+  using FieldMetadata_ViewcaptureWindowName =
+    ::protozero::proto_utils::FieldMetadata<
+      39,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      InternedString,
+      InternedData>;
+
+  static constexpr FieldMetadata_ViewcaptureWindowName kViewcaptureWindowName{};
+  template <typename T = InternedString> T* add_viewcapture_window_name() {
+    return BeginNestedMessage<T>(39);
+  }
+
+
+  using FieldMetadata_ViewcaptureViewId =
+    ::protozero::proto_utils::FieldMetadata<
+      40,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      InternedString,
+      InternedData>;
+
+  static constexpr FieldMetadata_ViewcaptureViewId kViewcaptureViewId{};
+  template <typename T = InternedString> T* add_viewcapture_view_id() {
+    return BeginNestedMessage<T>(40);
+  }
+
+
+  using FieldMetadata_ViewcaptureClassName =
+    ::protozero::proto_utils::FieldMetadata<
+      41,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      InternedString,
+      InternedData>;
+
+  static constexpr FieldMetadata_ViewcaptureClassName kViewcaptureClassName{};
+  template <typename T = InternedString> T* add_viewcapture_class_name() {
+    return BeginNestedMessage<T>(41);
   }
 
 };

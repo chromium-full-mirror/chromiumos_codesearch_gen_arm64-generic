@@ -162,7 +162,8 @@ PROTOBUF_CONSTEXPR CloudPolicySubProto1::CloudPolicySubProto1(
   , /*decltype(_impl_.memorysavermodesavings_)*/nullptr
   , /*decltype(_impl_.kioskvisiontelemetryenabled_)*/nullptr
   , /*decltype(_impl_.genaiwallpapersettings_)*/nullptr
-  , /*decltype(_impl_.genaivcbackgroundsettings_)*/nullptr} {}
+  , /*decltype(_impl_.genaivcbackgroundsettings_)*/nullptr
+  , /*decltype(_impl_.lensoverlaysettings_)*/nullptr} {}
 struct CloudPolicySubProto1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR CloudPolicySubProto1DefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1029,6 +1030,10 @@ class CloudPolicySubProto1::_Internal {
   static void set_has_lacrosselection(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static const ::enterprise_management::IntegerPolicyProto& lensoverlaysettings(const CloudPolicySubProto1* msg);
+  static void set_has_lensoverlaysettings(HasBits* has_bits) {
+    (*has_bits)[4] |= 8192u;
+  }
   static const ::enterprise_management::BooleanPolicyProto& localuserfilesallowed(const CloudPolicySubProto1* msg);
   static void set_has_localuserfilesallowed(HasBits* has_bits) {
     (*has_bits)[3] |= 4096u;
@@ -1595,6 +1600,10 @@ const ::enterprise_management::StringPolicyProto&
 CloudPolicySubProto1::_Internal::lacrosselection(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.lacrosselection_;
 }
+const ::enterprise_management::IntegerPolicyProto&
+CloudPolicySubProto1::_Internal::lensoverlaysettings(const CloudPolicySubProto1* msg) {
+  return *msg->_impl_.lensoverlaysettings_;
+}
 const ::enterprise_management::BooleanPolicyProto&
 CloudPolicySubProto1::_Internal::localuserfilesallowed(const CloudPolicySubProto1* msg) {
   return *msg->_impl_.localuserfilesallowed_;
@@ -2159,6 +2168,10 @@ void CloudPolicySubProto1::clear_lacrosselection() {
   if (_impl_.lacrosselection_ != nullptr) _impl_.lacrosselection_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
+void CloudPolicySubProto1::clear_lensoverlaysettings() {
+  if (_impl_.lensoverlaysettings_ != nullptr) _impl_.lensoverlaysettings_->Clear();
+  _impl_._has_bits_[4] &= ~0x00002000u;
+}
 void CloudPolicySubProto1::clear_localuserfilesallowed() {
   if (_impl_.localuserfilesallowed_ != nullptr) _impl_.localuserfilesallowed_->Clear();
   _impl_._has_bits_[3] &= ~0x00001000u;
@@ -2567,7 +2580,8 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
     , decltype(_impl_.memorysavermodesavings_){nullptr}
     , decltype(_impl_.kioskvisiontelemetryenabled_){nullptr}
     , decltype(_impl_.genaiwallpapersettings_){nullptr}
-    , decltype(_impl_.genaivcbackgroundsettings_){nullptr}};
+    , decltype(_impl_.genaivcbackgroundsettings_){nullptr}
+    , decltype(_impl_.lensoverlaysettings_){nullptr}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_showcastsessionsstartedbyotherdevices()) {
@@ -2993,6 +3007,9 @@ CloudPolicySubProto1::CloudPolicySubProto1(const CloudPolicySubProto1& from)
   if (from._internal_has_genaivcbackgroundsettings()) {
     _this->_impl_.genaivcbackgroundsettings_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.genaivcbackgroundsettings_);
   }
+  if (from._internal_has_lensoverlaysettings()) {
+    _this->_impl_.lensoverlaysettings_ = new ::enterprise_management::IntegerPolicyProto(*from._impl_.lensoverlaysettings_);
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CloudPolicySubProto1)
 }
 
@@ -3144,6 +3161,7 @@ inline void CloudPolicySubProto1::SharedCtor(
     , decltype(_impl_.kioskvisiontelemetryenabled_){nullptr}
     , decltype(_impl_.genaiwallpapersettings_){nullptr}
     , decltype(_impl_.genaivcbackgroundsettings_){nullptr}
+    , decltype(_impl_.lensoverlaysettings_){nullptr}
   };
 }
 
@@ -3299,6 +3317,7 @@ inline void CloudPolicySubProto1::SharedDtor() {
   if (this != internal_default_instance()) delete _impl_.kioskvisiontelemetryenabled_;
   if (this != internal_default_instance()) delete _impl_.genaiwallpapersettings_;
   if (this != internal_default_instance()) delete _impl_.genaivcbackgroundsettings_;
+  if (this != internal_default_instance()) delete _impl_.lensoverlaysettings_;
 }
 
 void CloudPolicySubProto1::SetCachedSize(int size) const {
@@ -3894,7 +3913,7 @@ void CloudPolicySubProto1::Clear() {
       _impl_.keyboardfocusablescrollersenabled_->Clear();
     }
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00003f00u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(_impl_.csscustomstatedeprecatedsyntaxenabled_ != nullptr);
       _impl_.csscustomstatedeprecatedsyntaxenabled_->Clear();
@@ -3914,6 +3933,10 @@ void CloudPolicySubProto1::Clear() {
     if (cached_has_bits & 0x00001000u) {
       GOOGLE_DCHECK(_impl_.genaivcbackgroundsettings_ != nullptr);
       _impl_.genaivcbackgroundsettings_->Clear();
+    }
+    if (cached_has_bits & 0x00002000u) {
+      GOOGLE_DCHECK(_impl_.lensoverlaysettings_ != nullptr);
+      _impl_.lensoverlaysettings_->Clear();
     }
   }
   _impl_._has_bits_.Clear();
@@ -5054,6 +5077,14 @@ const char* CloudPolicySubProto1::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.IntegerPolicyProto LensOverlaySettings = 226;
+      case 226:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_lensoverlaysettings(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -6075,6 +6106,13 @@ uint8_t* CloudPolicySubProto1::_InternalSerialize(
         _Internal::genaivcbackgroundsettings(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.IntegerPolicyProto LensOverlaySettings = 226;
+  if (cached_has_bits & 0x00002000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(226, _Internal::lensoverlaysettings(this),
+        _Internal::lensoverlaysettings(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -7082,7 +7120,7 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00003f00u) {
     // optional .enterprise_management.BooleanPolicyProto CSSCustomStateDeprecatedSyntaxEnabled = 220;
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
@@ -7116,6 +7154,13 @@ size_t CloudPolicySubProto1::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.genaivcbackgroundsettings_);
+    }
+
+    // optional .enterprise_management.IntegerPolicyProto LensOverlaySettings = 226;
+    if (cached_has_bits & 0x00002000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.lensoverlaysettings_);
     }
 
   }
@@ -7723,7 +7768,7 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
           from._internal_keyboardfocusablescrollersenabled());
     }
   }
-  if (cached_has_bits & 0x00001f00u) {
+  if (cached_has_bits & 0x00003f00u) {
     if (cached_has_bits & 0x00000100u) {
       _this->_internal_mutable_csscustomstatedeprecatedsyntaxenabled()->::enterprise_management::BooleanPolicyProto::MergeFrom(
           from._internal_csscustomstatedeprecatedsyntaxenabled());
@@ -7743,6 +7788,10 @@ void CloudPolicySubProto1::MergeFrom(const CloudPolicySubProto1& from) {
     if (cached_has_bits & 0x00001000u) {
       _this->_internal_mutable_genaivcbackgroundsettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(
           from._internal_genaivcbackgroundsettings());
+    }
+    if (cached_has_bits & 0x00002000u) {
+      _this->_internal_mutable_lensoverlaysettings()->::enterprise_management::IntegerPolicyProto::MergeFrom(
+          from._internal_lensoverlaysettings());
     }
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -7768,8 +7817,8 @@ void CloudPolicySubProto1::InternalSwap(CloudPolicySubProto1* other) {
   swap(_impl_._has_bits_[3], other->_impl_._has_bits_[3]);
   swap(_impl_._has_bits_[4], other->_impl_._has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.genaivcbackgroundsettings_)
-      + sizeof(CloudPolicySubProto1::_impl_.genaivcbackgroundsettings_)
+      PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.lensoverlaysettings_)
+      + sizeof(CloudPolicySubProto1::_impl_.lensoverlaysettings_)
       - PROTOBUF_FIELD_OFFSET(CloudPolicySubProto1, _impl_.showcastsessionsstartedbyotherdevices_)>(
           reinterpret_cast<char*>(&_impl_.showcastsessionsstartedbyotherdevices_),
           reinterpret_cast<char*>(&other->_impl_.showcastsessionsstartedbyotherdevices_));

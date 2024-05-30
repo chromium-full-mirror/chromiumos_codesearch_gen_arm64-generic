@@ -24,9 +24,9 @@
 
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
-#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-features.h"
-#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-shared.h"
-#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-forward.h"
+#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-features.h"  // IWYU pragma: export
+#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-shared.h"  // IWYU pragma: export
+#include "mojo/public/interfaces/bindings/interface_control_messages.mojom-forward.h"  // IWYU pragma: export
 #include <string>
 #include <vector>
 

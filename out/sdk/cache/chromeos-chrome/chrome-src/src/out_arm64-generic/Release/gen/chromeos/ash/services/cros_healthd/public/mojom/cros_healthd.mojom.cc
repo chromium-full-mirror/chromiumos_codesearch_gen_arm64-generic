@@ -3553,7 +3553,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetVolumeRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetGainRoutine(
-    uint64_t in_node_id, uint8_t in_gain, bool in_mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) {
+    uint64_t in_node_id, uint8_t in_gain, bool in_deprecated_mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunAudioSetGainRoutine", "input_parameters",
@@ -3566,7 +3566,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetGainRoutine(
            dict.AddItem("gain"), in_gain,
                         "<value of type uint8_t>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("mute_on"), in_mute_on,
+           dict.AddItem("deprecated_mute_on"), in_deprecated_mute_on,
                         "<value of type bool>");
    });
 #endif
@@ -3592,7 +3592,7 @@ void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunAudioSetGainRoutine(
   params.Allocate();
   params->node_id = in_node_id;
   params->gain = in_gain;
-  params->mute_on = in_mute_on;
+  params->deprecated_mute_on = in_deprecated_mute_on;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
@@ -11741,7 +11741,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       bool success = true;
       uint64_t p_node_id{};
       uint8_t p_gain{};
-      bool p_mute_on{};
+      bool p_deprecated_mute_on{};
       CrosHealthdDiagnosticsService_DEPRECATED_RunAudioSetGainRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -11749,7 +11749,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       if (success)
         p_gain = input_data_view.gain();
       if (success)
-        p_mute_on = input_data_view.mute_on();
+        p_deprecated_mute_on = input_data_view.deprecated_mute_on();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -11765,7 +11765,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       impl->DEPRECATED_RunAudioSetGainRoutine(        
         std::move(p_node_id), 
         std::move(p_gain), 
-        std::move(p_mute_on), std::move(callback));
+        std::move(p_deprecated_mute_on), std::move(callback));
       return true;
     }
     case messages::CrosHealthdDiagnosticsService::kRunBluetoothPowerRoutine: {
@@ -14286,13 +14286,13 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunAudioSetV
     std::move(mute_on)
     , std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, DEPRECATED_RunAudioSetGainRoutineCallback callback) {
   GetForwardingInterface()->DEPRECATED_RunAudioSetGainRoutine(
     std::move(node_id)
     , 
     std::move(gain)
     , 
-    std::move(mute_on)
+    std::move(deprecated_mute_on)
     , std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) {
@@ -15251,9 +15251,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunAudioSetVolumeRouti
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunAudioSetGainRoutine(
-    uint64_t node_id, uint8_t gain, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    uint64_t node_id, uint8_t gain, bool deprecated_mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
-  proxy_->DEPRECATED_RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(mute_on),
+  proxy_->DEPRECATED_RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(deprecated_mute_on),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
@@ -15267,9 +15267,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunAudioSetGainRoutine
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunAudioSetGainRoutine(
-    uint64_t node_id, uint8_t gain, bool mute_on) {
+    uint64_t node_id, uint8_t gain, bool deprecated_mute_on) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
-  DEPRECATED_RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(mute_on),&async_wait_result);
+  DEPRECATED_RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(deprecated_mute_on),&async_wait_result);
   return async_wait_result;
 }
 

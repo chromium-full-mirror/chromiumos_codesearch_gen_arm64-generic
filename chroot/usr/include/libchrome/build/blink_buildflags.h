@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_USE_BLINK() (0)
 
 #endif  // LIBCHROME_BUILD_BLINK_BUILDFLAGS_H_

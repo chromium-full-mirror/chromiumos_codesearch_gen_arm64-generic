@@ -72,6 +72,10 @@ class UrandomRoutineArgumentDataView;
 
 class NetworkBandwidthRoutineArgumentDataView;
 
+class SensitiveSensorRoutineArgumentDataView;
+
+class CameraFrameAnalysisRoutineArgumentDataView;
+
 class RoutineStateDataView;
 
 class RoutineStateInitializedDataView;
@@ -117,6 +121,14 @@ class CameraAvailabilityRoutineDetailDataView;
 class FanRoutineDetailDataView;
 
 class NetworkBandwidthRoutineDetailDataView;
+
+class SensitiveSensorInfoDataView;
+
+class SensitiveSensorReportDataView;
+
+class SensitiveSensorRoutineDetailDataView;
+
+class CameraFrameAnalysisRoutineDetailDataView;
 
 class RoutineArgumentDataView;
 class RoutineStateUnionDataView;
@@ -254,6 +266,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UrandomRoutineArgumentDataVie
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensitiveSensorRoutineArgument_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineArgument_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -415,6 +441,34 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::FanRoutineDetailDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::NetworkBandwidthRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensitiveSensorInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensitiveSensorReportDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensitiveSensorReport_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensitiveSensorRoutineDetail_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineDetail_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -857,6 +911,64 @@ inline BluetoothPairingPeripheralInfo_AddressType ToKnownEnumValue(BluetoothPair
     return value;
   }
   return BluetoothPairingPeripheralInfo_AddressType::kDefaultValue;
+}
+
+
+enum class SensitiveSensorInfo_Type : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAccel = 1,
+  
+  kGyro = 2,
+  
+  kMagn = 3,
+  
+  kGravity = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, SensitiveSensorInfo_Type value);
+inline bool IsKnownEnumValue(SensitiveSensorInfo_Type value) {
+  return internal::SensitiveSensorInfo_Type_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline SensitiveSensorInfo_Type ToKnownEnumValue(SensitiveSensorInfo_Type value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return SensitiveSensorInfo_Type::kDefaultValue;
+}
+
+
+enum class CameraFrameAnalysisRoutineDetail_Issue : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kNone = 1,
+  
+  kCameraServiceNotAvailable = 2,
+  
+  kBlockedByPrivacyShutter = 3,
+  
+  kLensAreDirty = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, CameraFrameAnalysisRoutineDetail_Issue value);
+inline bool IsKnownEnumValue(CameraFrameAnalysisRoutineDetail_Issue value) {
+  return internal::CameraFrameAnalysisRoutineDetail_Issue_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline CameraFrameAnalysisRoutineDetail_Issue ToKnownEnumValue(CameraFrameAnalysisRoutineDetail_Issue value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CameraFrameAnalysisRoutineDetail_Issue::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class CrosHealthdRoutinesServiceInterfaceBase {};
@@ -1372,6 +1484,36 @@ class NetworkBandwidthRoutineArgumentDataView {
   bool is_null() const { return !data_; }
  private:
   internal::NetworkBandwidthRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class SensitiveSensorRoutineArgumentDataView {
+ public:
+  SensitiveSensorRoutineArgumentDataView() = default;
+
+  SensitiveSensorRoutineArgumentDataView(
+      internal::SensitiveSensorRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::SensitiveSensorRoutineArgument_Data* data_ = nullptr;
+};
+
+
+class CameraFrameAnalysisRoutineArgumentDataView {
+ public:
+  CameraFrameAnalysisRoutineArgumentDataView() = default;
+
+  CameraFrameAnalysisRoutineArgumentDataView(
+      internal::CameraFrameAnalysisRoutineArgument_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CameraFrameAnalysisRoutineArgument_Data* data_ = nullptr;
 };
 
 
@@ -2220,6 +2362,232 @@ class NetworkBandwidthRoutineDetailDataView {
 };
 
 
+class SensitiveSensorInfoDataView {
+ public:
+  SensitiveSensorInfoDataView() = default;
+
+  SensitiveSensorInfoDataView(
+      internal::SensitiveSensorInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  int32_t id() const {
+    return data_->id;
+  }
+  inline void GetTypesDataView(
+      mojo::ArrayDataView<SensitiveSensorInfo_Type>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTypes(UserType* output) {
+    
+    auto* pointer = data_->types.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type>>(
+        pointer, output, message_);
+  }
+  inline void GetChannelsDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadChannels(UserType* output) {
+    
+    auto* pointer = data_->channels.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SensitiveSensorInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SensitiveSensorReportDataView {
+ public:
+  SensitiveSensorReportDataView() = default;
+
+  SensitiveSensorReportDataView(
+      internal::SensitiveSensorReport_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPassedSensorsDataView(
+      mojo::ArrayDataView<SensitiveSensorInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPassedSensors(UserType* output) {
+    
+    auto* pointer = data_->passed_sensors.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetFailedSensorsDataView(
+      mojo::ArrayDataView<SensitiveSensorInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFailedSensors(UserType* output) {
+    
+    auto* pointer = data_->failed_sensors.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView>>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensorPresenceStatus(UserType* output) const {
+    auto data_value = data_->sensor_presence_status;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::HardwarePresenceStatus>(
+        data_value, output);
+  }
+  HardwarePresenceStatus sensor_presence_status() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::HardwarePresenceStatus>(data_->sensor_presence_status));
+  }
+ private:
+  internal::SensitiveSensorReport_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class SensitiveSensorRoutineDetailDataView {
+ public:
+  SensitiveSensorRoutineDetailDataView() = default;
+
+  SensitiveSensorRoutineDetailDataView(
+      internal::SensitiveSensorRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetBaseAccelerometerDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBaseAccelerometer(UserType* output) {
+    
+    auto* pointer = data_->base_accelerometer.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLidAccelerometerDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidAccelerometer(UserType* output) {
+    
+    auto* pointer = data_->lid_accelerometer.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetBaseGyroscopeDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBaseGyroscope(UserType* output) {
+    
+    auto* pointer = data_->base_gyroscope.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLidGyroscopeDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidGyroscope(UserType* output) {
+    
+    auto* pointer = data_->lid_gyroscope.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetBaseMagnetometerDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBaseMagnetometer(UserType* output) {
+    
+    auto* pointer = data_->base_magnetometer.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLidMagnetometerDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidMagnetometer(UserType* output) {
+    
+    auto* pointer = data_->lid_magnetometer.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetBaseGravitySensorDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBaseGravitySensor(UserType* output) {
+    
+    auto* pointer = data_->base_gravity_sensor.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLidGravitySensorDataView(
+      SensitiveSensorReportDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidGravitySensor(UserType* output) {
+    
+    auto* pointer = data_->lid_gravity_sensor.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SensitiveSensorRoutineDetail_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CameraFrameAnalysisRoutineDetailDataView {
+ public:
+  CameraFrameAnalysisRoutineDetailDataView() = default;
+
+  CameraFrameAnalysisRoutineDetailDataView(
+      internal::CameraFrameAnalysisRoutineDetail_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadIssue(UserType* output) const {
+    auto data_value = data_->issue;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue>(
+        data_value, output);
+  }
+  CameraFrameAnalysisRoutineDetail_Issue issue() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue>(data_->issue));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPrivacyShutterOpenTest(UserType* output) const {
+    auto data_value = data_->privacy_shutter_open_test;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        data_value, output);
+  }
+  CameraSubtestResult privacy_shutter_open_test() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::CameraSubtestResult>(data_->privacy_shutter_open_test));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadLensNotDirtyTest(UserType* output) const {
+    auto data_value = data_->lens_not_dirty_test;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        data_value, output);
+  }
+  CameraSubtestResult lens_not_dirty_test() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::CameraSubtestResult>(data_->lens_not_dirty_test));
+  }
+ private:
+  internal::CameraFrameAnalysisRoutineDetail_Data* data_ = nullptr;
+};
+
+
 class RoutineArgumentDataView {
  public:
   using Tag = internal::RoutineArgument_Data::RoutineArgument_Tag;
@@ -2440,6 +2808,28 @@ class RoutineArgumentDataView {
     CHECK(is_network_bandwidth());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView>(
         data_->data.f_network_bandwidth.Get(), output, message_);
+  }
+  bool is_sensitive_sensor() const { return data_->tag == Tag::kSensitiveSensor; }
+  inline void GetSensitiveSensorDataView(
+      SensitiveSensorRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensitiveSensor(UserType* output) const {
+    
+    CHECK(is_sensitive_sensor());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentDataView>(
+        data_->data.f_sensitive_sensor.Get(), output, message_);
+  }
+  bool is_camera_frame_analysis() const { return data_->tag == Tag::kCameraFrameAnalysis; }
+  inline void GetCameraFrameAnalysisDataView(
+      CameraFrameAnalysisRoutineArgumentDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCameraFrameAnalysis(UserType* output) const {
+    
+    CHECK(is_camera_frame_analysis());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentDataView>(
+        data_->data.f_camera_frame_analysis.Get(), output, message_);
   }
 
  private:
@@ -2825,6 +3215,28 @@ class RoutineDetailDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataView>(
         data_->data.f_network_bandwidth.Get(), output, message_);
   }
+  bool is_sensitive_sensor() const { return data_->tag == Tag::kSensitiveSensor; }
+  inline void GetSensitiveSensorDataView(
+      SensitiveSensorRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensitiveSensor(UserType* output) const {
+    
+    CHECK(is_sensitive_sensor());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailDataView>(
+        data_->data.f_sensitive_sensor.Get(), output, message_);
+  }
+  bool is_camera_frame_analysis() const { return data_->tag == Tag::kCameraFrameAnalysis; }
+  inline void GetCameraFrameAnalysisDataView(
+      CameraFrameAnalysisRoutineDetailDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCameraFrameAnalysis(UserType* output) const {
+    
+    CHECK(is_camera_frame_analysis());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailDataView>(
+        data_->data.f_camera_frame_analysis.Get(), output, message_);
+  }
 
  private:
   internal::RoutineDetail_Data* data_ = nullptr;
@@ -2888,6 +3300,14 @@ struct hash<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_ConnectEr
 template <>
 struct hash<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue> {};
 
 }  // namespace std
 
@@ -3148,6 +3568,46 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_Add
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue>(input)), output);
   }
 };
 
@@ -3768,6 +4228,64 @@ struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDat
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SensitiveSensorRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensitiveSensorRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineArgument_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineArgument_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -4707,6 +5225,283 @@ struct Serializer<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetailDataV
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SensitiveSensorInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->id = Traits::id(input);
+    decltype(Traits::types(input)) in_types = Traits::types(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->types)::BaseType>
+        types_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& types_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, false, ::ash::cros_healthd::mojom::internal::SensitiveSensorInfo_Type_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type>>(
+        in_types, types_fragment, &types_validate_params);
+    fragment->types.Set(
+        types_fragment.is_null() ? nullptr : types_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->types.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null types in SensitiveSensorInfo struct");
+    decltype(Traits::channels(input)) in_channels = Traits::channels(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->channels)::BaseType>
+        channels_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& channels_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_channels, channels_fragment, &channels_validate_params);
+    fragment->channels.Set(
+        channels_fragment.is_null() ? nullptr : channels_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->channels.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null channels in SensitiveSensorInfo struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensitiveSensorInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensitiveSensorInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensitiveSensorReportDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensitiveSensorReportDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SensitiveSensorReport_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::passed_sensors(input)) in_passed_sensors = Traits::passed_sensors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->passed_sensors)::BaseType>
+        passed_sensors_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& passed_sensors_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView>>(
+        in_passed_sensors, passed_sensors_fragment, &passed_sensors_validate_params);
+    fragment->passed_sensors.Set(
+        passed_sensors_fragment.is_null() ? nullptr : passed_sensors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->passed_sensors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null passed_sensors in SensitiveSensorReport struct");
+    decltype(Traits::failed_sensors(input)) in_failed_sensors = Traits::failed_sensors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->failed_sensors)::BaseType>
+        failed_sensors_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& failed_sensors_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensitiveSensorInfoDataView>>(
+        in_failed_sensors, failed_sensors_fragment, &failed_sensors_validate_params);
+    fragment->failed_sensors.Set(
+        failed_sensors_fragment.is_null() ? nullptr : failed_sensors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->failed_sensors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null failed_sensors in SensitiveSensorReport struct");
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::HardwarePresenceStatus>(
+        Traits::sensor_presence_status(input), &fragment->sensor_presence_status);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensitiveSensorReport_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensitiveSensorReportDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SensitiveSensorRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::base_accelerometer(input)) in_base_accelerometer = Traits::base_accelerometer(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->base_accelerometer)::BaseType> base_accelerometer_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_base_accelerometer, base_accelerometer_fragment);
+    fragment->base_accelerometer.Set(
+        base_accelerometer_fragment.is_null() ? nullptr : base_accelerometer_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->base_accelerometer.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null base_accelerometer in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::lid_accelerometer(input)) in_lid_accelerometer = Traits::lid_accelerometer(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->lid_accelerometer)::BaseType> lid_accelerometer_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_lid_accelerometer, lid_accelerometer_fragment);
+    fragment->lid_accelerometer.Set(
+        lid_accelerometer_fragment.is_null() ? nullptr : lid_accelerometer_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->lid_accelerometer.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null lid_accelerometer in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::base_gyroscope(input)) in_base_gyroscope = Traits::base_gyroscope(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->base_gyroscope)::BaseType> base_gyroscope_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_base_gyroscope, base_gyroscope_fragment);
+    fragment->base_gyroscope.Set(
+        base_gyroscope_fragment.is_null() ? nullptr : base_gyroscope_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->base_gyroscope.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null base_gyroscope in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::lid_gyroscope(input)) in_lid_gyroscope = Traits::lid_gyroscope(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->lid_gyroscope)::BaseType> lid_gyroscope_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_lid_gyroscope, lid_gyroscope_fragment);
+    fragment->lid_gyroscope.Set(
+        lid_gyroscope_fragment.is_null() ? nullptr : lid_gyroscope_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->lid_gyroscope.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null lid_gyroscope in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::base_magnetometer(input)) in_base_magnetometer = Traits::base_magnetometer(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->base_magnetometer)::BaseType> base_magnetometer_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_base_magnetometer, base_magnetometer_fragment);
+    fragment->base_magnetometer.Set(
+        base_magnetometer_fragment.is_null() ? nullptr : base_magnetometer_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->base_magnetometer.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null base_magnetometer in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::lid_magnetometer(input)) in_lid_magnetometer = Traits::lid_magnetometer(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->lid_magnetometer)::BaseType> lid_magnetometer_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_lid_magnetometer, lid_magnetometer_fragment);
+    fragment->lid_magnetometer.Set(
+        lid_magnetometer_fragment.is_null() ? nullptr : lid_magnetometer_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->lid_magnetometer.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null lid_magnetometer in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::base_gravity_sensor(input)) in_base_gravity_sensor = Traits::base_gravity_sensor(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->base_gravity_sensor)::BaseType> base_gravity_sensor_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_base_gravity_sensor, base_gravity_sensor_fragment);
+    fragment->base_gravity_sensor.Set(
+        base_gravity_sensor_fragment.is_null() ? nullptr : base_gravity_sensor_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->base_gravity_sensor.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null base_gravity_sensor in SensitiveSensorRoutineDetail struct");
+    decltype(Traits::lid_gravity_sensor(input)) in_lid_gravity_sensor = Traits::lid_gravity_sensor(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->lid_gravity_sensor)::BaseType> lid_gravity_sensor_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorReportDataView>(
+        in_lid_gravity_sensor, lid_gravity_sensor_fragment);
+    fragment->lid_gravity_sensor.Set(
+        lid_gravity_sensor_fragment.is_null() ? nullptr : lid_gravity_sensor_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->lid_gravity_sensor.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null lid_gravity_sensor in SensitiveSensorRoutineDetail struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensitiveSensorRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineDetail_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue>(
+        Traits::issue(input), &fragment->issue);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        Traits::privacy_shutter_open_test(input), &fragment->privacy_shutter_open_test);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraSubtestResult>(
+        Traits::lens_not_dirty_test(input), &fragment->lens_not_dirty_test);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CameraFrameAnalysisRoutineDetail_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineArgumentDataView, UserType>;
@@ -5019,6 +5814,38 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
             mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
             "null network_bandwidth in RoutineArgument union");
         fragment->data.f_network_bandwidth.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kSensitiveSensor: {
+        decltype(Traits::sensitive_sensor(input))
+            in_sensitive_sensor = Traits::sensitive_sensor(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_sensitive_sensor)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentDataView>(
+            in_sensitive_sensor, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null sensitive_sensor in RoutineArgument union");
+        fragment->data.f_sensitive_sensor.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kCameraFrameAnalysis: {
+        decltype(Traits::camera_frame_analysis(input))
+            in_camera_frame_analysis = Traits::camera_frame_analysis(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_camera_frame_analysis)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentDataView>(
+            in_camera_frame_analysis, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null camera_frame_analysis in RoutineArgument union");
+        fragment->data.f_camera_frame_analysis.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
@@ -5592,6 +6419,38 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineDetailDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kSensitiveSensor: {
+        decltype(Traits::sensitive_sensor(input))
+            in_sensitive_sensor = Traits::sensitive_sensor(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_sensitive_sensor)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailDataView>(
+            in_sensitive_sensor, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null sensitive_sensor in RoutineDetail union");
+        fragment->data.f_sensitive_sensor.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::RoutineDetailDataView::Tag::kCameraFrameAnalysis: {
+        decltype(Traits::camera_frame_analysis(input))
+            in_camera_frame_analysis = Traits::camera_frame_analysis(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_camera_frame_analysis)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailDataView>(
+            in_camera_frame_analysis, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null camera_frame_analysis in RoutineDetail union");
+        fragment->data.f_camera_frame_analysis.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -5690,6 +6549,10 @@ inline void UrandomRoutineArgumentDataView::GetExecDurationDataView(
   auto pointer = data_->exec_duration.Get();
   *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
+
+
+
+
 
 
 
@@ -5853,6 +6716,74 @@ inline void FanRoutineDetailDataView::GetFailedFanIdsDataView(
 
 
 
+inline void SensitiveSensorInfoDataView::GetTypesDataView(
+    mojo::ArrayDataView<SensitiveSensorInfo_Type>* output) {
+  auto pointer = data_->types.Get();
+  *output = mojo::ArrayDataView<SensitiveSensorInfo_Type>(pointer, message_);
+}
+inline void SensitiveSensorInfoDataView::GetChannelsDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->channels.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+
+
+inline void SensitiveSensorReportDataView::GetPassedSensorsDataView(
+    mojo::ArrayDataView<SensitiveSensorInfoDataView>* output) {
+  auto pointer = data_->passed_sensors.Get();
+  *output = mojo::ArrayDataView<SensitiveSensorInfoDataView>(pointer, message_);
+}
+inline void SensitiveSensorReportDataView::GetFailedSensorsDataView(
+    mojo::ArrayDataView<SensitiveSensorInfoDataView>* output) {
+  auto pointer = data_->failed_sensors.Get();
+  *output = mojo::ArrayDataView<SensitiveSensorInfoDataView>(pointer, message_);
+}
+
+
+inline void SensitiveSensorRoutineDetailDataView::GetBaseAccelerometerDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->base_accelerometer.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetLidAccelerometerDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->lid_accelerometer.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetBaseGyroscopeDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->base_gyroscope.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetLidGyroscopeDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->lid_gyroscope.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetBaseMagnetometerDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->base_magnetometer.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetLidMagnetometerDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->lid_magnetometer.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetBaseGravitySensorDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->base_gravity_sensor.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+inline void SensitiveSensorRoutineDetailDataView::GetLidGravitySensorDataView(
+    SensitiveSensorReportDataView* output) {
+  auto pointer = data_->lid_gravity_sensor.Get();
+  *output = SensitiveSensorReportDataView(pointer, message_);
+}
+
+
+
+
 inline void RoutineArgumentDataView::GetMemoryDataView(
     MemoryRoutineArgumentDataView* output) const {
   CHECK(is_memory());
@@ -5942,6 +6873,16 @@ inline void RoutineArgumentDataView::GetNetworkBandwidthDataView(
     NetworkBandwidthRoutineArgumentDataView* output) const {
   CHECK(is_network_bandwidth());
   *output = NetworkBandwidthRoutineArgumentDataView(data_->data.f_network_bandwidth.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetSensitiveSensorDataView(
+    SensitiveSensorRoutineArgumentDataView* output) const {
+  CHECK(is_sensitive_sensor());
+  *output = SensitiveSensorRoutineArgumentDataView(data_->data.f_sensitive_sensor.Get(), message_);
+}
+inline void RoutineArgumentDataView::GetCameraFrameAnalysisDataView(
+    CameraFrameAnalysisRoutineArgumentDataView* output) const {
+  CHECK(is_camera_frame_analysis());
+  *output = CameraFrameAnalysisRoutineArgumentDataView(data_->data.f_camera_frame_analysis.Get(), message_);
 }
 
 inline void RoutineStateUnionDataView::GetInitializedDataView(
@@ -6038,6 +6979,16 @@ inline void RoutineDetailDataView::GetNetworkBandwidthDataView(
     NetworkBandwidthRoutineDetailDataView* output) const {
   CHECK(is_network_bandwidth());
   *output = NetworkBandwidthRoutineDetailDataView(data_->data.f_network_bandwidth.Get(), message_);
+}
+inline void RoutineDetailDataView::GetSensitiveSensorDataView(
+    SensitiveSensorRoutineDetailDataView* output) const {
+  CHECK(is_sensitive_sensor());
+  *output = SensitiveSensorRoutineDetailDataView(data_->data.f_sensitive_sensor.Get(), message_);
+}
+inline void RoutineDetailDataView::GetCameraFrameAnalysisDataView(
+    CameraFrameAnalysisRoutineDetailDataView* output) const {
+  CHECK(is_camera_frame_analysis());
+  *output = CameraFrameAnalysisRoutineDetailDataView(data_->data.f_camera_frame_analysis.Get(), message_);
 }
 
 
@@ -6159,6 +7110,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothPairingPeripheralInfo_AddressType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::SensitiveSensorInfo_Type> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::SensitiveSensorInfo_Type value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail_Issue value);
 };
 
 } // namespace perfetto

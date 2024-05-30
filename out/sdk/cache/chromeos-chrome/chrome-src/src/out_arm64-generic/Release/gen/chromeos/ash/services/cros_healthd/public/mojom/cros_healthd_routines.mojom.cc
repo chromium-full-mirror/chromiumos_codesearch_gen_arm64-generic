@@ -557,6 +557,40 @@ bool NetworkBandwidthRoutineArgument::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SensitiveSensorRoutineArgument::SensitiveSensorRoutineArgument() {}
+
+SensitiveSensorRoutineArgument::~SensitiveSensorRoutineArgument() = default;
+size_t SensitiveSensorRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void SensitiveSensorRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool SensitiveSensorRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CameraFrameAnalysisRoutineArgument::CameraFrameAnalysisRoutineArgument() {}
+
+CameraFrameAnalysisRoutineArgument::~CameraFrameAnalysisRoutineArgument() = default;
+size_t CameraFrameAnalysisRoutineArgument::Hash(size_t seed) const {
+  return seed;
+}
+
+void CameraFrameAnalysisRoutineArgument::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool CameraFrameAnalysisRoutineArgument::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineState::RoutineState()
     : percentage(),
       state_union() {}
@@ -1559,6 +1593,280 @@ bool NetworkBandwidthRoutineDetail::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SensitiveSensorInfo::SensitiveSensorInfo()
+    : id(),
+      types(),
+      channels() {}
+
+SensitiveSensorInfo::SensitiveSensorInfo(
+    int32_t id_in,
+    std::vector<SensitiveSensorInfo::Type> types_in,
+    std::vector<std::string> channels_in)
+    : id(std::move(id_in)),
+      types(std::move(types_in)),
+      channels(std::move(channels_in)) {}
+
+SensitiveSensorInfo::~SensitiveSensorInfo() = default;
+
+void SensitiveSensorInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "types"), this->types,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<SensitiveSensorInfo::Type>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "channels"), this->channels,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SensitiveSensorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SensitiveSensorReport::SensitiveSensorReport()
+    : passed_sensors(),
+      failed_sensors(),
+      sensor_presence_status() {}
+
+SensitiveSensorReport::SensitiveSensorReport(
+    std::vector<SensitiveSensorInfoPtr> passed_sensors_in,
+    std::vector<SensitiveSensorInfoPtr> failed_sensors_in,
+    HardwarePresenceStatus sensor_presence_status_in)
+    : passed_sensors(std::move(passed_sensors_in)),
+      failed_sensors(std::move(failed_sensors_in)),
+      sensor_presence_status(std::move(sensor_presence_status_in)) {}
+
+SensitiveSensorReport::~SensitiveSensorReport() = default;
+
+void SensitiveSensorReport::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "passed_sensors"), this->passed_sensors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<SensitiveSensorInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "failed_sensors"), this->failed_sensors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<SensitiveSensorInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sensor_presence_status"), this->sensor_presence_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type HardwarePresenceStatus>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SensitiveSensorReport::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SensitiveSensorRoutineDetail::SensitiveSensorRoutineDetail()
+    : base_accelerometer(),
+      lid_accelerometer(),
+      base_gyroscope(),
+      lid_gyroscope(),
+      base_magnetometer(),
+      lid_magnetometer(),
+      base_gravity_sensor(),
+      lid_gravity_sensor() {}
+
+SensitiveSensorRoutineDetail::SensitiveSensorRoutineDetail(
+    SensitiveSensorReportPtr base_accelerometer_in,
+    SensitiveSensorReportPtr lid_accelerometer_in,
+    SensitiveSensorReportPtr base_gyroscope_in,
+    SensitiveSensorReportPtr lid_gyroscope_in,
+    SensitiveSensorReportPtr base_magnetometer_in,
+    SensitiveSensorReportPtr lid_magnetometer_in,
+    SensitiveSensorReportPtr base_gravity_sensor_in,
+    SensitiveSensorReportPtr lid_gravity_sensor_in)
+    : base_accelerometer(std::move(base_accelerometer_in)),
+      lid_accelerometer(std::move(lid_accelerometer_in)),
+      base_gyroscope(std::move(base_gyroscope_in)),
+      lid_gyroscope(std::move(lid_gyroscope_in)),
+      base_magnetometer(std::move(base_magnetometer_in)),
+      lid_magnetometer(std::move(lid_magnetometer_in)),
+      base_gravity_sensor(std::move(base_gravity_sensor_in)),
+      lid_gravity_sensor(std::move(lid_gravity_sensor_in)) {}
+
+SensitiveSensorRoutineDetail::~SensitiveSensorRoutineDetail() = default;
+
+void SensitiveSensorRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "base_accelerometer"), this->base_accelerometer,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lid_accelerometer"), this->lid_accelerometer,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "base_gyroscope"), this->base_gyroscope,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lid_gyroscope"), this->lid_gyroscope,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "base_magnetometer"), this->base_magnetometer,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lid_magnetometer"), this->lid_magnetometer,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "base_gravity_sensor"), this->base_gravity_sensor,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lid_gravity_sensor"), this->lid_gravity_sensor,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensitiveSensorReportPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SensitiveSensorRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+CameraFrameAnalysisRoutineDetail::CameraFrameAnalysisRoutineDetail()
+    : issue(),
+      privacy_shutter_open_test(),
+      lens_not_dirty_test() {}
+
+CameraFrameAnalysisRoutineDetail::CameraFrameAnalysisRoutineDetail(
+    CameraFrameAnalysisRoutineDetail::Issue issue_in,
+    CameraSubtestResult privacy_shutter_open_test_in,
+    CameraSubtestResult lens_not_dirty_test_in)
+    : issue(std::move(issue_in)),
+      privacy_shutter_open_test(std::move(privacy_shutter_open_test_in)),
+      lens_not_dirty_test(std::move(lens_not_dirty_test_in)) {}
+
+CameraFrameAnalysisRoutineDetail::~CameraFrameAnalysisRoutineDetail() = default;
+size_t CameraFrameAnalysisRoutineDetail::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->issue);
+  seed = mojo::internal::Hash(seed, this->privacy_shutter_open_test);
+  seed = mojo::internal::Hash(seed, this->lens_not_dirty_test);
+  return seed;
+}
+
+void CameraFrameAnalysisRoutineDetail::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "issue"), this->issue,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraFrameAnalysisRoutineDetail::Issue>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "privacy_shutter_open_test"), this->privacy_shutter_open_test,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraSubtestResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lens_not_dirty_test"), this->lens_not_dirty_test,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CameraSubtestResult>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CameraFrameAnalysisRoutineDetail::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
   data_.unrecognizedArgument = bool();
 }
@@ -1774,6 +2082,28 @@ void RoutineArgument::set_network_bandwidth(
         std::move(network_bandwidth));
   }
 }
+void RoutineArgument::set_sensitive_sensor(
+    SensitiveSensorRoutineArgumentPtr sensitive_sensor) {
+  if (tag_ == Tag::kSensitiveSensor) {
+    *(data_.sensitive_sensor) = std::move(sensitive_sensor);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSensitiveSensor;
+    data_.sensitive_sensor = new SensitiveSensorRoutineArgumentPtr(
+        std::move(sensitive_sensor));
+  }
+}
+void RoutineArgument::set_camera_frame_analysis(
+    CameraFrameAnalysisRoutineArgumentPtr camera_frame_analysis) {
+  if (tag_ == Tag::kCameraFrameAnalysis) {
+    *(data_.camera_frame_analysis) = std::move(camera_frame_analysis);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCameraFrameAnalysis;
+    data_.camera_frame_analysis = new CameraFrameAnalysisRoutineArgumentPtr(
+        std::move(camera_frame_analysis));
+  }
+}
 
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
@@ -1852,6 +2182,14 @@ void RoutineArgument::DestroyActive() {
     case Tag::kNetworkBandwidth:
 
       delete data_.network_bandwidth;
+      break;
+    case Tag::kSensitiveSensor:
+
+      delete data_.sensitive_sensor;
+      break;
+    case Tag::kCameraFrameAnalysis:
+
+      delete data_.camera_frame_analysis;
       break;
   }
 }
@@ -2320,6 +2658,28 @@ void RoutineDetail::set_network_bandwidth(
         std::move(network_bandwidth));
   }
 }
+void RoutineDetail::set_sensitive_sensor(
+    SensitiveSensorRoutineDetailPtr sensitive_sensor) {
+  if (tag_ == Tag::kSensitiveSensor) {
+    *(data_.sensitive_sensor) = std::move(sensitive_sensor);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSensitiveSensor;
+    data_.sensitive_sensor = new SensitiveSensorRoutineDetailPtr(
+        std::move(sensitive_sensor));
+  }
+}
+void RoutineDetail::set_camera_frame_analysis(
+    CameraFrameAnalysisRoutineDetailPtr camera_frame_analysis) {
+  if (tag_ == Tag::kCameraFrameAnalysis) {
+    *(data_.camera_frame_analysis) = std::move(camera_frame_analysis);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kCameraFrameAnalysis;
+    data_.camera_frame_analysis = new CameraFrameAnalysisRoutineDetailPtr(
+        std::move(camera_frame_analysis));
+  }
+}
 
 void RoutineDetail::DestroyActive() {
   switch (tag_) {
@@ -2366,6 +2726,14 @@ void RoutineDetail::DestroyActive() {
     case Tag::kNetworkBandwidth:
 
       delete data_.network_bandwidth;
+      break;
+    case Tag::kSensitiveSensor:
+
+      delete data_.sensitive_sensor;
+      break;
+    case Tag::kCameraFrameAnalysis:
+
+      delete data_.camera_frame_analysis;
       break;
   }
 }
@@ -3761,6 +4129,30 @@ bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineArgument::D
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineArgument::DataView, ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr result(::ash::cros_healthd::mojom::SensitiveSensorRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::DataView, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr>::Read(
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::DataView input,
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr result(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgument::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::RoutineState::DataView, ::ash::cros_healthd::mojom::RoutineStatePtr>::Read(
     ::ash::cros_healthd::mojom::RoutineState::DataView input,
     ::ash::cros_healthd::mojom::RoutineStatePtr* output) {
@@ -4132,6 +4524,88 @@ bool StructTraits<::ash::cros_healthd::mojom::NetworkBandwidthRoutineDetail::Dat
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::SensitiveSensorInfo::DataView, ::ash::cros_healthd::mojom::SensitiveSensorInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::SensitiveSensorInfo::DataView input,
+    ::ash::cros_healthd::mojom::SensitiveSensorInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SensitiveSensorInfoPtr result(::ash::cros_healthd::mojom::SensitiveSensorInfo::New());
+  
+      if (success)
+        result->id = input.id();
+      if (success && !input.ReadTypes(&result->types))
+        success = false;
+      if (success && !input.ReadChannels(&result->channels))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::SensitiveSensorReport::DataView, ::ash::cros_healthd::mojom::SensitiveSensorReportPtr>::Read(
+    ::ash::cros_healthd::mojom::SensitiveSensorReport::DataView input,
+    ::ash::cros_healthd::mojom::SensitiveSensorReportPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SensitiveSensorReportPtr result(::ash::cros_healthd::mojom::SensitiveSensorReport::New());
+  
+      if (success && !input.ReadPassedSensors(&result->passed_sensors))
+        success = false;
+      if (success && !input.ReadFailedSensors(&result->failed_sensors))
+        success = false;
+      if (success && !input.ReadSensorPresenceStatus(&result->sensor_presence_status))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::SensitiveSensorRoutineDetail::DataView, ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailPtr result(::ash::cros_healthd::mojom::SensitiveSensorRoutineDetail::New());
+  
+      if (success && !input.ReadBaseAccelerometer(&result->base_accelerometer))
+        success = false;
+      if (success && !input.ReadLidAccelerometer(&result->lid_accelerometer))
+        success = false;
+      if (success && !input.ReadBaseGyroscope(&result->base_gyroscope))
+        success = false;
+      if (success && !input.ReadLidGyroscope(&result->lid_gyroscope))
+        success = false;
+      if (success && !input.ReadBaseMagnetometer(&result->base_magnetometer))
+        success = false;
+      if (success && !input.ReadLidMagnetometer(&result->lid_magnetometer))
+        success = false;
+      if (success && !input.ReadBaseGravitySensor(&result->base_gravity_sensor))
+        success = false;
+      if (success && !input.ReadLidGravitySensor(&result->lid_gravity_sensor))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::DataView, ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr>::Read(
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::DataView input,
+    ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr result(::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetail::New());
+  
+      if (success && !input.ReadIssue(&result->issue))
+        success = false;
+      if (success && !input.ReadPrivacyShutterOpenTest(&result->privacy_shutter_open_test))
+        success = false;
+      if (success && !input.ReadLensNotDirtyTest(&result->lens_not_dirty_test))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::cros_healthd::mojom::RoutineArgumentPtr>::Read(
     ::ash::cros_healthd::mojom::RoutineArgument::DataView input,
@@ -4304,6 +4778,24 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
 
       *output = UnionType::NewNetworkBandwidth(
           std::move(result_network_bandwidth));
+      break;
+    }
+    case Tag::kSensitiveSensor: {
+      ::ash::cros_healthd::mojom::SensitiveSensorRoutineArgumentPtr result_sensitive_sensor;
+      if (!input.ReadSensitiveSensor(&result_sensitive_sensor))
+        return false;
+
+      *output = UnionType::NewSensitiveSensor(
+          std::move(result_sensitive_sensor));
+      break;
+    }
+    case Tag::kCameraFrameAnalysis: {
+      ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineArgumentPtr result_camera_frame_analysis;
+      if (!input.ReadCameraFrameAnalysis(&result_camera_frame_analysis))
+        return false;
+
+      *output = UnionType::NewCameraFrameAnalysis(
+          std::move(result_camera_frame_analysis));
       break;
     }
     default:
@@ -4584,6 +5076,24 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineDetail::DataView, ::ash::cro
 
       *output = UnionType::NewNetworkBandwidth(
           std::move(result_network_bandwidth));
+      break;
+    }
+    case Tag::kSensitiveSensor: {
+      ::ash::cros_healthd::mojom::SensitiveSensorRoutineDetailPtr result_sensitive_sensor;
+      if (!input.ReadSensitiveSensor(&result_sensitive_sensor))
+        return false;
+
+      *output = UnionType::NewSensitiveSensor(
+          std::move(result_sensitive_sensor));
+      break;
+    }
+    case Tag::kCameraFrameAnalysis: {
+      ::ash::cros_healthd::mojom::CameraFrameAnalysisRoutineDetailPtr result_camera_frame_analysis;
+      if (!input.ReadCameraFrameAnalysis(&result_camera_frame_analysis))
+        return false;
+
+      *output = UnionType::NewCameraFrameAnalysis(
+          std::move(result_camera_frame_analysis));
       break;
     }
     default:

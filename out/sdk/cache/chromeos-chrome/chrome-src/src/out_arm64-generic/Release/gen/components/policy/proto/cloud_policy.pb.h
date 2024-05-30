@@ -310,6 +310,7 @@ kMemorySaverModeSavingsFieldNumber = 221,
 kKioskVisionTelemetryEnabledFieldNumber = 222,
 kGenAIWallpaperSettingsFieldNumber = 223,
 kGenAIVcBackgroundSettingsFieldNumber = 224,
+kLensOverlaySettingsFieldNumber = 226,
 };
 // optional .enterprise_management.BooleanPolicyProto ShowCastSessionsStartedByOtherDevices = 2;
 bool has_showcastsessionsstartedbyotherdevices() const;
@@ -2849,6 +2850,24 @@ void unsafe_arena_set_allocated_genaivcbackgroundsettings(
 ::enterprise_management::IntegerPolicyProto* genaivcbackgroundsettings);
 ::enterprise_management::IntegerPolicyProto* unsafe_arena_release_genaivcbackgroundsettings();
 
+// optional .enterprise_management.IntegerPolicyProto LensOverlaySettings = 226;
+bool has_lensoverlaysettings() const;
+private:
+bool _internal_has_lensoverlaysettings() const;
+public:
+void clear_lensoverlaysettings();
+const ::enterprise_management::IntegerPolicyProto& lensoverlaysettings() const;
+PROTOBUF_NODISCARD ::enterprise_management::IntegerPolicyProto* release_lensoverlaysettings();
+::enterprise_management::IntegerPolicyProto* mutable_lensoverlaysettings();
+void set_allocated_lensoverlaysettings(::enterprise_management::IntegerPolicyProto* lensoverlaysettings);
+private:
+const ::enterprise_management::IntegerPolicyProto& _internal_lensoverlaysettings() const;
+::enterprise_management::IntegerPolicyProto* _internal_mutable_lensoverlaysettings();
+public:
+void unsafe_arena_set_allocated_lensoverlaysettings(
+::enterprise_management::IntegerPolicyProto* lensoverlaysettings);
+::enterprise_management::IntegerPolicyProto* unsafe_arena_release_lensoverlaysettings();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.CloudPolicySubProto1)
 private:
 class _Internal;
@@ -3000,6 +3019,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* kioskvisiontelemetryenabled_;
 ::enterprise_management::IntegerPolicyProto* genaiwallpapersettings_;
 ::enterprise_management::IntegerPolicyProto* genaivcbackgroundsettings_;
+::enterprise_management::IntegerPolicyProto* lensoverlaysettings_;
 };
 union { Impl_ _impl_; };
 friend struct ::TableStruct_cloud_5fpolicy_2eproto;
@@ -20399,6 +20419,93 @@ _impl_._has_bits_[0] &= ~0x00000004u;
 }
 _impl_.lacrosselection_ = lacrosselection;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LacrosSelection)
+}
+
+// optional .enterprise_management.IntegerPolicyProto LensOverlaySettings = 226;
+inline bool CloudPolicySubProto1::_internal_has_lensoverlaysettings() const {
+bool value = (_impl_._has_bits_[4] & 0x00002000u) != 0;
+PROTOBUF_ASSUME(!value || _impl_.lensoverlaysettings_ != nullptr);
+return value;
+}
+inline bool CloudPolicySubProto1::has_lensoverlaysettings() const {
+return _internal_has_lensoverlaysettings();
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::_internal_lensoverlaysettings() const {
+const ::enterprise_management::IntegerPolicyProto* p = _impl_.lensoverlaysettings_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::IntegerPolicyProto&>(
+::enterprise_management::_IntegerPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::IntegerPolicyProto& CloudPolicySubProto1::lensoverlaysettings() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CloudPolicySubProto1.LensOverlaySettings)
+return _internal_lensoverlaysettings();
+}
+inline void CloudPolicySubProto1::unsafe_arena_set_allocated_lensoverlaysettings(
+::enterprise_management::IntegerPolicyProto* lensoverlaysettings) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.lensoverlaysettings_);
+}
+_impl_.lensoverlaysettings_ = lensoverlaysettings;
+if (lensoverlaysettings) {
+_impl_._has_bits_[4] |= 0x00002000u;
+} else {
+_impl_._has_bits_[4] &= ~0x00002000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CloudPolicySubProto1.LensOverlaySettings)
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::release_lensoverlaysettings() {
+_impl_._has_bits_[4] &= ~0x00002000u;
+::enterprise_management::IntegerPolicyProto* temp = _impl_.lensoverlaysettings_;
+_impl_.lensoverlaysettings_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::unsafe_arena_release_lensoverlaysettings() {
+// @@protoc_insertion_point(field_release:enterprise_management.CloudPolicySubProto1.LensOverlaySettings)
+_impl_._has_bits_[4] &= ~0x00002000u;
+::enterprise_management::IntegerPolicyProto* temp = _impl_.lensoverlaysettings_;
+_impl_.lensoverlaysettings_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::_internal_mutable_lensoverlaysettings() {
+_impl_._has_bits_[4] |= 0x00002000u;
+if (_impl_.lensoverlaysettings_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::IntegerPolicyProto>(GetArenaForAllocation());
+_impl_.lensoverlaysettings_ = p;
+}
+return _impl_.lensoverlaysettings_;
+}
+inline ::enterprise_management::IntegerPolicyProto* CloudPolicySubProto1::mutable_lensoverlaysettings() {
+::enterprise_management::IntegerPolicyProto* _msg = _internal_mutable_lensoverlaysettings();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CloudPolicySubProto1.LensOverlaySettings)
+return _msg;
+}
+inline void CloudPolicySubProto1::set_allocated_lensoverlaysettings(::enterprise_management::IntegerPolicyProto* lensoverlaysettings) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.lensoverlaysettings_);
+}
+if (lensoverlaysettings) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(lensoverlaysettings));
+if (message_arena != submessage_arena) {
+lensoverlaysettings = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, lensoverlaysettings, submessage_arena);
+}
+_impl_._has_bits_[4] |= 0x00002000u;
+} else {
+_impl_._has_bits_[4] &= ~0x00002000u;
+}
+_impl_.lensoverlaysettings_ = lensoverlaysettings;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.CloudPolicySubProto1.LensOverlaySettings)
 }
 
 // optional .enterprise_management.BooleanPolicyProto LocalUserFilesAllowed = 176;

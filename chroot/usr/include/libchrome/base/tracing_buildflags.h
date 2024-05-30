@@ -6,6 +6,8 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+// IWYU pragma: always_keep
+
 #define BUILDFLAG_INTERNAL_ENABLE_BASE_TRACING() (1)
 #define BUILDFLAG_INTERNAL_USE_PERFETTO_CLIENT_LIBRARY() (1)
 #define BUILDFLAG_INTERNAL_USE_PERFETTO_TRACE_PROCESSOR() (0)

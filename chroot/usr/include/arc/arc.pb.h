@@ -356,6 +356,7 @@ class StartArcMiniInstanceRequest final :
     kUseDevCachesFieldNumber = 20,
     kHostUreadaheadModeFieldNumber = 21,
     kArcSignedInFieldNumber = 22,
+    kEnableArcAttestationFieldNumber = 23,
     kLcdDensityFieldNumber = 2,
     kForceMaxAcquiredBuffersExperimentFieldNumber = 19,
   };
@@ -579,6 +580,17 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_arc_signed_in(bool value);
 
   public:
+  // optional bool enable_arc_attestation = 23 [default = false];
+  bool has_enable_arc_attestation() const;
+  void clear_enable_arc_attestation() ;
+  bool enable_arc_attestation() const;
+  void set_enable_arc_attestation(bool value);
+
+  private:
+  bool _internal_enable_arc_attestation() const;
+  void _internal_set_enable_arc_attestation(bool value);
+
+  public:
   // optional int32 lcd_density = 2 [default = -1];
   bool has_lcd_density() const;
   void clear_lcd_density() ;
@@ -631,6 +643,7 @@ class StartArcMiniInstanceRequest final :
     bool use_dev_caches_;
     int host_ureadahead_mode_;
     bool arc_signed_in_;
+    bool enable_arc_attestation_;
     ::int32_t lcd_density_;
     ::int32_t force_max_acquired_buffers_experiment_;
   };
@@ -1075,12 +1088,12 @@ inline void StartArcMiniInstanceRequest::_internal_set_native_bridge_experiment(
 
 // optional int32 lcd_density = 2 [default = -1];
 inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
-  bool value = (_impl_._has_bits_[0] & 0x00100000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00200000u) != 0;
   return value;
 }
 inline void StartArcMiniInstanceRequest::clear_lcd_density() {
   _impl_.lcd_density_ = -1;
-  _impl_._has_bits_[0] &= ~0x00100000u;
+  _impl_._has_bits_[0] &= ~0x00200000u;
 }
 inline ::int32_t StartArcMiniInstanceRequest::lcd_density() const {
   // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.lcd_density)
@@ -1094,7 +1107,7 @@ inline ::int32_t StartArcMiniInstanceRequest::_internal_lcd_density() const {
   return _impl_.lcd_density_;
 }
 inline void StartArcMiniInstanceRequest::_internal_set_lcd_density(::int32_t value) {
-  _impl_._has_bits_[0] |= 0x00100000u;
+  _impl_._has_bits_[0] |= 0x00200000u;
   _impl_.lcd_density_ = value;
 }
 
@@ -1502,12 +1515,12 @@ inline void StartArcMiniInstanceRequest::_internal_set_arc_switch_to_keymint(boo
 
 // optional int32 force_max_acquired_buffers_experiment = 19 [default = -1];
 inline bool StartArcMiniInstanceRequest::has_force_max_acquired_buffers_experiment() const {
-  bool value = (_impl_._has_bits_[0] & 0x00200000u) != 0;
+  bool value = (_impl_._has_bits_[0] & 0x00400000u) != 0;
   return value;
 }
 inline void StartArcMiniInstanceRequest::clear_force_max_acquired_buffers_experiment() {
   _impl_.force_max_acquired_buffers_experiment_ = -1;
-  _impl_._has_bits_[0] &= ~0x00200000u;
+  _impl_._has_bits_[0] &= ~0x00400000u;
 }
 inline ::int32_t StartArcMiniInstanceRequest::force_max_acquired_buffers_experiment() const {
   // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.force_max_acquired_buffers_experiment)
@@ -1521,7 +1534,7 @@ inline ::int32_t StartArcMiniInstanceRequest::_internal_force_max_acquired_buffe
   return _impl_.force_max_acquired_buffers_experiment_;
 }
 inline void StartArcMiniInstanceRequest::_internal_set_force_max_acquired_buffers_experiment(::int32_t value) {
-  _impl_._has_bits_[0] |= 0x00200000u;
+  _impl_._has_bits_[0] |= 0x00400000u;
   _impl_.force_max_acquired_buffers_experiment_ = value;
 }
 
@@ -1599,6 +1612,31 @@ inline bool StartArcMiniInstanceRequest::_internal_arc_signed_in() const {
 inline void StartArcMiniInstanceRequest::_internal_set_arc_signed_in(bool value) {
   _impl_._has_bits_[0] |= 0x00080000u;
   _impl_.arc_signed_in_ = value;
+}
+
+// optional bool enable_arc_attestation = 23 [default = false];
+inline bool StartArcMiniInstanceRequest::has_enable_arc_attestation() const {
+  bool value = (_impl_._has_bits_[0] & 0x00100000u) != 0;
+  return value;
+}
+inline void StartArcMiniInstanceRequest::clear_enable_arc_attestation() {
+  _impl_.enable_arc_attestation_ = false;
+  _impl_._has_bits_[0] &= ~0x00100000u;
+}
+inline bool StartArcMiniInstanceRequest::enable_arc_attestation() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.enable_arc_attestation)
+  return _internal_enable_arc_attestation();
+}
+inline void StartArcMiniInstanceRequest::set_enable_arc_attestation(bool value) {
+  _internal_set_enable_arc_attestation(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.enable_arc_attestation)
+}
+inline bool StartArcMiniInstanceRequest::_internal_enable_arc_attestation() const {
+  return _impl_.enable_arc_attestation_;
+}
+inline void StartArcMiniInstanceRequest::_internal_set_enable_arc_attestation(bool value) {
+  _impl_._has_bits_[0] |= 0x00100000u;
+  _impl_.enable_arc_attestation_ = value;
 }
 
 // -------------------------------------------------------------------
